@@ -1,0 +1,14 @@
+Para cada mensagem de push, antes vem uma dessas.
+
+feat: → nova funcionalidade
+fix: → correção de bug
+docs: → alteração na documentação
+style: → mudanças visuais ou de formatação (sem alterar lógica)
+refactor: → reorganização do código sem mudar comportamento
+test: → criação ou alteração de testes
+chore: → tarefas de manutenção (configurações, dependências, etc.)
+perf: → melhoria de desempenho
+
+Exemplo: Feat:Criei uma nova coluna
+
+Essas são boas praticas, não obrigação, se nn quiser nn faz.
