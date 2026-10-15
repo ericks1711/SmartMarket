@@ -1,14 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartMarket</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/data.js" defer></script>
   <script src="js/script.js" defer></script>
 </head>
 <body>
-  
+  <header>
+    <h1>🛒 SmartMarket</h1>
+    <div id="area-pesquisa">
+      <input type="text" id="pesquisa" placeholder="O que você procura?" />
+    </div>
+  </header>
+
+  <nav id="categorias">
+    <a class="categoria" href = "#p1">Frutas</a>
+    <a class="categoria" href = "#p2">Verduras e Legumes</a>
+    <a class="categoria" href = "#p3">Leites</a>
+    <a class="categoria" href = "#p4">Padaria</a>
+    <a class="categoria" href = "#p5">Bebidas </a>
+    <a class="categoria" href = "#p6">Laticínios</a>
+    <a class="categoria" href = "#p7">Frios</a>
+    <a class="categoria" href = "#p8">Biscoitos e Salgadinhos</a>
+  </nav>
+
+  <main>
+    <h2>Mapa do mercado</h2>
+    <p id="instrucao-mapa">Toque numa seção para ver o que tem nela.</p>
+
+    <nav id="corredores">
+      <button class="corredor ativo">Corredor 1</button>
+      <button class="corredor">Corredor 2</button>
+      <button class="corredor">Corredor 3</button>
+    </nav>
+
+    <section id="mapa-mercado">
+      <div class="coluna-corredor">
+        <div class="secao" id="p8" data-secao="8">
+          <span>8 Biscoitos e Salgadinhos</span>
+        </div>
+        <div class="secao" id="p7" data-secao="7">
+          <span>7 Frios</span>
+        </div>
+        <div class="secao" id="p6" data-secao="6">
+          <span>6 Laticínios</span>
+        </div>
+        <div class="secao" id="p5" data-secao="5">
+          <span>5 Bebidas (Águas)</span>
+        </div>
+        <div class="secao" id="p4" data-secao="4">
+          <span>4 Padaria</span>
+        </div>
+        <div class="secao" id="p3" data-secao="3">
+          <span>3 Leites</span>
+        </div>
+        <div class="secao" id="p2" data-secao="2">
+          <span>2 Verduras e Legumes</span>
+        </div>
+        <div class="secao" id="p1" data-secao="1">
+          <span>1 Frutas</span>
+        </div>
+      </div>
+
+      <div class="divisor-corredor">CORREDOR 1</div>
+
+      <div class="coluna-corredor">
+        <div class="secao" data-secao="9">
+          <span>9 Carnes</span>
+        </div>
+        <div class="secao" data-secao="10">
+          <span>10 Confeitaria</span>
+        </div>
+        <div class="secao" data-secao="11">
+          <span>11 Congelados</span>
+        </div>
+        <div class="secao" data-secao="12">
+          <span>12 Bebidas (Refrigerantes e Sucos)</span>
+        </div>
+        <div class="secao" data-secao="13">
+          <span>13 Sorvetes</span>
+        </div>
+        <div class="secao" data-secao="14">
+          <span>14 Doces</span>
+        </div>
+        <div class="secao" data-secao="15">
+          <span>15 Mercearia</span>
+        </div>
+        <div class="secao" data-secao="16">
+          <span>16 Molhos</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <button id="btn-buscar">🔍 Buscar</button>
+    <button id="btn-lista">☰ Lista</button>
+  </footer>
 </body>
 </html>
