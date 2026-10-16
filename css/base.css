@@ -1,11 +1,29 @@
+/* ===== SmartMarket — base (tema escuro) ===== */
+
 :root {
-  --papel: #FAF8F3;
-  --verde-mercado: #1F4D3B;
-  --verde-mercado-escuro: #163A2C;
-  --amarelo-etiqueta: #F5B700;
-  --grafite: #232323;
-  --laranja-sinal: #E4572E;
-  --cinza-borda: #D9D4C7;
+  color-scheme: dark;
+
+  /* Tema escuro */
+  --fundo: #0B1220;
+  --superficie: #131D33;
+  --superficie-2: #1C2944;
+  --borda: #2A3858;
+  --texto: #EEF2FA;
+  --texto-suave: #9AA6BF;
+  --destaque: #4C8DFF;
+  --destaque-forte: #6BA1FF;
+  --sobre-destaque: #0B1220;
+  --alerta: #FF6B4A;
+
+  /* Nomes antigos, mantidos para os outros CSS continuarem funcionando */
+  --papel: var(--fundo);
+  --verde-mercado: var(--superficie);
+  --verde-mercado-escuro: var(--superficie-2);
+  --amarelo-etiqueta: var(--destaque);
+  --grafite: var(--texto);
+  --laranja-sinal: var(--alerta);
+  --cinza-borda: var(--borda);
+
   --fonte-titulo: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
   --fonte: 'Inter', system-ui, sans-serif
 }
@@ -21,20 +39,32 @@
 }
 
 html {
-  -webkit-text-size-adjust: 100%
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Mesma cor do fundo: evita a faixa branca ao "puxar" a página no iPhone */
+  background: var(--fundo);
+  /* Tira o quadrado azul que o Android mostra ao tocar em botões */
+  -webkit-tap-highlight-color: transparent
 }
 
 body {
-  background: var(--papel);
-  color: var(--grafite);
+  background: var(--fundo);
+  color: var(--texto);
   font-family: var(--fonte);
   min-height: 100dvh;
-  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  align-items: center
+  align-items: center;
+  -webkit-font-smoothing: antialiased
 }
 
+::selection {
+  background: var(--destaque);
+  color: var(--sobre-destaque)
+}
+
+/* Barra de navegação inferior */
 .tabbar {
   position: fixed;
   left: 0;
@@ -43,39 +73,55 @@ body {
   z-index: 50;
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
-  background: var(--verde-mercado)
+  background: rgba(19, 29, 51, 0.88);
+  border-top: 1px solid var(--borda);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px)
 }
 
 .tabbar a {
+  position: relative;
   flex: 1;
-  max-width: 240px;
+  max-width: 200px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
-  border-radius: 12px;
-  color: #d6e4dc;
+  gap: 4px;
+  min-height: 56px;
+  padding: 8px 6px;
+  border-radius: 14px;
+  color: var(--texto-suave);
   text-decoration: none;
-  font-weight: 700;
-  font-size: 15px
+  font-weight: 600;
+  font-size: 13px;
+  transition: color .2s ease, background .2s ease
+}
+
+/* Só em aparelhos com mouse: no celular o hover "gruda" depois do toque */
+@media (hover: hover) {
+  .tabbar a:hover {
+    color: var(--texto);
+    background: var(--superficie-2)
+  }
 }
 
 .tabbar a[aria-current="page"] {
-  background: var(--amarelo-etiqueta);
-  color: var(--grafite)
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+  box-shadow: 0 6px 22px rgba(76, 141, 255, 0.25)
 }
 
 .tabbar a:focus-visible {
-  outline: 3px solid #fff;
-  outline-offset: -3px
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px
 }
 
 .tabbar svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -83,14 +129,34 @@ body {
   stroke-linejoin: round
 }
 
+/* Em telas largas, ícone e texto lado a lado */
+@media (min-width: 600px) {
+  .tabbar a {
+    flex-direction: row;
+    gap: 8px;
+    font-size: 15px
+  }
+}
+
 #badge {
-  min-width: 22px;
-  padding: 1px 7px;
+  position: absolute;
+  top: 4px;
+  left: calc(50% + 6px);
+  min-width: 20px;
+  padding: 1px 6px;
   border-radius: 999px;
-  background: var(--laranja-sinal);
+  background: var(--alerta);
   color: #fff;
-  font-size: 12px;
-  text-align: center
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 18px
+}
+
+@media (min-width: 600px) {
+  #badge {
+    position: static
+  }
 }
 
 @media (prefers-reduced-motion:reduce) {

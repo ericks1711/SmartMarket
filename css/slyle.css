@@ -1,11 +1,16 @@
+/* ===== SmartMarket — busca e mapa (tema escuro) ===== */
+
 .topo {
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--verde-mercado);
-  color: #fff;
-  padding: calc(10px + env(safe-area-inset-top)) 14px 14px
+  background: rgba(11, 18, 32, 0.86);
+  border-bottom: 1px solid var(--borda);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--texto);
+  padding: calc(12px + env(safe-area-inset-top)) 14px 14px
 }
 
 .topo-int {
@@ -17,7 +22,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font: 800 22px var(--fonte-titulo);
   letter-spacing: -.02em
 }
@@ -25,7 +30,7 @@
 .marca svg {
   width: 26px;
   height: 26px;
-  stroke: var(--amarelo-etiqueta);
+  stroke: var(--destaque);
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
@@ -38,38 +43,46 @@
   gap: 10px;
   height: 52px;
   padding: 0 6px 0 14px;
-  background: #fff;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
   border-radius: 14px;
   box-shadow: 0 0 0 3px transparent;
-  transition: box-shadow .15s
+  transition: box-shadow .15s, border-color .15s
 }
 
 .busca:focus-within {
-  box-shadow: 0 0 0 3px var(--amarelo-etiqueta)
+  border-color: var(--destaque);
+  box-shadow: 0 0 0 3px rgba(76, 141, 255, .25)
 }
 
 .busca>svg {
   width: 20px;
   height: 20px;
   flex: none;
-  stroke: var(--verde-mercado);
+  stroke: var(--texto-suave);
   fill: none;
   stroke-width: 2.2;
   stroke-linecap: round
 }
 
+.busca:focus-within>svg {
+  stroke: var(--destaque)
+}
+
 #barra-pesquisa {
+  -webkit-appearance: none;
+  appearance: none;
   flex: 1;
   min-width: 0;
   border: 0;
   outline: 0;
   background: transparent;
   font: 600 17px var(--fonte);
-  color: var(--grafite)
+  color: var(--texto)
 }
 
 #barra-pesquisa::placeholder {
-  color: #9A9585;
+  color: #7D8AA6;
   font-weight: 500
 }
 
@@ -84,41 +97,64 @@
   border-radius: 10px;
   background: transparent;
   font-size: 24px;
-  color: #6B665A;
+  color: var(--texto-suave);
   cursor: pointer
+}
+
+#limpar:hover {
+  background: var(--superficie);
+  color: var(--texto)
 }
 
 main {
   width: 100%;
   max-width: 560px;
-  padding: 14px 14px 0
+  padding: 16px 14px 0
 }
 
+/* Atalhos de categoria */
 .atalhos {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 14px;
+  padding-bottom: 16px;
   scrollbar-width: none
 }
 
 .atalhos button {
   flex: none;
-  padding: 10px 15px;
-  border: 2px solid var(--verde-mercado);
+  padding: 10px 16px;
+  border: 1px solid var(--borda);
   border-radius: 999px;
-  background: transparent;
-  color: var(--verde-mercado);
-  font: 700 14px var(--fonte);
-  cursor: pointer
+  background: var(--superficie);
+  color: var(--texto);
+  font: 600 14px var(--fonte);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s
 }
 
+@media (hover: hover) {
+  .atalhos button:hover {
+    border-color: var(--destaque);
+    color: var(--destaque)
+  }
+}
+
+/* Celulares pequenos (ex.: iPhone SE, Androids compactos) */
+@media (max-width: 360px) {
+  .marca { font-size: 20px }
+  .atalhos button { padding: 9px 13px; font-size: 13px }
+  .coluna { grid-template-rows: repeat(4, 56px) 24px repeat(4, 56px) }
+  .gondula { grid-template-columns: 1fr 40px 1fr; padding: 8px }
+}
+
+/* Resultados */
 #resultados {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin-bottom: 20px;
-  scroll-margin-top: 130px
+  margin-bottom: 24px;
+  scroll-margin-top: 140px
 }
 
 #resultados:empty {
@@ -127,20 +163,20 @@ main {
 
 .info-busca {
   font-size: 13px;
-  color: #6B665A
+  color: var(--texto-suave)
 }
 
 .vazio {
   padding: 24px 12px;
   text-align: center;
-  color: #6B665A;
+  color: var(--texto-suave);
   line-height: 1.5
 }
 
 .grupo {
-  background: #fff;
-  border: 1px solid var(--cinza-borda);
-  border-radius: 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
   overflow: hidden
 }
 
@@ -149,8 +185,8 @@ main {
   align-items: stretch;
   width: 100%;
   border: 0;
-  background: var(--amarelo-etiqueta);
-  color: var(--grafite);
+  background: var(--destaque);
+  color: var(--sobre-destaque);
   text-align: left;
   font: inherit;
   cursor: pointer
@@ -160,8 +196,8 @@ main {
   display: grid;
   place-items: center;
   min-width: 64px;
-  background: var(--grafite);
-  color: var(--amarelo-etiqueta);
+  background: var(--sobre-destaque);
+  color: var(--destaque);
   font: 800 30px var(--fonte-titulo)
 }
 
@@ -199,7 +235,7 @@ main {
   align-items: center;
   gap: 10px;
   padding: 10px 10px 10px 14px;
-  border-top: 1px solid var(--cinza-borda)
+  border-top: 1px solid var(--borda)
 }
 
 .grupo li:first-child {
@@ -216,7 +252,7 @@ main {
 .preco {
   font-size: 14px;
   font-weight: 700;
-  color: var(--verde-mercado);
+  color: var(--destaque);
   white-space: nowrap
 }
 
@@ -224,18 +260,24 @@ main {
   flex: none;
   width: 44px;
   height: 44px;
-  border: 2px solid var(--verde-mercado);
+  border: 1px solid var(--borda);
   border-radius: 12px;
-  background: transparent;
-  color: var(--verde-mercado);
+  background: var(--superficie-2);
+  color: var(--destaque);
   font-size: 24px;
   line-height: 1;
-  cursor: pointer
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s
+}
+
+.add:hover {
+  border-color: var(--destaque)
 }
 
 .add[aria-pressed="true"] {
-  background: var(--verde-mercado);
-  color: #fff
+  background: var(--destaque);
+  border-color: var(--destaque);
+  color: var(--sobre-destaque)
 }
 
 .placa:focus-visible,
@@ -244,41 +286,52 @@ main {
 #tabs button:focus-visible,
 .secao:focus-visible,
 #limpar:focus-visible {
-  outline: 3px solid var(--amarelo-etiqueta);
+  outline: 3px solid var(--destaque);
   outline-offset: 2px
 }
 
+/* Mapa */
 .mapa-titulo {
-  font: 800 18px var(--fonte-titulo);
-  color: var(--verde-mercado)
+  font: 800 20px var(--fonte-titulo);
+  letter-spacing: -.01em;
+  color: var(--texto)
 }
 
 .mapa-dica {
-  margin: 2px 0 10px;
+  margin: 4px 0 12px;
   font-size: 13px;
-  color: #6B665A
+  color: var(--texto-suave)
 }
 
 #tabs {
   display: flex;
   gap: 6px;
-  margin-bottom: 8px
+  margin-bottom: 10px;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda)
 }
 
 #tabs button {
   flex: 1;
-  padding: 9px 0;
-  border: 2px solid var(--verde-mercado);
+  padding: 10px 0;
+  border: 0;
   border-radius: 10px;
   background: transparent;
-  color: var(--verde-mercado);
+  color: var(--texto-suave);
   font: 700 13px var(--fonte);
-  cursor: pointer
+  cursor: pointer;
+  transition: background .15s, color .15s
+}
+
+#tabs button:hover {
+  color: var(--texto)
 }
 
 #tabs button.ativo {
-  background: var(--verde-mercado);
-  color: #fff
+  background: var(--destaque);
+  color: var(--sobre-destaque)
 }
 
 #mercado2d {
@@ -287,8 +340,9 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  border-radius: 14px;
-  background: #EFEBDF
+  border-radius: 16px;
+  border: 1px solid var(--borda);
+  background: var(--superficie)
 }
 
 /* Resultados ao longo da linha do corredor (mesma linha tracejada do mapa) */
@@ -306,7 +360,7 @@ main {
   left: 5px;
   top: 28px;
   bottom: 0;
-  border-left: 2px dashed var(--cinza-borda)
+  border-left: 2px dashed rgba(76, 141, 255, .3)
 }
 
 .trecho-nome {
@@ -314,8 +368,9 @@ main {
   margin-left: -6px;
   padding: 5px 14px;
   border-radius: 999px;
-  background: var(--verde-mercado);
-  color: #fff;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+  color: var(--destaque);
   font: 800 13px var(--fonte-titulo);
   letter-spacing: .06em
 }
@@ -331,8 +386,8 @@ main {
   height: 22px;
   padding: 0 5px;
   border-radius: 11px;
-  background: var(--amarelo-etiqueta);
-  color: var(--grafite);
+  background: var(--destaque);
+  color: var(--sobre-destaque);
   font: 800 12px var(--fonte)
 }
 
@@ -345,7 +400,10 @@ main {
   grid-template-columns: 1fr 48px 1fr;
   gap: 4px;
   padding: 10px;
-  background: repeating-linear-gradient(0deg, rgba(35, 35, 35, .06) 0 1px, transparent 1px 30px), repeating-linear-gradient(90deg, rgba(35, 35, 35, .06) 0 1px, transparent 1px 30px), #E9E4D6
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 30px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 30px),
+    #0E1628
 }
 
 .coluna {
@@ -366,7 +424,7 @@ main {
   top: 8px;
   bottom: 8px;
   left: 50%;
-  border-left: 2px dashed rgba(31, 77, 59, .35)
+  border-left: 2px dashed rgba(76, 141, 255, .3)
 }
 
 .corredor span {
@@ -375,11 +433,11 @@ main {
   transform: rotate(180deg);
   padding: 10px 5px;
   border-radius: 6px;
-  background: var(--amarelo-etiqueta);
-  color: var(--grafite);
+  background: var(--destaque);
+  color: var(--sobre-destaque);
   font: 800 12px var(--fonte-titulo);
   letter-spacing: .14em;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, .2)
+  box-shadow: 0 0 14px rgba(76, 141, 255, .3)
 }
 
 .secao {
@@ -387,25 +445,30 @@ main {
   display: flex;
   flex-direction: column;
   padding: 3px;
-  border: 1px solid #b9b2a0;
-  border-radius: 4px;
-  background: #F7F5EF;
-  box-shadow: 0 3px 0 rgba(35, 35, 35, .2);
+  border: 1px solid #2E3D5E;
+  border-radius: 5px;
+  background: var(--superficie-2);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .5);
   font-family: var(--fonte);
   text-align: left;
+  color: var(--texto);
   cursor: pointer;
-  transition: transform .2s, background-color .2s, box-shadow .2s
+  transition: transform .2s, background-color .2s, box-shadow .2s, border-color .2s
+}
+
+.secao:hover {
+  border-color: #45567A
 }
 
 .produtos {
-  --a: hsl(var(--h) 62% 46%);
-  --b: hsl(calc(var(--h) + 35) 72% 64%);
-  --c: hsl(var(--h) 45% 82%);
+  --a: hsl(var(--h) 62% 50%);
+  --b: hsl(calc(var(--h) + 35) 72% 62%);
+  --c: hsl(var(--h) 40% 72%);
   flex: 1;
   border-radius: 2px;
   background:
-    linear-gradient(#7a705d 0 0) 0 33%/100% 3px no-repeat,
-    linear-gradient(#7a705d 0 0) 0 67%/100% 3px no-repeat,
+    linear-gradient(#33426A 0 0) 0 33%/100% 3px no-repeat,
+    linear-gradient(#33426A 0 0) 0 67%/100% 3px no-repeat,
     repeating-linear-gradient(90deg, var(--a) 0 var(--w), transparent 0 calc(var(--w) + 2px), var(--b) 0 calc(var(--w)*2 + 2px), transparent 0 calc(var(--w)*2 + 4px)) 0 0/100% 30% no-repeat,
     repeating-linear-gradient(90deg, var(--b) 0 calc(var(--w) + 2px), transparent 0 calc(var(--w) + 4px), var(--a) 0 calc(var(--w)*2 + 4px), transparent 0 calc(var(--w)*2 + 6px)) 0 50%/100% 30% no-repeat,
     repeating-linear-gradient(90deg, var(--c) 0 var(--w), transparent 0 calc(var(--w) + 1px), var(--a) 0 calc(var(--w)*2 + 1px), transparent 0 calc(var(--w)*2 + 3px)) 0 100%/100% 30% no-repeat
@@ -419,13 +482,14 @@ main {
   height: 17px;
   margin-top: 3px;
   padding: 0 5px;
-  border-radius: 2px;
-  background: #fff;
-  color: var(--verde-mercado)
+  border-radius: 3px;
+  background: var(--fundo);
+  color: var(--texto)
 }
 
 .etiqueta b {
-  font: 800 12px var(--fonte-titulo)
+  font: 800 12px var(--fonte-titulo);
+  color: var(--destaque)
 }
 
 .etiqueta small {
@@ -437,12 +501,14 @@ main {
 }
 
 .secao.vazia {
-  opacity: .55;
+  opacity: .45;
   cursor: default
 }
 
 .secao.vazia .produtos {
-  background: linear-gradient(#cfc8b6 0 0) 0 33%/100% 3px no-repeat, linear-gradient(#cfc8b6 0 0) 0 67%/100% 3px no-repeat
+  background:
+    linear-gradient(#24304C 0 0) 0 33%/100% 3px no-repeat,
+    linear-gradient(#24304C 0 0) 0 67%/100% 3px no-repeat
 }
 
 .secao.na-lista::after {
@@ -452,21 +518,25 @@ main {
   left: -5px;
   width: 12px;
   height: 12px;
-  border: 2px solid #fff;
+  border: 2px solid var(--fundo);
   border-radius: 50%;
-  background: var(--amarelo-etiqueta);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .3)
+  background: var(--destaque);
+  box-shadow: 0 0 8px rgba(76, 141, 255, .6)
 }
 
 .secao.selecionada {
   z-index: 2;
   transform: scale(1.06);
-  border-color: var(--verde-mercado);
-  background: var(--verde-mercado);
-  box-shadow: 0 0 0 3px rgba(245, 183, 0, .75), 0 10px 18px rgba(31, 77, 59, .35)
+  border-color: var(--destaque);
+  background: var(--superficie);
+  box-shadow: 0 0 0 2px var(--destaque), 0 10px 24px rgba(76, 141, 255, .25)
 }
 
 .secao.selecionada .etiqueta {
-  background: var(--amarelo-etiqueta);
-  color: var(--grafite)
+  background: var(--destaque);
+  color: var(--sobre-destaque)
+}
+
+.secao.selecionada .etiqueta b {
+  color: var(--sobre-destaque)
 }

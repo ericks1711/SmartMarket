@@ -1,24 +1,23 @@
 
-/* Mesmas cores e fonte do mapa (estilo.css) */
+/* ===== SmartMarket — lista (tema escuro, mesmas cores do base.css) ===== */
 :root {
-    --papel: #FAF8F3;
-    --verde-mercado: #1F4D3B;
-    --verde-mercado-escuro: #163A2C;
-    --amarelo-etiqueta: #F5B700;
-    --grafite: #232323;
-    --cinza-borda: #D9D4C7;
+    --fundo: #0B1220;
+    --superficie: #131D33;
+    --superficie-2: #1C2944;
+    --borda: #2A3858;
+    --texto: #EEF2FA;
+    --texto-suave: #9AA6BF;
+    --destaque: #4C8DFF;
+    --destaque-forte: #6BA1FF;
+    --sobre-destaque: #0B1220;
+    --fonte-titulo: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
 
-    /* Cores dos marcadores (pedidas pelo grupo) */
-    --azul: #1d6fd8;
-    --vermelho: #c62828;
-    --verde: #15803d;
+    /* Cores dos marcadores (pedidas pelo grupo), clareadas para o fundo escuro */
+    --azul: #5B9BFF;
+    --vermelho: #FF6B6B;
+    --verde: #4ADE80;
 
-    --neutro: var(--verde-mercado);
-    --texto: var(--grafite);
-    --texto-suave: #6B665A;
-    --fundo: var(--papel);
-    --cartao: #ffffff;
-    --borda: var(--cinza-borda);
+    --neutro: var(--texto);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,6 +29,7 @@ body {
     color: var(--texto);
     background: var(--fundo);
     min-height: 100vh;
+    min-height: 100dvh; /* altura real da tela, descontando a barra do navegador */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,22 +39,21 @@ body {
 .topo-lista {
     width: 100%;
     max-width: 560px;
-    padding: calc(10px + env(safe-area-inset-top)) 14px 0;
-    border-bottom: 3px solid var(--verde-mercado);
-    margin-top: 3px;
+    padding: calc(14px + env(safe-area-inset-top)) 14px 10px;
+    border-bottom: 1px solid var(--borda);
 }
 
 .topo-lista h1 {
     font-family: var(--fonte-titulo);
     font-weight: 800;
-    margin: 4px 0 6px;
-    font-size: 22px;
+    margin: 6px 0 4px;
+    font-size: 26px;
     letter-spacing: -0.5px;
-    color: var(--verde-mercado);
+    color: var(--texto);
 }
 
 .voltar, .ver-mapa {
-    color: var(--verde-mercado);
+    color: var(--destaque);
     text-decoration: none;
     font-weight: 700;
     font-size: 16px;
@@ -74,8 +73,10 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--fundo);
-    padding: 12px 0 8px;
+    background: rgba(11, 18, 32, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 14px 0 10px;
 }
 
 .form-item { display: flex; gap: 8px; }
@@ -83,36 +84,42 @@ body {
 .form-item input {
     flex: 1;
     min-width: 0;
-    padding: 11px 12px;
+    padding: 12px 14px;
     font: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--grafite);
-    border: 2px solid var(--verde-mercado);
-    border-radius: 10px;
-    background: #fff;
+    font-size: 16px; /* 16px ou mais: o iPhone não dá zoom sozinho ao tocar no campo */
+    font-weight: 600;
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--superficie-2);
     outline: none;
+    transition: border-color .15s, box-shadow .15s;
 }
 
-.form-item input::placeholder { color: #9A9585; font-weight: 500; font-size: 13px; }
+.form-item input:focus {
+    border-color: var(--destaque);
+    box-shadow: 0 0 0 3px rgba(76, 141, 255, .25);
+}
+
+.form-item input::placeholder { color: #7D8AA6; font-weight: 500; font-size: 13px; }
 
 .form-item button {
-    padding: 10px 14px;
+    padding: 10px 16px;
     font: inherit;
     font-weight: 700;
     border: 0;
-    border-radius: 10px;
-    background: var(--verde-mercado);
-    color: #fff;
+    border-radius: 12px;
+    background: var(--destaque);
+    color: var(--sobre-destaque);
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
-.form-item button:hover { background: var(--verde-mercado-escuro); }
+.form-item button:hover { background: var(--destaque-forte); }
 
 .aviso-form {
     min-height: 1.3em;
-    margin: 4px 2px 0;
+    margin: 6px 2px 2px;
     font-size: 0.85rem;
     color: var(--texto-suave);
 }
@@ -121,12 +128,12 @@ body {
 .filtros { display: flex; gap: 6px; flex-wrap: wrap; }
 
 .filtro {
-    padding: 4px 12px;
+    padding: 5px 13px;
     font: inherit;
     font-size: 0.82rem;
     font-weight: 700;
-    background: transparent;
-    border: 2px solid currentColor;
+    background: var(--superficie);
+    border: 1.5px solid currentColor;
     border-radius: 999px;
     cursor: pointer;
 }
@@ -136,7 +143,7 @@ body {
 .filtro.status-indisponivel { color: var(--vermelho); }
 .filtro.status-comprado { color: var(--verde); }
 
-.filtro.ativo { color: #fff; }
+.filtro.ativo { color: var(--sobre-destaque); }
 .filtro.ativo.f-todos { background: var(--neutro); border-color: var(--neutro); }
 .filtro.ativo.status-pendente { background: var(--azul); border-color: var(--azul); }
 .filtro.ativo.status-indisponivel { background: var(--vermelho); border-color: var(--vermelho); }
@@ -150,13 +157,12 @@ body {
     grid-template-columns: 1fr auto auto;
     align-items: center;
     gap: 2px 10px;
-    background: var(--cartao);
+    background: var(--superficie);
     border: 1px solid var(--borda);
-    border-left: 5px solid var(--azul);
-    border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(35, 35, 35, 0.08);
-    padding: 8px 8px 8px 12px;
-    margin-bottom: 6px;
+    border-left: 4px solid var(--azul);
+    border-radius: 12px;
+    padding: 10px 8px 10px 12px;
+    margin-bottom: 8px;
 }
 
 .tarefa.status-pendente { border-left-color: var(--azul); }
@@ -176,15 +182,16 @@ body {
 
 .tarefa.status-comprado .tarefa-nome {
     text-decoration: line-through;
-    opacity: 0.55;
+    opacity: 0.5;
 }
 
 .tarefa-local {
-    padding: 1px 8px;
+    padding: 2px 9px;
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--texto-suave);
-    background: #EFEBDF;
+    background: var(--superficie-2);
+    border: 1px solid var(--borda);
     border-radius: 999px;
     white-space: nowrap;
 }
@@ -215,16 +222,17 @@ body {
     font-weight: 700;
     white-space: nowrap;
     background: transparent;
-    border: 2px solid currentColor;
+    border: 1.5px solid currentColor;
     border-radius: 999px;
     cursor: pointer;
+    transition: background-color .15s, color .15s;
 }
 
 .marcador.status-pendente { color: var(--azul); }
 .marcador.status-indisponivel { color: var(--vermelho); }
 .marcador.status-comprado { color: var(--verde); }
 
-.marcador.ativo { color: #fff; }
+.marcador.ativo { color: var(--sobre-destaque); }
 .marcador.ativo.status-pendente { background: var(--azul); border-color: var(--azul); }
 .marcador.ativo.status-indisponivel { background: var(--vermelho); border-color: var(--vermelho); }
 .marcador.ativo.status-comprado { background: var(--verde); border-color: var(--verde); }
@@ -232,23 +240,23 @@ body {
 .remover {
     grid-column: 3;
     grid-row: 1 / span 2;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     font-size: 1.2rem;
     line-height: 1;
-    color: #7a8190;
+    color: var(--texto-suave);
     background: transparent;
     border: 0;
     border-radius: 50%;
     cursor: pointer;
 }
 
-.remover:hover { color: var(--vermelho); background: #fbeaea; }
+.remover:hover { color: var(--vermelho); background: rgba(255, 107, 107, 0.12); }
 
 .marcador:focus-visible, .filtro:focus-visible, .remover:focus-visible,
 .form-item button:focus-visible, .link-botao:focus-visible {
-    outline: 3px solid var(--amarelo-etiqueta);
+    outline: 3px solid var(--destaque);
     outline-offset: 2px;
 }
 
@@ -272,6 +280,8 @@ body {
     cursor: pointer;
 }
 
+.link-botao:hover { color: var(--texto); }
+
 .link-botao.perigo { color: var(--vermelho); }
 
 .ver-mapa { display: inline-block; margin-top: 16px; }
@@ -284,7 +294,7 @@ body {
 .tarefa .marcadores {
     grid-column: 1 / -1;
     grid-row: 3;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .marcador { flex: 1; min-height: 40px; padding: 4px 4px; font-size: 0.72rem; }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B1220">
+  <title>Bem-vindo ao SmartMarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/boas-vindas.css">
+  <link rel="stylesheet" href="css/contraste.css">
+  <script src="js/contraste.js"></script>
+</head>
+
+<body class="bv">
+  <main class="bv-tela">
+
+    <!-- Topo: logo + pular -->
+    <header class="bv-topo">
+      <div class="bv-logo">
+        <span class="bv-logo-icone">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 4h2l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.2a1.6 1.6 0 0 0 1.6-1.2L20.5 8H6.2"></path>
+            <circle cx="9.5" cy="20" r="1.3"></circle>
+            <circle cx="17" cy="20" r="1.3"></circle>
+          </svg>
+        </span>
+        <span class="bv-logo-texto">smart<span>market</span></span>
+      </div>
+      <div id="lugar-contraste" style="display: flex; align-items: center; gap: 6px">
+        <a href="index.html" class="bv-pular">Pular</a>
+      </div>
+    </header>
+
+    <!-- Ilustração -->
+    <section class="bv-ilustracao" aria-hidden="true">
+      <svg class="bv-circulos" width="420" height="420" viewBox="0 0 420 420" fill="none">
+        <circle cx="210" cy="210" r="200" stroke="currentColor" stroke-width="2"></circle>
+        <circle cx="210" cy="210" r="150" stroke="currentColor" stroke-width="2"></circle>
+        <circle cx="210" cy="210" r="100" stroke="currentColor" stroke-width="2"></circle>
+      </svg>
+
+      <div class="bv-cartao bv-cartao--horti">
+        <span class="bv-cartao-icone">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 7c-2.5-1.6-7-1-7 4.5C5 16 8 20 10 20c1 0 1.3-.5 2-.5s1 .5 2 .5c2 0 5-4 5-8.5C19 6 14.5 5.4 12 7Z"></path>
+            <path d="M12 7c0-2 1-3.5 3-4"></path>
+          </svg>
+        </span>
+        <strong>Hortifrúti</strong>
+        <small>Frescos do dia</small>
+      </div>
+
+      <div class="bv-cartao bv-cartao--lati">
+        <span class="bv-cartao-icone">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3h6"></path>
+            <path d="M10 3v3l-2.5 3.5V20a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9.5L14 6V3"></path>
+            <path d="M7.5 13h9"></path>
+          </svg>
+        </span>
+        <strong>Laticínios</strong>
+        <small>Na sua lista</small>
+      </div>
+
+      <div class="bv-aviso">
+        <span class="bv-aviso-icone">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="m5 12.5 4.5 4.5L19 7.5"></path>
+          </svg>
+        </span>
+        <div>
+          <strong>Leite integral</strong>
+          <small>Está na seção Laticínios</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- Texto do slide (trocado pelo JS) -->
+    <section class="bv-texto" aria-live="polite">
+      <h1 id="bv-titulo">Ache qualquer produto.</h1>
+      <p id="bv-descricao">Digite o que procura e o SmartMarket mostra em que seção do mercado ele está.</p>
+    </section>
+
+    <!-- Indicadores -->
+    <nav class="bv-pontos" aria-label="Telas de apresentação">
+      <button type="button" class="bv-ponto ativo" aria-label="Ir para a tela 1 de 3" aria-current="true"><span></span></button>
+      <button type="button" class="bv-ponto" aria-label="Ir para a tela 2 de 3"><span></span></button>
+      <button type="button" class="bv-ponto" aria-label="Ir para a tela 3 de 3"><span></span></button>
+    </nav>
+
+    <!-- Ações -->
+    <footer class="bv-acoes">
+      <button type="button" id="bv-continuar" class="bv-botao">
+        <span id="bv-botao-texto">Continuar</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="m13 6 6 6-6 6"></path>
+        </svg>
+      </button>
+    </footer>
+
+  </main>
+
+  <script src="js/boas-vindas.js"></script>
+</body>
+
+</html>
