@@ -75,11 +75,11 @@ function grupoHtml(s, itens) {
         <span class="placa-mapa">Ver no mapa</span>
       </button>
       <ul>${itens.map(p => {
-        const no = naLista(p.nome);
-        return `<li><span class="nome">${esc(p.nome)}</span><span class="preco">${brl(p.valor)}</span>
+    const no = naLista(p.nome);
+    return `<li><span class="nome">${esc(p.nome)}</span><span class="preco">${brl(p.valor)}</span>
           <button type="button" class="add" data-i="${produtos.indexOf(p)}" aria-pressed="${no}"
             aria-label="${no ? "Remover da lista" : "Adicionar à lista"}: ${esc(p.nome)}">${no ? "✓" : "+"}</button></li>`;
-      }).join("")}</ul>
+  }).join("")}</ul>
     </article>`;
 }
 

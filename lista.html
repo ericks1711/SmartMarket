@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lista de compras | Smartmarket</title>
+  <meta name="theme-color" content="#1F4D3B">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/lista.css">
+</head>
+<body>
+  <header class="topo-lista">
+    <a href="index.html" class="voltar">← Voltar ao mapa</a>
+    <h1>Minha lista de compras</h1>
+  </header>
+
+  <main class="conteudo-lista">
+    <!-- Esta parte fica fixa no topo enquanto você rola a lista -->
+    <div class="painel-topo">
+      <form id="form-item" class="form-item" autocomplete="off">
+        <input id="novo-item" type="text"
+          placeholder="Digite um item e aperte Enter"
+          aria-label="Novo item da lista">
+        <button type="submit">Adicionar</button>
+      </form>
+      <p id="aviso-form" class="aviso-form" aria-live="polite"></p>
+      <div id="filtros" class="filtros"></div>
+    </div>
+
+    <ul id="resultado-lista" class="lista-tarefas"></ul>
+
+    <div id="acoes-lista" class="acoes-lista" hidden>
+      <button type="button" id="btn-limpar-comprados" class="link-botao">Limpar comprados</button>
+      <button type="button" id="btn-limpar" class="link-botao perigo">Limpar tudo</button>
+    </div>
+
+    <a href="index.html" class="ver-mapa">Ver no mapa</a>
+  </main>
+
+  <nav class="tabbar" aria-label="Principal">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Buscar
+    </a>
+    <a href="lista.html" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Lista <span id="badge" hidden></span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/lista.js"></script>
+</body>
+</html>
