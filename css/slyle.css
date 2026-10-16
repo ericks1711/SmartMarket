@@ -1,4 +1,166 @@
-/* ===== SmartMarket — busca e mapa (tema escuro) ===== */
+/*index.css*/
+/* ===== SmartMarket — base (tema escuro) ===== */
+
+:root {
+  color-scheme: dark;
+
+  --fundo: #0B1220;
+  --superficie: #131D33;
+  --superficie-2: #1C2944;
+  --borda: #2A3858;
+  --texto: #EEF2FA;
+  --texto-suave: #9AA6BF;
+  --destaque: #4C8DFF;
+  --destaque-forte: #6BA1FF;
+  --sobre-destaque: #0B1220;
+  --alerta: #FF6B4A;
+
+  --papel: var(--fundo);
+  --verde-mercado: var(--superficie);
+  --verde-mercado-escuro: var(--superficie-2);
+  --amarelo-etiqueta: var(--destaque);
+  --grafite: var(--texto);
+  --laranja-sinal: var(--alerta);
+  --cinza-borda: var(--borda);
+
+  --fonte-titulo: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --fonte: 'Inter', system-ui, sans-serif
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
+
+[hidden] {
+  display: none !important
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--fundo);
+  -webkit-tap-highlight-color: transparent
+}
+
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  min-height: 100dvh;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-font-smoothing: antialiased
+}
+
+::selection {
+  background: var(--destaque);
+  color: var(--sobre-destaque)
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+  background: rgba(19, 29, 51, 0.88);
+  border-top: 1px solid var(--borda);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px)
+}
+
+.tabbar a {
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
+  padding: 8px 6px;
+  border-radius: 14px;
+  color: var(--texto-suave);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  transition: color .2s ease, background .2s ease
+}
+
+@media (hover: hover) {
+  .tabbar a:hover {
+    color: var(--texto);
+    background: var(--superficie-2)
+  }
+}
+
+.tabbar a[aria-current="page"] {
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+  box-shadow: 0 6px 22px rgba(76, 141, 255, 0.25)
+}
+
+.tabbar a:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px
+}
+
+.tabbar svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+@media (min-width: 600px) {
+  .tabbar a {
+    flex-direction: row;
+    gap: 8px;
+    font-size: 15px
+  }
+}
+
+#badge {
+  position: absolute;
+  top: 4px;
+  left: calc(50% + 6px);
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--alerta);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 18px
+}
+
+@media (min-width: 600px) {
+  #badge {
+    position: static
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important
+  }
+}
+
+/* ===== Busca e mapa (antes: style.css) ===== */
 
 .topo {
   width: 100%;
@@ -112,7 +274,6 @@ main {
   padding: 16px 14px 0
 }
 
-/* Atalhos de categoria */
 .atalhos {
   display: flex;
   gap: 8px;
@@ -140,7 +301,6 @@ main {
   }
 }
 
-/* Celulares pequenos (ex.: iPhone SE, Androids compactos) */
 @media (max-width: 360px) {
   .marca { font-size: 20px }
   .atalhos button { padding: 9px 13px; font-size: 13px }
@@ -148,7 +308,6 @@ main {
   .gondula { grid-template-columns: 1fr 40px 1fr; padding: 8px }
 }
 
-/* Resultados */
 #resultados {
   display: flex;
   flex-direction: column;
@@ -290,7 +449,6 @@ main {
   outline-offset: 2px
 }
 
-/* Mapa */
 .mapa-titulo {
   font: 800 20px var(--fonte-titulo);
   letter-spacing: -.01em;
@@ -345,7 +503,6 @@ main {
   background: var(--superficie)
 }
 
-/* Resultados ao longo da linha do corredor (mesma linha tracejada do mapa) */
 .trecho {
   position: relative;
   display: flex;
@@ -391,7 +548,6 @@ main {
   font: 800 12px var(--fonte)
 }
 
-/* Mapa: o corredor visto de cima, com piso, prateleiras cheias de produtos e etiquetas */
 .gondula {
   flex: none;
   width: 100%;
@@ -539,4 +695,208 @@ main {
 
 .secao.selecionada .etiqueta b {
   color: var(--sobre-destaque)
+}
+
+/* ===== Alto contraste (duplicado de boas-vindas.css) ===== */
+
+.botao-contraste {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  right: 12px;
+  z-index: 60;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--borda, #2A3858);
+  border-radius: 50%;
+  background: var(--superficie-2, #1C2944);
+  color: var(--texto, #EEF2FA);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s
+}
+
+.botao-contraste:hover {
+  border-color: var(--destaque, #4C8DFF)
+}
+
+.botao-contraste[aria-pressed="true"] {
+  background: var(--destaque, #4C8DFF);
+  border-color: var(--destaque, #4C8DFF);
+  color: var(--sobre-destaque, #0B1220)
+}
+
+.botao-contraste:focus-visible {
+  outline: 3px solid var(--destaque, #4C8DFF);
+  outline-offset: 3px
+}
+
+.botao-contraste--no-lugar {
+  position: static
+}
+
+html.alto-contraste {
+  --fundo: #000;
+  --superficie: #000;
+  --superficie-2: #000;
+  --borda: #FFF;
+  --texto: #FFF;
+  --texto-suave: #FFF;
+  --destaque: #FFE600;
+  --destaque-forte: #FFE600;
+  --sobre-destaque: #000;
+  --alerta: #FF8A8A;
+
+  --azul: #8FC1FF;
+  --vermelho: #FF9C9C;
+  --verde: #7DFFAA;
+  --neutro: #FFE600;
+
+  --bv-fundo: #000;
+  --bv-superficie: #000;
+  --bv-superficie-2: #000;
+  --bv-borda: #FFF;
+  --bv-texto: #FFF;
+  --bv-texto-suave: #FFF;
+  --bv-destaque: #FFE600;
+  --bv-destaque-forte: #FFE600;
+  --bv-sobre-destaque: #000;
+  --bv-inativo: #FFF;
+  --bv-sombra: none
+}
+
+html.alto-contraste *,
+html.alto-contraste *::before,
+html.alto-contraste *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  animation: none !important
+}
+
+html.alto-contraste .topo,
+html.alto-contraste .tabbar,
+html.alto-contraste .painel-topo {
+  background: #000
+}
+
+html.alto-contraste .topo,
+html.alto-contraste .topo-lista {
+  border-bottom: 2px solid #FFF
+}
+
+html.alto-contraste .tabbar {
+  border-top: 2px solid #FFF
+}
+
+html.alto-contraste .busca,
+html.alto-contraste .grupo,
+html.alto-contraste .atalhos button,
+html.alto-contraste .add,
+html.alto-contraste #tabs,
+html.alto-contraste #mercado2d,
+html.alto-contraste .tarefa,
+html.alto-contraste .tarefa-local,
+html.alto-contraste .form-item input,
+html.alto-contraste .botao-contraste,
+html.alto-contraste .bv-ilustracao,
+html.alto-contraste .bv-cartao,
+html.alto-contraste .bv-aviso {
+  border: 2px solid #FFF
+}
+
+html.alto-contraste .tarefa.status-pendente { border-left: 6px solid var(--azul) }
+html.alto-contraste .tarefa.status-indisponivel { border-left: 6px solid var(--vermelho) }
+html.alto-contraste .tarefa.status-comprado { border-left: 6px solid var(--verde) }
+
+html.alto-contraste #barra-pesquisa::placeholder,
+html.alto-contraste .form-item input::placeholder {
+  color: #D0D0D0
+}
+
+html.alto-contraste .tarefa.status-comprado .tarefa-nome {
+  opacity: 1
+}
+
+html.alto-contraste a {
+  text-decoration: underline
+}
+
+html.alto-contraste .tabbar a,
+html.alto-contraste .bv-botao {
+  text-decoration: none
+}
+
+html.alto-contraste .tabbar a {
+  border: 2px solid transparent
+}
+
+html.alto-contraste .tabbar a:hover {
+  border-color: #FFF
+}
+
+html.alto-contraste :focus-visible {
+  outline: 4px solid #FFE600 !important;
+  outline-offset: 3px !important
+}
+
+html.alto-contraste .gondula {
+  background: #000
+}
+
+html.alto-contraste .secao {
+  border: 2px solid #FFF;
+  background: #000
+}
+
+html.alto-contraste .secao.vazia {
+  opacity: .7
+}
+
+html.alto-contraste .secao.selecionada {
+  border: 3px solid #FFE600;
+  background: #000
+}
+
+html.alto-contraste .etiqueta {
+  background: #000;
+  color: #FFF
+}
+
+html.alto-contraste .etiqueta b {
+  color: #FFE600
+}
+
+html.alto-contraste .secao.selecionada .etiqueta,
+html.alto-contraste .secao.selecionada .etiqueta b {
+  background: #FFE600;
+  color: #000
+}
+
+html.alto-contraste .corredor::before,
+html.alto-contraste .trecho::before {
+  border-left-color: #FFF
+}
+
+html.alto-contraste .trecho-nome {
+  border: 2px solid #FFF;
+  color: #FFE600
+}
+
+html.alto-contraste .bv-ilustracao {
+  background: #000
+}
+
+html.alto-contraste .bv-circulos {
+  opacity: .5
+}
+
+html.alto-contraste .bv-cartao--lati small {
+  color: #000
+}
+
+html.alto-contraste .bv-aviso {
+  background: #000
 }

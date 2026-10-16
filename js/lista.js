@@ -24,6 +24,16 @@ const STATUS = {
 // Ordem na tela: o que falta comprar primeiro, comprados por último
 const ORDEM_STATUS = { pendente: 0, indisponivel: 1, comprado: 2 };
 
+/* ===== Badge (duplicado de index.js) ===== */
+function atualizarBadge() {
+  const badge = document.getElementById("badge");
+  if (!badge) return;
+  let n = 0;
+  try { n = (JSON.parse(localStorage.getItem("listaCompras")) || []).filter(e => e.status === "pendente").length; } catch { }
+  badge.textContent = n;
+  badge.hidden = !n;
+}
+
 // Cada entrada da lista é { item: "arroz", status: "pendente" }
 let lista = carregarLista();
 let filtroAtual = "todos";
@@ -365,4 +375,5 @@ botaoLimparTudo.addEventListener("click", () => {
 });
 
 // Ao abrir a página, mostra a lista que já estava salva
+atualizarBadge();
 renderizar();
