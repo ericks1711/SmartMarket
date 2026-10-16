@@ -1,104 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartMarket</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/data.js" defer></script>
-  <script src="js/script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1F4D3B">
+  <meta name="description" content="Encontre qualquer produto e a seção certa do mercado.">
+  <title>Smartmarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/slyle.css">
 </head>
 <body>
-  <header>
-    <h1>🛒 SmartMarket</h1>
-    <div id="area-pesquisa">
-      <input type="text" id="pesquisa" placeholder="O que você procura?" />
+  <header class="topo">
+    <div class="topo-int">
+      <div class="marca">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.5l2 10h10l2-7H7M9.5 19.5h.01M17 19.5h.01"/></svg>
+        Smartmarket
+      </div>
+      <label class="busca">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="barra-pesquisa" type="search" placeholder="O que você procura?" autocomplete="off" enterkeyhint="search" aria-label="Pesquisar produto">
+        <button id="limpar" type="button" aria-label="Limpar pesquisa" hidden>×</button>
+      </label>
     </div>
   </header>
 
-  <nav id="categorias">
-    <a class="categoria" href = "#p1">Frutas</a>
-    <a class="categoria" href = "#p2">Verduras e Legumes</a>
-    <a class="categoria" href = "#p3">Leites</a>
-    <a class="categoria" href = "#p4">Padaria</a>
-    <a class="categoria" href = "#p5">Bebidas </a>
-    <a class="categoria" href = "#p6">Laticínios</a>
-    <a class="categoria" href = "#p7">Frios</a>
-    <a class="categoria" href = "#p8">Biscoitos e Salgadinhos</a>
-  </nav>
-
   <main>
-    <h2>Mapa do mercado</h2>
-    <p id="instrucao-mapa">Toque numa seção para ver o que tem nela.</p>
-
-    <nav id="corredores">
-      <button class="corredor ativo">Corredor 1</button>
-      <button class="corredor">Corredor 2</button>
-      <button class="corredor">Corredor 3</button>
-    </nav>
-
-    <section id="mapa-mercado">
-      <div class="coluna-corredor">
-        <div class="secao" id="p8" data-secao="8">
-          <span>8 Biscoitos e Salgadinhos</span>
-        </div>
-        <div class="secao" id="p7" data-secao="7">
-          <span>7 Frios</span>
-        </div>
-        <div class="secao" id="p6" data-secao="6">
-          <span>6 Laticínios</span>
-        </div>
-        <div class="secao" id="p5" data-secao="5">
-          <span>5 Bebidas (Águas)</span>
-        </div>
-        <div class="secao" id="p4" data-secao="4">
-          <span>4 Padaria</span>
-        </div>
-        <div class="secao" id="p3" data-secao="3">
-          <span>3 Leites</span>
-        </div>
-        <div class="secao" id="p2" data-secao="2">
-          <span>2 Verduras e Legumes</span>
-        </div>
-        <div class="secao" id="p1" data-secao="1">
-          <span>1 Frutas</span>
-        </div>
-      </div>
-
-      <div class="divisor-corredor">CORREDOR 1</div>
-
-      <div class="coluna-corredor">
-        <div class="secao" data-secao="9">
-          <span>9 Carnes</span>
-        </div>
-        <div class="secao" data-secao="10">
-          <span>10 Confeitaria</span>
-        </div>
-        <div class="secao" data-secao="11">
-          <span>11 Congelados</span>
-        </div>
-        <div class="secao" data-secao="12">
-          <span>12 Bebidas (Refrigerantes e Sucos)</span>
-        </div>
-        <div class="secao" data-secao="13">
-          <span>13 Sorvetes</span>
-        </div>
-        <div class="secao" data-secao="14">
-          <span>14 Doces</span>
-        </div>
-        <div class="secao" data-secao="15">
-          <span>15 Mercearia</span>
-        </div>
-        <div class="secao" data-secao="16">
-          <span>16 Molhos</span>
-        </div>
-      </div>
+    <section id="atalhos" class="atalhos" aria-label="Atalhos de categorias"></section>
+    <section id="resultados" aria-live="polite"></section>
+    <section>
+      <h2 class="mapa-titulo">Mapa do mercado</h2>
+      <p class="mapa-dica">Toque numa seção para ver o que tem nela.</p>
+      <div id="tabs"></div>
+      <div id="mercado2d"></div>
     </section>
   </main>
 
-  <footer>
-    <button id="btn-buscar">🔍 Buscar</button>
-    <button id="btn-lista">☰ Lista</button>
-  </footer>
+  <nav class="tabbar" aria-label="Principal">
+    <a href="index.html" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Buscar
+    </a>
+    <a href="lista.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Lista <span id="badge" hidden></span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/secoes.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/busca.js"></script>
+  <script src="js/armazenamento.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

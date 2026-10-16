@@ -1,0 +1,290 @@
+
+/* Mesmas cores e fonte do mapa (estilo.css) */
+:root {
+    --papel: #FAF8F3;
+    --verde-mercado: #1F4D3B;
+    --verde-mercado-escuro: #163A2C;
+    --amarelo-etiqueta: #F5B700;
+    --grafite: #232323;
+    --cinza-borda: #D9D4C7;
+
+    /* Cores dos marcadores (pedidas pelo grupo) */
+    --azul: #1d6fd8;
+    --vermelho: #c62828;
+    --verde: #15803d;
+
+    --neutro: var(--verde-mercado);
+    --texto: var(--grafite);
+    --texto-suave: #6B665A;
+    --fundo: var(--papel);
+    --cartao: #ffffff;
+    --borda: var(--cinza-borda);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--texto);
+    background: var(--fundo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.topo-lista {
+    width: 100%;
+    max-width: 560px;
+    padding: calc(10px + env(safe-area-inset-top)) 14px 0;
+    border-bottom: 3px solid var(--verde-mercado);
+    margin-top: 3px;
+}
+
+.topo-lista h1 {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    margin: 4px 0 6px;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    color: var(--verde-mercado);
+}
+
+.voltar, .ver-mapa {
+    color: var(--verde-mercado);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.voltar:hover, .ver-mapa:hover { text-decoration: underline; }
+
+.conteudo-lista {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 14px 24px;
+}
+
+/* Parte fixa no topo: campo de adicionar + filtros */
+.painel-topo {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--fundo);
+    padding: 12px 0 8px;
+}
+
+.form-item { display: flex; gap: 8px; }
+
+.form-item input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--grafite);
+    border: 2px solid var(--verde-mercado);
+    border-radius: 10px;
+    background: #fff;
+    outline: none;
+}
+
+.form-item input::placeholder { color: #9A9585; font-weight: 500; font-size: 13px; }
+
+.form-item button {
+    padding: 10px 14px;
+    font: inherit;
+    font-weight: 700;
+    border: 0;
+    border-radius: 10px;
+    background: var(--verde-mercado);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.form-item button:hover { background: var(--verde-mercado-escuro); }
+
+.aviso-form {
+    min-height: 1.3em;
+    margin: 4px 2px 0;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+/* Filtros (também mostram a contagem de cada marcador) */
+.filtros { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.filtro {
+    padding: 4px 12px;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: transparent;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.filtro.f-todos { color: var(--neutro); }
+.filtro.status-pendente { color: var(--azul); }
+.filtro.status-indisponivel { color: var(--vermelho); }
+.filtro.status-comprado { color: var(--verde); }
+
+.filtro.ativo { color: #fff; }
+.filtro.ativo.f-todos { background: var(--neutro); border-color: var(--neutro); }
+.filtro.ativo.status-pendente { background: var(--azul); border-color: var(--azul); }
+.filtro.ativo.status-indisponivel { background: var(--vermelho); border-color: var(--vermelho); }
+.filtro.ativo.status-comprado { background: var(--verde); border-color: var(--verde); }
+
+/* A lista de tarefas */
+.lista-tarefas { list-style: none; margin: 8px 0 0; padding: 0; width: 100%; }
+
+.tarefa {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 2px 10px;
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-left: 5px solid var(--azul);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(35, 35, 35, 0.08);
+    padding: 8px 8px 8px 12px;
+    margin-bottom: 6px;
+}
+
+.tarefa.status-pendente { border-left-color: var(--azul); }
+.tarefa.status-indisponivel { border-left-color: var(--vermelho); }
+.tarefa.status-comprado { border-left-color: var(--verde); }
+
+.tarefa-info {
+    grid-column: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.tarefa-nome { font-weight: 700; overflow-wrap: anywhere; }
+
+.tarefa.status-comprado .tarefa-nome {
+    text-decoration: line-through;
+    opacity: 0.55;
+}
+
+.tarefa-local {
+    padding: 1px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    background: #EFEBDF;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.tarefa-detalhe {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+    font-size: 0.78rem;
+    color: var(--texto-suave);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Os três marcadores */
+.marcadores {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    gap: 4px;
+}
+
+.marcador {
+    padding: 3px 9px;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    white-space: nowrap;
+    background: transparent;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.marcador.status-pendente { color: var(--azul); }
+.marcador.status-indisponivel { color: var(--vermelho); }
+.marcador.status-comprado { color: var(--verde); }
+
+.marcador.ativo { color: #fff; }
+.marcador.ativo.status-pendente { background: var(--azul); border-color: var(--azul); }
+.marcador.ativo.status-indisponivel { background: var(--vermelho); border-color: var(--vermelho); }
+.marcador.ativo.status-comprado { background: var(--verde); border-color: var(--verde); }
+
+.remover {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: #7a8190;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.remover:hover { color: var(--vermelho); background: #fbeaea; }
+
+.marcador:focus-visible, .filtro:focus-visible, .remover:focus-visible,
+.form-item button:focus-visible, .link-botao:focus-visible {
+    outline: 3px solid var(--amarelo-etiqueta);
+    outline-offset: 2px;
+}
+
+.vazio {
+    padding: 22px 12px;
+    text-align: center;
+    color: var(--texto-suave);
+}
+
+.acoes-lista { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; }
+
+.link-botao {
+    padding: 0;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    background: none;
+    border: 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link-botao.perigo { color: var(--vermelho); }
+
+.ver-mapa { display: inline-block; margin-top: 16px; }
+
+/* Marcadores numa linha própria (a página é estreita, como o mapa) */
+.tarefa { grid-template-columns: 1fr auto; }
+
+.tarefa .remover { grid-column: 2; grid-row: 1; }
+
+.tarefa .marcadores {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 6px;
+}
+
+.marcador { flex: 1; min-height: 40px; padding: 4px 4px; font-size: 0.72rem; }

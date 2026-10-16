@@ -1,0 +1,101 @@
+:root {
+  --papel: #FAF8F3;
+  --verde-mercado: #1F4D3B;
+  --verde-mercado-escuro: #163A2C;
+  --amarelo-etiqueta: #F5B700;
+  --grafite: #232323;
+  --laranja-sinal: #E4572E;
+  --cinza-borda: #D9D4C7;
+  --fonte-titulo: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --fonte: 'Inter', system-ui, sans-serif
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
+
+[hidden] {
+  display: none !important
+}
+
+html {
+  -webkit-text-size-adjust: 100%
+}
+
+body {
+  background: var(--papel);
+  color: var(--grafite);
+  font-family: var(--fonte);
+  min-height: 100dvh;
+  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+  background: var(--verde-mercado)
+}
+
+.tabbar a {
+  flex: 1;
+  max-width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  color: #d6e4dc;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px
+}
+
+.tabbar a[aria-current="page"] {
+  background: var(--amarelo-etiqueta);
+  color: var(--grafite)
+}
+
+.tabbar a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px
+}
+
+.tabbar svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+#badge {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--laranja-sinal);
+  color: #fff;
+  font-size: 12px;
+  text-align: center
+}
+
+@media (prefers-reduced-motion:reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important
+  }
+}
