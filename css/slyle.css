@@ -545,7 +545,7 @@ main {
   border-radius: 11px;
   background: var(--destaque);
   color: var(--sobre-destaque);
-  font: 800 12px var(--fonte)
+  font: 800 12px var(--fonte);
 }
 
 .gondula {
@@ -617,9 +617,9 @@ main {
 }
 
 .produtos {
-  --a: hsl(var(--h) 62% 50%);
-  --b: hsl(calc(var(--h) + 35) 72% 62%);
-  --c: hsl(var(--h) 40% 72%);
+ --a: hsl(var(--h) var(--s) 46%);
+ --b: hsl(var(--h) var(--s) 56%);
+ --c: hsl(var(--h) calc(var(--s) * 0.7) 68%);
   flex: 1;
   border-radius: 2px;
   background:
@@ -645,7 +645,7 @@ main {
 
 .etiqueta b {
   font: 800 12px var(--fonte-titulo);
-  color: var(--destaque)
+  color: var(--sobre-destaque)
 }
 
 .etiqueta small {
@@ -695,6 +695,10 @@ main {
 
 .secao.selecionada .etiqueta b {
   color: var(--sobre-destaque)
+}
+
+#mercado2d.buscando .secao:not(.selecionada):not(.vazia) {
+  opacity: .5;
 }
 
 /* ===== Alto contraste (duplicado de boas-vindas.css) ===== */

@@ -3,17 +3,26 @@ const NOMES_SECOES = {
   1: "Frutas", 2: "Verduras e Legumes", 3: "Leites", 4: "Padaria", 5: "Bebidas (Águas)", 6: "Laticínios", 7: "Frios", 8: "Biscoitos e Salgadinhos",
   9: "Carnes", 10: "Confeitaria", 11: "Congelados", 12: "Bebidas (Refrigerantes e Sucos)", 13: "Sorvetes", 14: "Doces", 15: "Mercearia", 16: "Molhos",
   17: "Condimentos", 18: "Óleos e Vinagres", 19: "Temperos", 20: "Limpeza", 21: "Higiene Pessoal", 22: "Utilidades de Limpeza", 23: "Papelaria Doméstica",
-  24: "Perfumaria", 25: "Bebidas Alcoólicas", 26: "Vinhos", 27: "Energéticos", 28: "Chás e Infusões", 30: "Produtos para Animais", 31: "Higiene Animal",
-  33: "Peixaria", 34: "Salgados e Massas Prontas", 35: "Elétrica", 36: "Ferramentas e Utilidades", 38: "Descartáveis", 40: "Material Escolar",
+  24: "Perfumaria", 25: "Bebidas Alcoólicas", 26: "Vinhos", 27: "Energéticos", 28: "Chás e Infusões",29: "Suplementos Alimentares", 30: "Produtos para Animais", 31: "Higiene Animal",32: "Congelados",
+  33: "Peixaria", 34: "Salgados e Massas Prontas", 35: "Elétrica", 36: "Ferramentas e Utilidades",37: "Utensílios Domésticos", 38: "Descartáveis", 39: "Brinquedos", 40: "Material Escolar",
   41: "Papelaria", 42: "Eletrônicos e Acessórios", 43: "Bebês", 44: "Alimentação Infantil", 45: "Jardinagem", 46: "Aquarismo", 47: "Churrasco", 48: "Utilidades / Automotivo"
 };
 
-const TONS_SECOES = {
-  1: 100, 2: 130, 3: 210, 4: 32, 5: 195, 6: 48, 7: 350, 8: 25, 9: 5, 10: 330, 11: 185, 12: 12, 13: 300, 14: 340, 15: 40, 16: 8, 17: 35, 18: 55, 19: 90, 20: 175,
-  21: 280, 22: 200, 23: 45, 24: 310, 25: 20, 26: 345, 27: 60, 28: 120, 30: 25, 31: 220, 33: 200, 34: 30, 35: 50, 36: 215, 38: 160, 40: 260, 41: 230, 42: 240,
-  43: 320, 44: 35, 45: 110, 46: 190, 47: 8, 48: 215
+/* ===== Grupos de cor (8 famílias, saturação baixa) ===== */
+const GRUPOS = {
+  hortifruti: { nome: "Hortifrúti",           h: 145, s: 38, secoes: [1, 2] },
+  carnes:     { nome: "Carnes e Peixes",      h: 8,   s: 42, secoes: [7, 9, 33, 47] },
+  frios:      { nome: "Laticínios e Gelados", h: 205, s: 40, secoes: [3, 6, 11, 13, 32] },
+  mercearia:  { nome: "Padaria e Mercearia",  h: 36,  s: 48, secoes: [4, 8, 15, 16, 17, 18, 19, 34, 44] },
+  doces:      { nome: "Doces",                h: 335, s: 38, secoes: [10, 14] },
+  bebidas:    { nome: "Bebidas",              h: 185, s: 40, secoes: [5, 12, 25, 26, 27, 28] },
+  higiene:    { nome: "Limpeza e Higiene",    h: 262, s: 35, secoes: [20, 21, 22, 24, 29, 31, 43] },
+  casa:       { nome: "Casa e Utilidades",    h: 215, s: 12, secoes: [23, 30, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 48] }
 };
 
+const GRUPO_POR_SECAO = {};
+Object.values(GRUPOS).forEach(g => g.secoes.forEach(n => (GRUPO_POR_SECAO[n] = g)));
+const grupoDe = s => GRUPO_POR_SECAO[s] ?? GRUPOS.casa;
 /* ===== Busca (lógica pura) ===== */
 const SECOES_POR_CORREDOR = 16;
 
@@ -114,7 +123,7 @@ function montarMapa() {
     const s = base + n, vazia = !comProdutos.has(s);
     const nome = NOMES_SECOES[s] || "—";
     return `<button type="button" class="secao${vazia ? " vazia" : ""}" data-secao="${s}"
-      style="--h:${TONS_SECOES[s] ?? 0};--w:${5 + (s * 3) % 4}px" aria-label="Seção ${s}: ${esc(nome)}" ${vazia ? "disabled" : ""}>
+      style="--h:${grupoDe(s).h};--s:${grupoDe(s).s}%;--w:${5 + (s * 3) % 4}px" aria-label="Seção ${s}: ${esc(nome)}" ${vazia ? "disabled" : ""}>
       <span class="produtos"></span><span class="etiqueta"><b>${s}</b><small>${esc(nome)}</small></span></button>`;
   };
   mapa.innerHTML = [0, 1, 2].map(c => `
@@ -130,6 +139,7 @@ function marcarLista() {
   mapa.querySelectorAll(".secao").forEach(el => el.classList.toggle("na-lista", s.has(Number(el.dataset.secao))));
 }
 function marcarBusca(qtds) {
+  mapa.classList.toggle("buscando", qtds.size > 0);
   mapa.querySelectorAll(".secao").forEach(el => {
     const q = qtds.get(Number(el.dataset.secao));
     el.classList.toggle("selecionada", Boolean(q));

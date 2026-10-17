@@ -442,6 +442,13 @@ const produtos = [
   { id: 537, nome: "Chá de Boldo Leão Sachê (10un)", valor: 4.99, seção: 28 },
   { id: 538, nome: "Chá de Hibisco a Granel 100g", valor: 8.90, seção: 28 },
   { id: 539, nome: "Chimarrão Erva-Mate Barão 1kg", valor: 17.90, seção: 28 },
+// Seção 29 — Suplementos Alimentares
+  { id: 86,  nome: "Whey Protein Integralmedica 900g", valor: 129.90, seção: 29 },
+  { id: 87,  nome: "Creatina Atlhetica Nutrition 300g", valor: 49.90, seção: 29 },
+  { id: 88,  nome: "BCAA Max Titanium 120 cápsulas",   valor: 79.90, seção: 29 },
+  { id: 89,  nome: "Vitamina C Now Foods 1000mg 100 cápsulas", valor: 39.90, seção: 29 },
+  { id: 90,  nome: "Ômega 3 Sundown Naturals 1000mg 60 cápsulas", valor: 49.90, seção: 29 },
+  
 
   // Seção 30 — Produtos para Animais
   { id: 91,  nome: "Ração Pedigree 1kg",             valor: 14.90, seção: 30 },
@@ -465,6 +472,18 @@ const produtos = [
   { id: 547, nome: "Antipulgas Frontline para Gatos", valor: 49.90, seção: 31 },
   { id: 548, nome: "Lenço Umedecido Pet (50un)", valor: 12.90, seção: 31 },
   { id: 549, nome: "Colônia Pet 120ml", valor: 14.90, seção: 31 },
+
+  // Seção 32 — Congelados
+  { id: 223, nome: "Pizza Congelada Seara 400g",      valor: 19.90, seção: 32 },
+  { id: 224, nome: "Hambúrguer Bovino Congelado 500g", valor: 14.90, seção: 32 },
+  { id: 638, nome: "Lasanha Bolonhesa Congelada 600g", valor: 18.90, seção: 32 },
+  { id: 639, nome: "Nuggets de Frango Congelados 300g", valor: 12.90, seção: 32 },
+  { id: 640, nome: "Batata Palito Congelada 1kg", valor: 15.90, seção: 32 },
+  { id: 641, nome: "Pão de Queijo Congelado 400g", valor: 14.90, seção: 32 },
+  { id: 642, nome: "Legumes Congelados Seleção 300g", valor: 8.49, seção: 32 },
+  { id: 643, nome: "Filé de Frango Empanado Congelado 400g", valor: 19.90, seção: 32 },
+  { id: 644, nome: "Sorvete de Creme 1,5L", valor: 24.90, seção: 32 },
+  { id: 645, nome: "Polpa de Açaí Congelada 400g", valor: 16.90, seção: 32 },
 
   // Seção 33 — Peixaria
   { id: 228, nome: "Camarão Congelado 500g",         valor: 34.90, seção: 33 },
@@ -511,6 +530,22 @@ const produtos = [
   { id: 567, nome: "Serra Manual", valor: 24.90, seção: 36 },
   { id: 568, nome: "Parafusos Sortidos (kit 100un)", valor: 12.90, seção: 36 },
   { id: 569, nome: "Nível de Bolha 30cm", valor: 16.90, seção: 36 },
+
+  // Seção 37 — Utensílios Domésticos
+  { id: 97,  nome: "Panela de Pressão 4L",            valor: 129.90, seção: 37 },
+  { id: 234, nome: "Frigideira Antiaderente 20cm",    valor: 49.90,  seção: 37 },
+  { id: 235, nome: "Conjunto de Facas Inox 3 peças",  valor: 79.90,  seção: 37 },
+  { id: 236, nome: "Liquidificador Oster 500W",      valor: 199.90, seção: 37 },
+  { id: 620, nome: "Jogo de Panelas 5 Peças",         valor: 189.90, seção: 37 },
+  { id: 621, nome: "Panela Antiaderente 24cm",        valor: 69.90,  seção: 37 },
+  { id: 622, nome: "Assadeira Retangular de Alumínio", valor: 29.90,  seção: 37 },
+  { id: 623, nome: "Forma para Bolo com Furo",         valor: 24.90,  seção: 37 },
+  { id: 624, nome: "Escorredor de Louça",              valor: 39.90,  seção: 37 },
+  { id: 625, nome: "Tábua de Corte Plástica",          valor: 14.90,  seção: 37 },
+  { id: 626, nome: "Ralador de Inox",                  valor: 19.90,  seção: 37 },
+  { id: 627, nome: "Concha de Silicone",               valor: 12.90,  seção: 37 },
+  { id: 628, nome: "Peneira de Inox 16cm",             valor: 17.90,  seção: 37 },
+  { id: 629, nome: "Garrafa Térmica 1L",               valor: 49.90,  seção: 37 },
 
   // Seção 38 — Descartáveis
   { id: 98,  nome: "Copo Descartável 200ml 100 unidades", valor: 8.99, seção: 38 },
