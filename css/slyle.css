@@ -551,9 +551,11 @@ main {
 .gondula {
   flex: none;
   width: 100%;
+  min-width: 0;
+  overflow: hidden;
   scroll-snap-align: start;
   display: grid;
-  grid-template-columns: 1fr 48px 1fr;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
   gap: 4px;
   padding: 10px;
   background:
@@ -598,6 +600,7 @@ main {
 
 .secao {
   position: relative;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   padding: 3px;
