@@ -442,14 +442,14 @@ const produtos = [
   { id: 537, nome: "Chá de Boldo Leão Sachê (10un)", valor: 4.99, seção: 28 },
   { id: 538, nome: "Chá de Hibisco a Granel 100g", valor: 8.90, seção: 28 },
   { id: 539, nome: "Chimarrão Erva-Mate Barão 1kg", valor: 17.90, seção: 28 },
-// Seção 29 — Suplementos Alimentares
+  
+  // Seção 29 — Suplementos Alimentares
   { id: 86,  nome: "Whey Protein Integralmedica 900g", valor: 129.90, seção: 29 },
   { id: 87,  nome: "Creatina Atlhetica Nutrition 300g", valor: 49.90, seção: 29 },
   { id: 88,  nome: "BCAA Max Titanium 120 cápsulas",   valor: 79.90, seção: 29 },
   { id: 89,  nome: "Vitamina C Now Foods 1000mg 100 cápsulas", valor: 39.90, seção: 29 },
   { id: 90,  nome: "Ômega 3 Sundown Naturals 1000mg 60 cápsulas", valor: 49.90, seção: 29 },
   
-
   // Seção 30 — Produtos para Animais
   { id: 91,  nome: "Ração Pedigree 1kg",             valor: 14.90, seção: 30 },
   { id: 92,  nome: "Areia Sanitária para Gatos 4kg", valor: 19.90, seção: 30 },
@@ -559,6 +559,18 @@ const produtos = [
   { id: 572, nome: "Canudo Biodegradável (100un)", valor: 7.49, seção: 38 },
   { id: 573, nome: "Prato Descartável 21cm 10un", valor: 6.99, seção: 38 },
   { id: 574, nome: "Toalha de Mesa Descartável", valor: 5.99, seção: 38 },
+
+  // Seção 39 — Brinquedos
+  { id: 100, nome: "Boneca Barbie Fashionista",       valor: 89.90, seção: 39 },
+  { id: 101, nome: "Carrinho Hot Wheels Sortido",     valor: 14.90, seção: 39 },
+  { id: 646, nome: "Blocos de Montar (100 peças)",    valor: 39.90, seção: 39 },
+  { id: 647, nome: "Quebra-Cabeça Infantil 100 peças", valor: 24.90, seção: 39 },
+  { id: 648, nome: "Jogo de Tabuleiro Infantil",      valor: 49.90, seção: 39 },
+  { id: 649, nome: "Urso de Pelúcia 30cm",            valor: 34.90, seção: 39 },
+  { id: 650, nome: "Bola Infantil Colorida",          valor: 19.90, seção: 39 },
+  { id: 651, nome: "Kit de Massinha de Modelar (6un)", valor: 12.90, seção: 39 },
+  { id: 652, nome: "Pião de Brinquedo",               valor: 8.90,  seção: 39 },
+  { id: 653, nome: "Kit de Pintura Infantil",         valor: 27.90, seção: 39 },
 
   // Seção 40 — Material Escolar
   { id: 101, nome: "Papel Sulfite A4 500 folhas",    valor: 29.90, seção: 40 },
