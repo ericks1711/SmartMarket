@@ -1,0 +1,438 @@
+/* ===== SmartMarket — Planta interativa (Mapa.html) =====
+   A base (cores, topo, tabbar, cartões de produto, alto contraste) vem do slyle.css. */
+
+body.pagina-mapa main,
+body.pagina-mapa .topo-int {
+  max-width: 1000px
+}
+
+/* Campo de busca (o do index usa o id #barra-pesquisa) */
+#busca-mapa {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: 600 17px var(--fonte);
+  color: var(--texto)
+}
+
+#busca-mapa::placeholder {
+  color: #7D8AA6;
+  font-weight: 500
+}
+
+#busca-mapa::-webkit-search-cancel-button {
+  display: none
+}
+
+.selo[hidden] {
+  display: none
+}
+
+/* Botão de limpar a busca (o do index usa o id #limpar) */
+.limpar-busca {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 24px;
+  color: var(--texto-suave);
+  cursor: pointer
+}
+
+.limpar-busca:hover {
+  background: var(--superficie);
+  color: var(--texto)
+}
+
+/* ===== Cabeçalho e controles ===== */
+.mapa-cabecalho {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px
+}
+
+.mapa-cabecalho .mapa-titulo {
+  margin-top: 0
+}
+
+.mapa-controles {
+  display: flex;
+  gap: 6px;
+  flex: none
+}
+
+.mapa-controles button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: 700 20px var(--fonte);
+  cursor: pointer;
+  transition: border-color .15s, color .15s
+}
+
+.mapa-controles button:hover:not(:disabled) {
+  border-color: var(--destaque);
+  color: var(--destaque)
+}
+
+.mapa-controles button:disabled {
+  opacity: .4;
+  cursor: default
+}
+
+.mapa-controles svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+.mapa-filtros {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 12px
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: var(--superficie);
+  color: var(--texto-suave);
+  font: 600 14px var(--fonte);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s
+}
+
+.chip b {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--superficie-2);
+  color: var(--texto);
+  font-size: 12px;
+  text-align: center
+}
+
+.chip-ponto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--texto-suave)
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--destaque);
+  color: var(--texto)
+}
+
+.chip[aria-pressed="true"] .chip-ponto {
+  border-color: var(--destaque);
+  background: var(--destaque)
+}
+
+.chip:focus-visible,
+.mapa-controles button:focus-visible,
+.painel-fechar:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px
+}
+
+.aviso-mapa {
+  color: var(--destaque-forte);
+  font-size: 14px;
+  font-weight: 600
+}
+
+/* ===== A planta ===== */
+.planta-wrap {
+  overflow: auto;
+  max-height: 72vh;
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  background: #0D1526;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain
+}
+
+#planta {
+  display: block;
+  width: 820px;
+  height: auto;
+  font-family: var(--fonte);
+  user-select: none;
+  -webkit-user-select: none
+}
+
+#planta text {
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none
+}
+
+.rua {
+  fill: #1A2236
+}
+
+.rua-nome {
+  fill: #6F7C98;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em
+}
+
+.piso {
+  fill: #111B30;
+  stroke: #C9D3E8;
+  stroke-width: 5;
+  stroke-linejoin: round
+}
+
+.parede-int {
+  fill: none;
+  stroke: #C9D3E8;
+  stroke-width: 3
+}
+
+.servico rect {
+  fill: #18223A;
+  stroke: #33415F;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4
+}
+
+.servico text {
+  fill: #8592AE;
+  font-weight: 600
+}
+
+.entrada path {
+  fill: none;
+  stroke: #3DDC84;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+.entrada text {
+  fill: #3DDC84;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em
+}
+
+/* Áreas clicáveis: a cor vem de --h e --s, definidos no mapa.js */
+.area {
+  cursor: pointer;
+  outline: none;
+  transition: opacity .2s
+}
+
+.area rect,
+.area path {
+  fill: hsl(var(--h) var(--s) 30%);
+  stroke: hsl(var(--h) var(--s) 52%);
+  stroke-width: 1.5;
+  transition: fill .15s, stroke .15s
+}
+
+.area > text {
+  fill: #EEF2FA;
+  font-weight: 600
+}
+
+@media (hover: hover) {
+  .area:hover rect,
+  .area:hover path {
+    fill: hsl(var(--h) var(--s) 38%)
+  }
+}
+
+.area:focus-visible rect,
+.area:focus-visible path {
+  stroke: var(--texto);
+  stroke-width: 3
+}
+
+/* Tem item da lista nessa área */
+.area.na-lista rect,
+.area.na-lista path {
+  stroke: var(--destaque-forte);
+  stroke-width: 2.5
+}
+
+/* Procurando: apaga o que não tem resultado */
+#planta.buscando .area:not(.achada):not(.ativa) {
+  opacity: .25
+}
+
+.area.achada rect,
+.area.achada path {
+  fill: hsl(var(--h) calc(var(--s) + 15%) 42%);
+  stroke: #FFD166;
+  stroke-width: 2.5
+}
+
+/* Área aberta no painel */
+.area.ativa rect,
+.area.ativa path {
+  fill: hsl(var(--h) calc(var(--s) + 15%) 46%);
+  stroke: #FFFFFF;
+  stroke-width: 3.5
+}
+
+.selo circle {
+  fill: var(--destaque);
+  stroke: #0D1526;
+  stroke-width: 2.5
+}
+
+.selo text {
+  fill: var(--sobre-destaque);
+  font-size: 11px;
+  font-weight: 700
+}
+
+.selo[data-tipo="busca"] circle {
+  fill: #FFD166
+}
+
+/* ===== Painel abaixo da planta ===== */
+.painel {
+  margin-top: 18px
+}
+
+.painel-topo-mapa {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px
+}
+
+.painel-topo-mapa h2,
+.painel-titulo {
+  font: 800 22px var(--fonte-titulo);
+  letter-spacing: -.01em;
+  margin-bottom: 12px
+}
+
+.painel-topo-mapa h2 {
+  margin-bottom: 0
+}
+
+.painel-fechar {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 22px;
+  cursor: pointer
+}
+
+.painel-dica {
+  padding: 18px;
+  border: 1px dashed var(--borda);
+  border-radius: 16px;
+  color: var(--texto-suave);
+  text-align: center;
+  line-height: 1.5
+}
+
+.painel .placa:not([data-ir]),
+.painel .placa[data-ir=""] {
+  cursor: default
+}
+
+.vazio-li {
+  color: var(--texto-suave)
+}
+
+@media (max-width: 480px) {
+  .mapa-cabecalho {
+    align-items: center
+  }
+
+  .mapa-controles button {
+    width: 38px;
+    height: 38px
+  }
+}
+
+/* ===== Alto contraste ===== */
+html.alto-contraste .planta-wrap {
+  background: #000;
+  border: 2px solid #FFF
+}
+
+html.alto-contraste .rua { fill: #000 }
+html.alto-contraste .rua-nome { fill: #FFF }
+html.alto-contraste .piso { fill: #000; stroke: #FFF }
+html.alto-contraste .parede-int { stroke: #FFF }
+
+html.alto-contraste .servico rect {
+  fill: #000;
+  stroke: #FFF
+}
+
+html.alto-contraste .servico text { fill: #FFF }
+
+html.alto-contraste .area rect,
+html.alto-contraste .area path {
+  fill: #000;
+  stroke: #FFF;
+  stroke-width: 2
+}
+
+html.alto-contraste .area.na-lista rect,
+html.alto-contraste .area.na-lista path {
+  stroke: #8FC1FF;
+  stroke-width: 4
+}
+
+html.alto-contraste .area.achada rect,
+html.alto-contraste .area.achada path,
+html.alto-contraste .area.ativa rect,
+html.alto-contraste .area.ativa path {
+  fill: #FFE600;
+  stroke: #FFE600
+}
+
+html.alto-contraste .area.achada > text,
+html.alto-contraste .area.ativa > text {
+  fill: #000
+}
+
+html.alto-contraste .selo circle { fill: #FFE600; stroke: #000 }
+html.alto-contraste .selo text { fill: #000 }
+
+html.alto-contraste .chip,
+html.alto-contraste .mapa-controles button,
+html.alto-contraste .painel-fechar {
+  border: 2px solid #FFF
+}

@@ -421,6 +421,22 @@ main {
   list-style: none
 }
 
+/* Link para a planta (Mapa.html) no fim de cada grupo de resultados */
+.ver-planta {
+  display: block;
+  padding: 12px 16px;
+  border-top: 1px solid var(--borda);
+  color: var(--destaque-forte);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none
+}
+
+.ver-planta:hover {
+  background: var(--superficie-2);
+  text-decoration: underline
+}
+
 .grupo li {
   display: flex;
   align-items: center;

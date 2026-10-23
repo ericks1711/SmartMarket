@@ -279,7 +279,9 @@ function tarefaHtml(linha) {
         <li class="tarefa ${STATUS[entrada.status].classe}">
             <div class="tarefa-info">
                 <span class="tarefa-nome">${esc(entrada.item)}</span>
-                <span class="tarefa-local">${esc(etiqueta)}</span>
+                ${local
+                    ? `<a class="tarefa-local" href="Mapa.html?item=${encodeURIComponent(entrada.item)}" title="Ver no mapa">${esc(etiqueta)}</a>`
+                    : `<span class="tarefa-local">${esc(etiqueta)}</span>`}
             </div>
             <div class="tarefa-detalhe" title="${esc(detalhe)}">${esc(detalhe)}</div>
             ${marcadoresHtml(entrada, posicao)}

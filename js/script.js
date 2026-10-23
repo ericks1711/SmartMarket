@@ -190,6 +190,7 @@ function grupoHtml(s, itens) {
           <button type="button" class="add" data-i="${produtos.indexOf(p)}" aria-pressed="${no}"
             aria-label="${no ? "Remover da lista" : "Adicionar à lista"}: ${esc(p.nome)}">${no ? "✓" : "+"}</button></li>`;
   }).join("")}</ul>
+      <a class="ver-planta" href="Mapa.html?secao=${s}">Ver na planta da loja →</a>
     </article>`;
 }
 

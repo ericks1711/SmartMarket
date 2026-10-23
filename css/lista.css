@@ -623,3 +623,14 @@ html.alto-contraste .bv-cartao--lati small {
 html.alto-contraste .bv-aviso {
   background: #000
 }
+/* A etiqueta de local vira link para o Mapa.html */
+a.tarefa-local {
+    text-decoration: none;
+    transition: border-color .15s, color .15s;
+}
+
+a.tarefa-local:hover,
+a.tarefa-local:focus-visible {
+    border-color: var(--destaque);
+    color: var(--destaque);
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B1220">
+  <meta name="description" content="Planta interativa do mercado: veja onde fica cada produto.">
+  <title>Mapa da loja | Smartmarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="css/slyle.css">
+  <link rel="stylesheet" href="css/mapa.css">
+  <script src="js/contraste.js"></script>
+</head>
+
+<body class="pagina-mapa">
+  <header class="topo">
+    <div class="topo-int">
+      <div class="marca">
+        <img class="busca-logo" src="img/logo-smartmarket.webp" alt="" width="40" height="40">
+        SmartMarket
+      </div>
+      <label class="busca">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </svg>
+        <input id="busca-mapa" type="search" placeholder="Onde fica…?" autocomplete="off" enterkeyhint="search"
+          aria-label="Procurar produto na planta">
+        <button id="limpar-mapa" class="limpar-busca" type="button" aria-label="Limpar pesquisa" hidden>×</button>
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <div class="mapa-cabecalho">
+      <div>
+        <h1 class="mapa-titulo">Planta da loja</h1>
+        <p class="mapa-dica">Toque numa área para ver o que tem nela.</p>
+      </div>
+      <div class="mapa-controles" role="group" aria-label="Zoom da planta">
+        <button type="button" id="zoom-menos" aria-label="Diminuir zoom">−</button>
+        <button type="button" id="zoom-ajustar" aria-label="Ajustar planta à tela">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+          </svg>
+        </button>
+        <button type="button" id="zoom-mais" aria-label="Aumentar zoom">+</button>
+      </div>
+    </div>
+
+    <div class="mapa-filtros">
+      <button type="button" id="ver-lista" class="chip" aria-pressed="true">
+        <span class="chip-ponto" aria-hidden="true"></span> Minha lista <b id="qtd-lista">0</b>
+      </button>
+      <span id="aviso-mapa" class="aviso-mapa" aria-live="polite"></span>
+    </div>
+
+    <div id="planta-wrap" class="planta-wrap">
+      <svg id="planta" viewBox="0 0 960 600" role="img" aria-label="Planta do mercado"></svg>
+    </div>
+
+    <section id="painel" class="painel" aria-live="polite"></section>
+  </main>
+
+  <nav class="tabbar" aria-label="Principal">
+    <a href="boas-vindas.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5M5 9v11h5v-6h4v6h5V9" />
+      </svg>Início
+    </a>
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-4-4" />
+      </svg>Buscar
+    </a>
+    <div aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2ZM9 4v14M15 6v14" />
+      </svg>Mapa
+    </div>
+    <a href="lista.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />
+      </svg>Lista <span id="badge" hidden></span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/mapa.js"></script>
+</body>
+
+</html>

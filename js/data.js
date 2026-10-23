@@ -729,3 +729,44 @@ const produtos = [
   { id: 619, nome: "Cabo de Bateria Auxiliar", valor: 59.90, seção: 48 },
 
 ];
+/* ===== Planta da loja (usado pelo Mapa.html) =====
+   Cada área da planta recebe as seções que ficam nela.
+   Para mudar um produto de lugar na planta, troque a seção de área aqui
+   ou crie uma regra em REGRAS_AREA (vale só para os produtos daquele nome). */
+const AREAS_MAPA = {
+  "adega":              { nome: "Adega",                            secoes: [25, 26] },
+  "bebidas-churrasco":  { nome: "Bebidas e Churrasco",              secoes: [47] },
+  "laticinios":         { nome: "Laticínios",                       secoes: [6] },
+  "hortifruti":         { nome: "Hortifrúti",                       secoes: [1, 2] },
+  "acougue":            { nome: "Açougue",                          secoes: [9, 33] },
+  "carnes-preparadas":  { nome: "Carnes Preparadas e Frios",        secoes: [7] },
+  "ovos":               { nome: "Ovos",                             secoes: [] },
+  "congelados":         { nome: "Congelados",                       secoes: [11, 13, 32] },
+  "doces-bolos":        { nome: "Doces e Bolos (fabricação própria)", secoes: [10] },
+  "refeicoes":          { nome: "Refeições (fabricação própria)",   secoes: [34] },
+  "paes":               { nome: "Pães",                             secoes: [4] },
+  "cereais":            { nome: "Cereais",                          secoes: [15] },
+  "leite":              { nome: "Leite",                            secoes: [3] },
+  "bebidas":            { nome: "Bebidas",                          secoes: [5, 12, 27] },
+  "limpeza-utilidades": { nome: "Produtos de Limpeza e Utilidades", secoes: [22, 35, 36, 37, 48] },
+  "limpeza":            { nome: "Produtos de Limpeza",              secoes: [20, 30, 31] },
+  "perfumaria":         { nome: "Perfumaria",                       secoes: [24, 29] },
+  "perfumaria-higiene": { nome: "Perfumaria e Higiene",             secoes: [21, 43] },
+  "lataria":            { nome: "Lataria",                          secoes: [16, 18] },
+  "massas":             { nome: "Massas",                           secoes: [17, 19] },
+  "biscoitos-doces":    { nome: "Biscoitos, Balas, Doces e Sobremesas", secoes: [8, 14] },
+  "matinais":           { nome: "Matinais",                         secoes: [28, 44] },
+  "festas":             { nome: "Festas",                           secoes: [38, 39] },
+  "revistas":           { nome: "Revistas e Papelaria",             secoes: [23, 40, 41, 42] },
+  "flores":             { nome: "Flores e Jardinagem",              secoes: [45, 46] }
+};
+
+// Produtos que ficam numa área diferente da seção deles (o nome tem que começar assim)
+const REGRAS_AREA = [
+  { area: "ovos",       comeca: ["Ovos"] },
+  { area: "laticinios", comeca: ["Margarina"] },
+  { area: "massas",     comeca: ["Macarrão", "Massa de Lasanha", "Nhoque"] },
+  { area: "lataria",    comeca: ["Milho Verde", "Ervilha", "Extrato de Tomate", "Molho de Tomate"] },
+  { area: "matinais",   comeca: ["Café", "Achocolatado", "Aveia", "Granola", "Mel "] },
+  { area: "congelados", comeca: ["Pão de Queijo Congelado"] }
+];
