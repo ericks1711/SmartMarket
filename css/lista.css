@@ -77,7 +77,7 @@ body {
   -webkit-backdrop-filter: blur(14px)
 }
 
-.tabbar a {
+.tabbar a, .tabbar div {
   position: relative;
   flex: 1;
   max-width: 200px;
@@ -103,7 +103,7 @@ body {
   }
 }
 
-.tabbar a[aria-current="page"] {
+.tabbar a[aria-current="page"], .tabbar div[aria-current="page"] {
   background: var(--destaque);
   color: var(--sobre-destaque);
   box-shadow: 0 6px 22px rgba(76, 141, 255, 0.25)
