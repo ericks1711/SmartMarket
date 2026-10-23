@@ -1,23 +1,13 @@
-/* ===== Seções ===== */
-const NOMES_SECOES = {
-  1: "Frutas", 2: "Verduras e Legumes", 3: "Leites", 4: "Padaria", 5: "Bebidas (Águas)", 6: "Laticínios", 7: "Frios", 8: "Biscoitos e Salgadinhos",
-  9: "Carnes", 10: "Confeitaria", 11: "Congelados", 12: "Bebidas (Refrigerantes e Sucos)", 13: "Sorvetes", 14: "Doces", 15: "Mercearia", 16: "Molhos",
-  17: "Condimentos", 18: "Óleos e Vinagres", 19: "Temperos", 20: "Limpeza", 21: "Higiene Pessoal", 22: "Utilidades de Limpeza", 23: "Papelaria Doméstica",
-  24: "Perfumaria", 25: "Bebidas Alcoólicas", 26: "Vinhos", 27: "Energéticos", 28: "Chás e Infusões",29: "Suplementos Alimentares", 30: "Produtos para Animais", 31: "Higiene Animal",32: "Congelados",
-  33: "Peixaria", 34: "Salgados e Massas Prontas", 35: "Elétrica", 36: "Ferramentas e Utilidades",37: "Utensílios Domésticos", 38: "Descartáveis", 39: "Brinquedos", 40: "Material Escolar",
-  41: "Papelaria", 42: "Eletrônicos e Acessórios", 43: "Bebês", 44: "Alimentação Infantil", 45: "Jardinagem", 46: "Aquarismo", 47: "Churrasco", 48: "Utilidades / Automotivo"
-};
-
 /* ===== Grupos de cor (8 famílias, saturação baixa) ===== */
 const GRUPOS = {
-  hortifruti: { nome: "Hortifrúti",           h: 145, s: 38, secoes: [1, 2] },
-  carnes:     { nome: "Carnes e Peixes",      h: 8,   s: 42, secoes: [7, 9, 33, 47] },
-  frios:      { nome: "Laticínios e Gelados", h: 205, s: 40, secoes: [3, 6, 11, 13, 32] },
-  mercearia:  { nome: "Padaria e Mercearia",  h: 36,  s: 48, secoes: [4, 8, 15, 16, 17, 18, 19, 34, 44] },
-  doces:      { nome: "Doces",                h: 335, s: 38, secoes: [10, 14] },
-  bebidas:    { nome: "Bebidas",              h: 185, s: 40, secoes: [5, 12, 25, 26, 27, 28] },
-  higiene:    { nome: "Limpeza e Higiene",    h: 262, s: 35, secoes: [20, 21, 22, 24, 29, 31, 43] },
-  casa:       { nome: "Casa e Utilidades",    h: 215, s: 12, secoes: [23, 30, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 48] }
+  hortifruti: { nome: "Hortifrúti", h: 145, s: 38, secoes: [1, 2] },
+  carnes: { nome: "Carnes e Peixes", h: 8, s: 42, secoes: [7, 9, 33, 47] },
+  frios: { nome: "Laticínios e Gelados", h: 205, s: 40, secoes: [3, 6, 11, 13, 32] },
+  mercearia: { nome: "Padaria e Mercearia", h: 36, s: 48, secoes: [4, 8, 15, 16, 17, 18, 19, 34, 44] },
+  doces: { nome: "Doces", h: 335, s: 38, secoes: [10, 14] },
+  bebidas: { nome: "Bebidas", h: 185, s: 40, secoes: [5, 12, 25, 26, 27, 28] },
+  higiene: { nome: "Limpeza e Higiene", h: 262, s: 35, secoes: [20, 21, 22, 24, 29, 31, 43] },
+  casa: { nome: "Casa e Utilidades", h: 215, s: 12, secoes: [23, 30, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 48] }
 };
 
 const GRUPO_POR_SECAO = {};
@@ -74,20 +64,39 @@ function lerLista() {
 const secoesDaLista = () => lerJSON(CHAVE_SECOES, []);
 const naLista = nome => lerLista().some(e => norm(e.item) === norm(nome));
 
+// Descobre a seção de um item da lista, mesmo quando foi digitado à mão na lista.html
+// ("arroz", por exemplo). Igual ao lista.js: escolhe a seção com mais produtos encontrados.
+function secaoDoItem(texto) {
+  const exato = produtos.find(x => norm(x.nome) === norm(texto));
+  if (exato) return exato.seção;
+
+  const contagem = new Map();
+  buscarProdutos(texto).forEach(x => contagem.set(x.seção, (contagem.get(x.seção) || 0) + 1));
+
+  let melhor = null, maior = 0;
+  contagem.forEach((qtd, s) => { if (qtd > maior) { melhor = s; maior = qtd; } });
+  return melhor;
+}
+
+// Recalcula do zero as seções que ainda têm algo pendente (sem depender do que estava salvo)
+function recalcularSecoes(lista) {
+  const secoes = new Set();
+  lista.forEach(e => {
+    if (e.status !== "pendente") return;
+    const s = secaoDoItem(e.item);
+    if (s !== null) secoes.add(s);
+  });
+  return [...secoes];
+}
+
 function alternarItem(p) {
   const lista = lerLista(), i = lista.findIndex(e => norm(e.item) === norm(p.nome));
-  const secoes = new Set(secoesDaLista());
 
-  if (i >= 0) {
-    lista.splice(i, 1);
-    const aindaTem = lista.some(e => e.status === "pendente" && produtos.some(x => x.nome === e.item && x.seção === p.seção));
-    if (!aindaTem) secoes.delete(p.seção);
-  } else {
-    lista.push({ item: p.nome, status: "pendente" });
-    secoes.add(p.seção);
-  }
+  if (i >= 0) lista.splice(i, 1);
+  else lista.push({ item: p.nome, status: "pendente" });
+
   gravarJSON(CHAVE_LISTA, lista);
-  gravarJSON(CHAVE_SECOES, [...secoes]);
+  gravarJSON(CHAVE_SECOES, recalcularSecoes(lista));
   atualizarBadge();
 }
 
@@ -124,7 +133,7 @@ function montarMapa() {
     const nome = NOMES_SECOES[s] || "—";
     return `<button type="button" class="secao${vazia ? " vazia" : ""}" data-secao="${s}"
       style="--h:${grupoDe(s).h};--s:${grupoDe(s).s}%;--w:${5 + (s * 3) % 4}px" aria-label="Seção ${s}: ${esc(nome)}" ${vazia ? "disabled" : ""}>
-      <span class="produtos"></span><span class="etiqueta"><b>${s}</b><small>${esc(nome)}</small></span></button>`;
+      <span class="produtos"></span><span class="etiqueta"><small>${esc(nome)}</small></span></button>`;
   };
   mapa.innerHTML = [0, 1, 2].map(c => `
     <div class="gondula">
