@@ -473,7 +473,7 @@ const produtos = [
   { id: 548, nome: "Lenço Umedecido Pet (50un)", valor: 12.90, seção: 31 },
   { id: 549, nome: "Colônia Pet 120ml", valor: 14.90, seção: 31 },
 
-  // Seção 32 — Congelados
+  // Seção 32 — Congelados e Sorvetes
   { id: 223, nome: "Pizza Congelada Seara 400g",      valor: 19.90, seção: 32 },
   { id: 224, nome: "Hambúrguer Bovino Congelado 500g", valor: 14.90, seção: 32 },
   { id: 638, nome: "Lasanha Bolonhesa Congelada 600g", valor: 18.90, seção: 32 },
