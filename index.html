@@ -3,15 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
-  <script>try{if(!localStorage.getItem('smartmarket-boas-vindas'))location.replace('boas-vindas.html')}catch(e){}</script>
+  <script> //Se a pessoa nunca viu o baos vindas é automaticamente mandado
+    try {
+      if (!localStorage.getItem('smartmarket-boas-vindas')) location.replace('boas-vindas.html')
+    } catch (e) { }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0B0F0D">
   <meta name="description" content="Encontre qualquer produto e a seção certa do mercado.">
   <title>Smartmarket</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="css/slyle.css">
   <script src="js/contraste.js"></script>
 </head>
