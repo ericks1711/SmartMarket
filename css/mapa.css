@@ -1,5 +1,5 @@
 /* ===== SmartMarket — Planta interativa (Mapa.html) =====
-   A base (cores, topo, tabbar, cartões de produto, alto contraste) vem do slyle.css. */
+   A base (cores, topo, tabbar, cartões de produto, alto contraste) vem do style.css. */
 
 body.pagina-mapa main,
 body.pagina-mapa .topo-int {
@@ -166,15 +166,18 @@ body.pagina-mapa .topo-int {
 }
 
 /* ===== A planta ===== */
+/* A planta rola só para os lados; para cima e para baixo quem rola é a página.
+   Assim o dedo em cima da planta não "trava" a tela no celular. */
 .planta-wrap {
-  overflow: auto;
-  max-height: 72vh;
+  overflow-x: auto;
+  overflow-y: hidden;
   border: 1px solid var(--borda);
   border-radius: 18px;
   background: #0D1526;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y
 }
 
 #planta {
@@ -192,28 +195,11 @@ body.pagina-mapa .topo-int {
   pointer-events: none
 }
 
-.rua {
-  fill: #1A2236
-}
-
-.rua-nome {
-  fill: #6F7C98;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .12em
-}
-
 .piso {
   fill: #111B30;
   stroke: #C9D3E8;
   stroke-width: 5;
   stroke-linejoin: round
-}
-
-.parede-int {
-  fill: none;
-  stroke: #C9D3E8;
-  stroke-width: 3
 }
 
 .servico rect {
@@ -303,6 +289,11 @@ body.pagina-mapa .topo-int {
   stroke-width: 3.5
 }
 
+/* Camada dos contadores: não bloqueia o toque nas áreas */
+.selos {
+  pointer-events: none
+}
+
 .selo circle {
   fill: var(--destaque);
   stroke: #0D1526;
@@ -390,11 +381,7 @@ html.alto-contraste .planta-wrap {
   border: 2px solid #FFF
 }
 
-html.alto-contraste .rua { fill: #000 }
-html.alto-contraste .rua-nome { fill: #FFF }
 html.alto-contraste .piso { fill: #000; stroke: #FFF }
-html.alto-contraste .parede-int { stroke: #FFF }
-
 html.alto-contraste .servico rect {
   fill: #000;
   stroke: #FFF
@@ -436,3 +423,51 @@ html.alto-contraste .mapa-controles button,
 html.alto-contraste .painel-fechar {
   border: 2px solid #FFF
 }
+
+/* ===== Celular ===== */
+.so-celular { display: none }
+
+@media (max-width: 600px) {
+  .so-celular { display: inline }
+
+  /* A planta cabe entre o topo fixo e a barra de baixo */
+  .planta-wrap {
+    border-radius: 14px
+  }
+
+  .mapa-cabecalho .mapa-titulo { font-size: 22px }
+  .mapa-dica { font-size: 13px }
+  .painel-topo-mapa h2, .painel-titulo { font-size: 19px }
+}
+
+@media (max-width: 380px) {
+  .mapa-controles { gap: 4px }
+  .mapa-controles button { width: 36px; height: 36px; border-radius: 10px }
+  .chip { padding: 8px 12px; font-size: 13px }
+}
+
+/* Botão "Ver todos os produtos de ..." (quando vem um item da lista) */
+.ver-area {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px dashed var(--borda);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--destaque-forte);
+  font: 600 15px var(--fonte);
+  cursor: pointer
+}
+
+.ver-area:hover {
+  border-color: var(--destaque);
+  background: var(--superficie)
+}
+
+.ver-area:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px
+}
+
+html.alto-contraste .ver-area { border: 2px dashed #FFF }

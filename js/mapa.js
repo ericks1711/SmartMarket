@@ -1,16 +1,18 @@
 // ===== SmartMarket — Planta interativa da loja =====
 // Usa AREAS_MAPA e REGRAS_AREA do data.js para saber em que área fica cada produto.
-// O desenho segue a planta: viewBox de 960 x 600, origem no canto superior esquerdo.
+// O desenho segue a planta (coordenadas de 0 a 960 x 0 a 600), mas só a parte do prédio aparece:
+// VIEW corta a planta na parede externa, sem as ruas em volta.
 
 /* ===== Desenho das áreas =====
    formas: retângulos {x, y, w, h, r} ou caminhos {d}
    rotulo: texto da área (rot: -90 deixa o texto em pé); sem x/y fica no centro da 1ª forma
+   rotulo2: (opcional) um segundo nome, para áreas com duas partes, como o hortifrúti
    h / s:  matiz e saturação da cor (igual ao GRUPOS do script.js) */
 const DESENHO = [
-  { id: "adega", h: 345, s: 42, formas: [{ d: "M180 112V58L208 30L245 20H285V40H250L222 58L210 70V112Z" }], rotulo: { x: 254, y: 68, t: ["Adega"] } },
+  { id: "adega", h: 345, s: 42, formas: [{ d: "M180 84V58L208 30L245 20H285V40H250L222 58L210 70V84Z" }], rotulo: { x: 254, y: 68, t: ["Adega"] } },
   { id: "bebidas-churrasco", h: 18, s: 45, formas: [{ x: 288, y: 18, w: 212, h: 22 }], rotulo: { t: ["Bebidas e Churrasco"] } },
   { id: "laticinios", h: 190, s: 55, formas: [{ x: 522, y: 16, w: 246, h: 32 }], rotulo: { t: ["Laticínios"] } },
-  { id: "hortifruti", h: 140, s: 45, formas: [{ x: 655, y: 90, w: 100, h: 44, r: 20 }, { d: "M772 16H850V132H814V50H772Z" }], rotulo: { t: ["Hortifrúti"] } },
+  { id: "hortifruti", h: 140, s: 45, formas: [{ x: 655, y: 90, w: 100, h: 44, r: 20 }, { d: "M772 16H850V132H814V50H772Z" }], rotulo: { t: ["Hortifrúti"] }, rotulo2: { x: 832, y: 76, rot: -90, t: ["Hortifrúti"] } },
 
   // Gôndolas centrais (lado de cima / lado de baixo)
   { id: "bebidas", h: 44, s: 50, formas: [{ x: 285, y: 100, w: 318, h: 22 }], rotulo: { t: ["Bebidas"] } },
@@ -39,101 +41,34 @@ const DESENHO = [
 
 // Lugares que aparecem na planta mas não têm produtos
 const SERVICOS = [
-  { nome: "Caixas", x: 135, y: 95, w: 105, h: 80 },
+  { nome: "Caixas", x: 135, y: 104, w: 105, h: 72 },
   { nome: "Caixa rápido", x: 120, y: 208, w: 120, h: 42 },
   { nome: "Caixas", x: 135, y: 262, w: 105, h: 80 },
   { nome: "Atendimento", x: 72, y: 482, w: 106, h: 72 },
-  { nome: "Padaria · Rotisseria · Confeitaria", x: 440, y: 494, w: 330, h: 62 },
-  { nome: "Sanitários", x: 860, y: 372, w: 78, h: 120 }
+  { nome: "Padaria · Rotisseria · Confeitaria", x: 440, y: 494, w: 330, h: 62 }
 ];
 
-/* ===== Onde fica cada produto ===== */
-const AREA_POR_SECAO = {};
-Object.entries(AREAS_MAPA).forEach(([id, a]) => a.secoes.forEach(s => (AREA_POR_SECAO[s] = id)));
+/* ===== Onde fica cada produto =====
+   AREA_POR_SECAO, areaDoProduto e AREA_DO_PRODUTO vêm do comum.js */
 
-function areaDoProduto(p) {
-  const regra = REGRAS_AREA.find(r => r.comeca.some(c => p.nome.startsWith(c)));
-  return regra ? regra.area : AREA_POR_SECAO[p.seção] || null;
-}
-const AREA_DO_PRODUTO = new Map(produtos.map(p => [p, areaDoProduto(p)]));
+// norm, esc, brl e a busca (buscarItem, produtosDoTexto) vêm do comum.js
 
-const norm = t => String(t).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-// Aceita plural simples: "bananas" acha "banana"
-function contem(alvo, termo) {
-  return alvo.includes(termo) || (termo.length > 3 && termo.endsWith("s") && alvo.includes(termo.slice(0, -1)));
-}
-
+// Barra de busca: usa a busca do comum.js, procurando também no nome da área e da seção
 function buscar(texto) {
-  const termos = norm(texto).split(/\s+/).filter(Boolean);
-  if (!termos.length) return [];
-  return produtos.filter(p => {
-    const area = AREA_DO_PRODUTO.get(p);
-    const alvo = norm(p.nome + " " + (AREAS_MAPA[area]?.nome || "") + " " + (NOMES_SECOES[p.seção] || ""));
-    return termos.every(t => contem(alvo, t));
-  });
+  return buscarItem(texto, { comLugar: true, prefixoMin: 2 })?.produtos || [];
 }
 
-// Para itens da lista digitados à mão ("arroz"): escolhe a área com mais produtos encontrados
-function localizarTexto(texto) {
-  const exato = produtos.find(p => norm(p.nome) === norm(texto));
-  if (exato) return { area: AREA_DO_PRODUTO.get(exato), secao: exato.seção };
+// produtosDoTexto (achar produtos de um item da lista) vem do comum.js
 
-  const termos = norm(texto).split(/[^a-z0-9]+/).filter(t => t.length > 1 && !/^\d/.test(t));
-  if (!termos.length) return null;
-  const achados = produtos.filter(p => termos.every(t => contem(norm(p.nome), t)));
+// Escolhe a área com mais produtos encontrados
+function localizarTexto(texto) {
+  const achados = produtosDoTexto(texto);
   if (!achados.length) return null;
 
-  const contar = chave => {
-    const m = new Map();
-    achados.forEach(p => { const k = chave(p); m.set(k, (m.get(k) || 0) + 1); });
-    return [...m].sort((a, b) => b[1] - a[1])[0][0];
-  };
-  return { area: contar(p => AREA_DO_PRODUTO.get(p)), secao: contar(p => p.seção) };
+  return { area: maisComum(achados.map(p => AREA_DO_PRODUTO.get(p))) };
 }
 
-/* ===== Lista de compras (mesmas chaves do script.js e do lista.js) ===== */
-const CHAVE_LISTA = "listaCompras";
-const CHAVE_SECOES = "secoesLista";
-
-function lerLista() {
-  try {
-    const l = JSON.parse(localStorage.getItem(CHAVE_LISTA));
-    return Array.isArray(l) ? l.filter(e => e && typeof e.item === "string") : [];
-  } catch { return []; }
-}
-function gravar(chave, valor) {
-  try { localStorage.setItem(chave, JSON.stringify(valor)); } catch { }
-}
-const pendentes = () => lerLista().filter(e => e.status === "pendente");
-const naLista = nome => lerLista().some(e => norm(e.item) === norm(nome));
-
-function alternarItem(p) {
-  const lista = lerLista(), i = lista.findIndex(e => norm(e.item) === norm(p.nome));
-  if (i >= 0) lista.splice(i, 1);
-  else lista.push({ item: p.nome, status: "pendente" });
-  gravar(CHAVE_LISTA, lista);
-
-  // Mantém o destaque das seções do index.html em dia
-  const secoes = new Set();
-  lista.forEach(e => {
-    if (e.status !== "pendente") return;
-    const l = localizarTexto(e.item);
-    if (l) secoes.add(l.secao);
-  });
-  gravar(CHAVE_SECOES, [...secoes]);
-  atualizarBadge();
-}
-
-function atualizarBadge() {
-  const badge = document.getElementById("badge");
-  if (!badge) return;
-  const n = pendentes().length;
-  badge.textContent = n;
-  badge.hidden = !n;
-}
+/* Lista de compras, badge e botão "+" (alternarItem) ficam no comum.js */
 
 /* ===== Elementos da página ===== */
 const svg = document.getElementById("planta");
@@ -142,25 +77,41 @@ const painel = document.getElementById("painel");
 const campo = document.getElementById("busca-mapa");
 const btnLimpar = document.getElementById("limpar-mapa");
 const btnLista = document.getElementById("ver-lista");
+const atalhos = document.getElementById("atalhos");
 const qtdLista = document.getElementById("qtd-lista");
 const aviso = document.getElementById("aviso-mapa");
 
 let areaAtiva = null;
+let itemAtivo = null; // item vindo da lista (index.html?item=...): { texto, achados }
 let mostrarLista = true;
 let zoom = 0;
 const ZOOMS = [1, 1.4, 1.9, 2.6];
 
+// O que deve ficar aceso na planta agora: a busca digitada ou o item vindo da lista
+function destaqueAtual() {
+  if (campo.value.trim()) return buscar(campo.value);
+  return itemAtivo ? itemAtivo.achados : null;
+}
+
 /* ===== Desenhar a planta ===== */
+// Pedaço da planta que aparece: da parede esquerda (x 65) à direita (x 854), do topo (y 10) ao fundo (y 560)
+const VIEW = { x: 60, y: 5, w: 800, h: 560 };
+svg.setAttribute("viewBox", `${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`);
+
 function formaSvg(f) {
   return f.d
     ? `<path d="${f.d}"/>`
     : `<rect x="${f.x}" y="${f.y}" width="${f.w}" height="${f.h}" rx="${f.r ?? 4}"/>`;
 }
 
+// No celular a planta fica menor, então as letras crescem para continuar legíveis
+const ehCelular = () => window.innerWidth < 600;
+let letrasGrandes = ehCelular();
+
 function rotuloSvg(r, f) {
   const x = r.x ?? f.x + f.w / 2;
   const y = r.y ?? f.y + f.h / 2;
-  const tam = r.tam ?? 12;
+  const tam = Math.round((r.tam ?? 12) * (letrasGrandes ? 1.25 : 1) * 10) / 10;
   const giro = r.rot ? ` transform="rotate(${r.rot} ${x} ${y})"` : "";
   const inicio = -((r.t.length - 1) * (tam + 2)) / 2;
   return `<text x="${x}" y="${y}" font-size="${tam}"${giro}>${r.t.map((linha, i) =>
@@ -168,15 +119,9 @@ function rotuloSvg(r, f) {
 }
 
 function desenharPlanta() {
-  const ruas = `
-    <rect class="rua" x="0" y="0" width="56" height="600"/>
-    <rect class="rua" x="0" y="568" width="960" height="32"/>
-    <text class="rua-nome" x="28" y="300" transform="rotate(-90 28 300)">RUA 13 DE MAIO, 822</text>
-    <text class="rua-nome" x="508" y="588">RUA CEL. NHONHÔ BRAGA</text>`;
 
   const paredes = `
-    <path class="piso" d="M65 10H945V500H852V560H65Z"/>
-    <path class="parede-int" d="M852 150V500M852 150H945M852 365H945"/>`;
+    <path class="piso" d="M65 10H854V560H65Z"/>`;
 
   const entradas = [240, 430].map(y => `
     <g class="entrada">
@@ -197,17 +142,23 @@ function desenharPlanta() {
        aria-label="${esc(info.nome)}" style="--h:${a.h};--s:${a.s}%">
       ${a.formas.map(formaSvg).join("")}
       ${rotuloSvg(a.rotulo, a.formas[0])}
-      <g class="selo" hidden><circle r="11"/><text></text></g>
+      ${a.rotulo2 ? rotuloSvg(a.rotulo2, a.formas[1] || a.formas[0]) : ""}
     </g>`;
   }).join("");
 
-  svg.innerHTML = ruas + paredes + servicos + entradas + `<g class="areas">${areas}</g>`;
+  // Os selos (contadores) ficam numa camada própria, desenhada por último,
+  // para nenhuma área vizinha ficar por cima do círculo
+  const selos = DESENHO.map(a =>
+    `<g class="selo" data-area="${a.id}" hidden><circle r="11"/><text></text></g>`).join("");
 
-  // Posiciona o selo (contador) no canto de cada área
+  svg.innerHTML = paredes + servicos + entradas +
+    `<g class="areas">${areas}</g><g class="selos" aria-hidden="true">${selos}</g>`;
+
+  // Posiciona o selo no canto de cada área
   svg.querySelectorAll(".area").forEach(g => {
     const forma = g.querySelector("rect, path").getBBox();
-    const selo = g.querySelector(".selo");
-    const cx = Math.min(forma.x + forma.width - 4, 948);
+    const selo = seloDe(g);
+    const cx = Math.min(forma.x + forma.width - 4, VIEW.x + VIEW.w - 12);
     const cy = Math.max(forma.y + 4, 12);
     selo.querySelector("circle").setAttribute("cx", cx);
     selo.querySelector("circle").setAttribute("cy", cy);
@@ -217,8 +168,10 @@ function desenharPlanta() {
   });
 }
 
+const seloDe = g => svg.querySelector(`.selo[data-area="${g.dataset.area}"]`);
+
 function marcarSelo(g, n, tipo) {
-  const selo = g.querySelector(".selo");
+  const selo = seloDe(g);
   selo.toggleAttribute("hidden", !n); // em SVG, .hidden não funciona
   selo.dataset.tipo = tipo || "";
   selo.querySelector("text").textContent = n > 99 ? "99+" : n;
@@ -319,6 +272,29 @@ function mostrarBusca(texto, achados) {
       grupos.get(id).slice(0, 30).map(produtoHtml).join(""), id, grupos.get(id).length)).join("");
 }
 
+// Mostra só os produtos que combinam com o item da lista, separados por área
+function mostrarItem() {
+  const { texto, achados } = itemAtivo;
+  const grupos = new Map();
+  achados.forEach(p => {
+    const a = AREA_DO_PRODUTO.get(p);
+    if (!grupos.has(a)) grupos.set(a, []);
+    grupos.get(a).push(p);
+  });
+  // a área principal (onde tem mais opções) vem primeiro
+  const ordem = [...grupos.keys()].sort((a, b) => grupos.get(b).length - grupos.get(a).length);
+  const principal = ordem[0];
+
+  painel.innerHTML = `
+    <div class="painel-topo-mapa">
+      <h2>${esc(texto)}</h2>
+      <button type="button" class="painel-fechar" aria-label="Fechar">×</button>
+    </div>` +
+    ordem.map(id => cartaoHtml(AREAS_MAPA[id].nome, subtituloArea(id),
+      grupos.get(id).map(produtoHtml).join(""), id, grupos.get(id).length)).join("") +
+    `<button type="button" class="ver-area" data-area="${principal}">Ver todos os produtos de ${esc(AREAS_MAPA[principal].nome)}</button>`;
+}
+
 function mostrarResumoLista() {
   const itens = pendentes();
   if (!itens.length || !mostrarLista) {
@@ -344,6 +320,7 @@ function mostrarResumoLista() {
 /* ===== Ações ===== */
 function selecionarArea(id, rolar = true) {
   areaAtiva = id;
+  itemAtivo = null;
   if (id) {
     mostrarArea(id);
     if (rolar) centralizarArea(id);
@@ -353,13 +330,15 @@ function selecionarArea(id, rolar = true) {
   } else {
     mostrarResumoLista();
   }
-  atualizarPlanta(campo.value.trim() ? buscar(campo.value) : null);
+  atualizarPlanta(destaqueAtual());
 }
 
 function pesquisar() {
   const texto = campo.value.trim();
   btnLimpar.hidden = !campo.value;
+  atalhos.hidden = Boolean(texto); // os atalhos somem enquanto a pessoa pesquisa
   areaAtiva = null;
+  itemAtivo = null;
   if (!texto) {
     atualizarPlanta();
     mostrarResumoLista();
@@ -377,7 +356,7 @@ function avisar(texto) {
 
 /* ===== Zoom e rolagem ===== */
 function aplicarZoom() {
-  const base = Math.max(wrap.clientWidth, 820);
+  const base = ehCelular() ? 680 : Math.max(wrap.clientWidth, 820);
   svg.style.width = Math.round(base * ZOOMS[zoom]) + "px";
   document.getElementById("zoom-menos").disabled = zoom === 0;
   document.getElementById("zoom-mais").disabled = zoom === ZOOMS.length - 1;
@@ -387,21 +366,27 @@ function centralizarArea(id) {
   const g = svg.querySelector(`.area[data-area="${id}"]`);
   if (!g) return;
   const caixa = g.getBBox();
-  const escala = svg.clientWidth / 960;
+  const escala = svg.clientWidth / VIEW.w;
+  // Para os lados: rola a planta
   wrap.scrollTo({
-    left: (caixa.x + caixa.width / 2) * escala - wrap.clientWidth / 2,
-    top: (caixa.y + caixa.height / 2) * escala - wrap.clientHeight / 2,
+    left: (caixa.x - VIEW.x + caixa.width / 2) * escala - wrap.clientWidth / 2,
     behavior: "smooth"
   });
+
+  // Para cima/baixo: rola a página, só se a área estiver escondida atrás do topo ou da barra de baixo
+  const topoFixo = document.querySelector(".topo")?.getBoundingClientRect().bottom || 0;
+  const barra = document.querySelector(".tabbar")?.getBoundingClientRect().top || window.innerHeight;
+  const yNaTela = wrap.getBoundingClientRect().top + (caixa.y - VIEW.y + caixa.height / 2) * escala;
+  if (yNaTela < topoFixo + 30 || yNaTela > barra - 30) {
+    window.scrollBy({ top: yNaTela - (topoFixo + barra) / 2, behavior: "smooth" });
+  }
 }
 
 function mudarZoom(passo) {
   const centroX = (wrap.scrollLeft + wrap.clientWidth / 2) / svg.clientWidth;
-  const centroY = (wrap.scrollTop + wrap.clientHeight / 2) / svg.clientHeight;
   zoom = Math.min(Math.max(zoom + passo, 0), ZOOMS.length - 1);
   aplicarZoom();
   wrap.scrollLeft = centroX * svg.clientWidth - wrap.clientWidth / 2;
-  wrap.scrollTop = centroY * svg.clientHeight - wrap.clientHeight / 2;
 }
 
 /* ===== Eventos ===== */
@@ -429,46 +414,71 @@ painel.addEventListener("click", e => {
     add.setAttribute("aria-pressed", no);
     add.setAttribute("aria-label", `${no ? "Remover da lista" : "Adicionar à lista"}: ${p.nome}`);
     add.textContent = no ? "✓" : "+";
-    atualizarPlanta(campo.value.trim() ? buscar(campo.value) : null);
+    atualizarPlanta(destaqueAtual());
+    return;
+  }
+  const verArea = e.target.closest(".ver-area");
+  if (verArea) {
+    avisar("");
+    selecionarArea(verArea.dataset.area);
     return;
   }
   if (e.target.closest(".painel-fechar")) {
+    avisar("");
     selecionarArea(null);
     return;
   }
   const placa = e.target.closest(".placa[data-ir]");
   if (placa && placa.dataset.ir) {
     areaAtiva = placa.dataset.ir;
-    atualizarPlanta(campo.value.trim() ? buscar(campo.value) : null);
+    atualizarPlanta(destaqueAtual());
     centralizarArea(placa.dataset.ir);
     wrap.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 });
 
 campo.addEventListener("input", () => { avisar(""); pesquisar(); });
+
+// Atalhos de categorias: tocar num deles pesquisa por aquele nome
+const ATALHOS = ["Frutas", "Verduras", "Padaria", "Carnes", "Laticínios", "Bebidas", "Limpeza", "Higiene"];
+atalhos.innerHTML = ATALHOS.map(a => `<button type="button">${a}</button>`).join("");
+atalhos.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  campo.value = b.textContent;
+  avisar("");
+  pesquisar();
+});
 btnLimpar.addEventListener("click", () => { campo.value = ""; avisar(""); pesquisar(); campo.focus(); });
 
 btnLista.addEventListener("click", () => {
   mostrarLista = !mostrarLista;
   if (!areaAtiva && !campo.value.trim()) mostrarResumoLista();
-  atualizarPlanta(campo.value.trim() ? buscar(campo.value) : null);
+  atualizarPlanta(destaqueAtual());
 });
 
 document.getElementById("zoom-mais").addEventListener("click", () => mudarZoom(1));
 document.getElementById("zoom-menos").addEventListener("click", () => mudarZoom(-1));
 document.getElementById("zoom-ajustar").addEventListener("click", () => { zoom = 0; aplicarZoom(); wrap.scrollTo({ left: 0, top: 0 }); });
-window.addEventListener("resize", aplicarZoom);
+window.addEventListener("resize", () => {
+  if (letrasGrandes !== ehCelular()) {
+    letrasGrandes = ehCelular();
+    desenharPlanta();
+    atualizarPlanta(destaqueAtual());
+  }
+  aplicarZoom();
+});
 
 // Ao voltar de outra página (botão voltar do celular), atualiza a lista
 window.addEventListener("pageshow", () => {
   atualizarBadge();
   if (!areaAtiva && !campo.value.trim()) mostrarResumoLista();
-  atualizarPlanta(campo.value.trim() ? buscar(campo.value) : null);
+  atualizarPlanta(destaqueAtual());
 });
 
 /* ===== Início =====
-   Links aceitos: Mapa.html?secao=15  ·  Mapa.html?area=cereais
-                  Mapa.html?busca=arroz  ·  Mapa.html?item=arroz (vindo da lista) */
+   Links aceitos: index.html?secao=15  ·  index.html?area=cereais
+                  index.html?busca=arroz  ·  index.html?item=arroz (vindo da lista) */
 desenharPlanta();
 aplicarZoom();
 atualizarBadge();
@@ -487,7 +497,12 @@ if (areaUrl && AREAS_MAPA[areaUrl]) {
 } else if (itemUrl) {
   const l = localizarTexto(itemUrl);
   if (l && l.area) {
-    selecionarArea(l.area);
+    // Mostra só o que combina com o item, não a prateleira inteira
+    itemAtivo = { texto: itemUrl, achados: produtosDoTexto(itemUrl) };
+    areaAtiva = l.area;
+    mostrarItem();
+    atualizarPlanta(itemAtivo.achados);
+    centralizarArea(l.area);
     avisar(`"${itemUrl}" fica em ${AREAS_MAPA[l.area].nome}.`);
   } else {
     selecionarArea(null);
@@ -498,4 +513,5 @@ if (areaUrl && AREAS_MAPA[areaUrl]) {
   pesquisar();
 } else {
   selecionarArea(null);
+  if (ehCelular()) wrap.scrollLeft = (110 - VIEW.x) * (svg.clientWidth / VIEW.w);
 }

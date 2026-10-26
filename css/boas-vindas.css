@@ -477,3 +477,14 @@ html.alto-contraste .bv-cartao--lati small {
 html.alto-contraste .bv-aviso {
   background: #000
 }
+/* ===== Celulares bem baixos (ex.: iPhone SE de 1ª geração) ===== */
+@media (max-height: 600px) {
+  .bv-tela { gap: 10px; padding-top: 8px; padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .bv-ilustracao { min-height: 190px; border-radius: 24px; }
+  .bv-cartao--lati { top: 70px; }
+  .bv-aviso { bottom: 10px; }
+  .bv-texto { min-height: 104px; }
+  .bv-texto h1 { font-size: 25px; }
+  .bv-texto p { font-size: 15px; }
+  .bv-ponto { padding-top: 8px; padding-bottom: 8px; }
+}

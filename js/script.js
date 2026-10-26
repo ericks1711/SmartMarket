@@ -13,11 +13,7 @@ const GRUPOS = {
 const GRUPO_POR_SECAO = {};
 Object.values(GRUPOS).forEach(g => g.secoes.forEach(n => (GRUPO_POR_SECAO[n] = g)));
 const grupoDe = s => GRUPO_POR_SECAO[s] ?? GRUPOS.casa;
-/* ===== Busca (lógica pura) ===== */
-const SECOES_POR_CORREDOR = 16;
-
-const norm = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-const corredorDe = s => Math.ceil(s / SECOES_POR_CORREDOR);
+/* ===== Busca (lógica pura) — norm, corredorDe e SECOES_POR_CORREDOR vêm do comum.js ===== */
 const ladoDe = s => ((s - 1) % SECOES_POR_CORREDOR) < 8 ? "esquerdo" : "direito";
 
 function buscarProdutos(texto, secaoFixa = null) {
@@ -47,68 +43,7 @@ function agruparPorSecao(prods) {
   return [...grupos].sort((a, b) => a[0] - b[0]);
 }
 
-/* ===== Armazenamento (duplicado em lista.js — veja a nota no topo) ===== */
-const CHAVE_LISTA = "listaCompras";
-const CHAVE_SECOES = "secoesLista";
-
-function lerJSON(chave, padrao) {
-  try { return JSON.parse(localStorage.getItem(chave)) ?? padrao; } catch { return padrao; }
-}
-function gravarJSON(chave, valor) {
-  try { localStorage.setItem(chave, JSON.stringify(valor)); } catch { }
-}
-function lerLista() {
-  const l = lerJSON(CHAVE_LISTA, []);
-  return Array.isArray(l) ? l : [];
-}
-const secoesDaLista = () => lerJSON(CHAVE_SECOES, []);
-const naLista = nome => lerLista().some(e => norm(e.item) === norm(nome));
-
-// Descobre a seção de um item da lista, mesmo quando foi digitado à mão na lista.html
-// ("arroz", por exemplo). Igual ao lista.js: escolhe a seção com mais produtos encontrados.
-function secaoDoItem(texto) {
-  const exato = produtos.find(x => norm(x.nome) === norm(texto));
-  if (exato) return exato.seção;
-
-  const contagem = new Map();
-  buscarProdutos(texto).forEach(x => contagem.set(x.seção, (contagem.get(x.seção) || 0) + 1));
-
-  let melhor = null, maior = 0;
-  contagem.forEach((qtd, s) => { if (qtd > maior) { melhor = s; maior = qtd; } });
-  return melhor;
-}
-
-// Recalcula do zero as seções que ainda têm algo pendente (sem depender do que estava salvo)
-function recalcularSecoes(lista) {
-  const secoes = new Set();
-  lista.forEach(e => {
-    if (e.status !== "pendente") return;
-    const s = secaoDoItem(e.item);
-    if (s !== null) secoes.add(s);
-  });
-  return [...secoes];
-}
-
-function alternarItem(p) {
-  const lista = lerLista(), i = lista.findIndex(e => norm(e.item) === norm(p.nome));
-
-  if (i >= 0) lista.splice(i, 1);
-  else lista.push({ item: p.nome, status: "pendente" });
-
-  gravarJSON(CHAVE_LISTA, lista);
-  gravarJSON(CHAVE_SECOES, recalcularSecoes(lista));
-  atualizarBadge();
-}
-
-/* ===== Badge (duplicado em lista.js) ===== */
-function atualizarBadge() {
-  const badge = document.getElementById("badge");
-  if (!badge) return;
-  let n = 0;
-  try { n = (JSON.parse(localStorage.getItem("listaCompras")) || []).filter(e => e.status === "pendente").length; } catch { }
-  badge.textContent = n;
-  badge.hidden = !n;
-}
+/* Lista de compras, badge e botão "+" (alternarItem) ficam no comum.js */
 
 /* ===== Tela de busca ===== */
 const campo = document.getElementById("barra-pesquisa");
@@ -122,8 +57,6 @@ const ATALHOS = ["Frutas", "Verduras", "Padaria", "Carnes", "Laticínios", "Bebi
 const comProdutos = new Set(produtos.map(p => p.seção));
 let secaoFixa = null;
 
-const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 function montarMapa() {
   const esq = [8, 7, 6, 5, 0, 4, 3, 2, 1], dir = [9, 10, 11, 12, 0, 13, 14, 15, 16];

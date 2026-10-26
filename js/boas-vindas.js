@@ -9,11 +9,11 @@ try { localStorage.setItem('smartmarket-boas-vindas', 'vista'); } catch (e) {}
 const slides = [
   {
     titulo: 'Ache qualquer produto.',
-    texto: 'Digite o que procura e o SmartMarket mostra em que seção do mercado ele está.'
+    texto: 'Digite o que procura e o SmartMarket mostra na planta onde ele fica.'
   },
   {
     titulo: 'O mercado na palma da mão.',
-    texto: 'Veja o mapa das seções e toque em cada uma para descobrir o que tem lá.'
+    texto: 'Veja a planta da loja e toque em cada área para descobrir o que tem lá.'
   },
   {
     titulo: 'Sua lista, sempre com você.',

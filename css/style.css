@@ -1,4 +1,4 @@
-/*index.css*/
+/* Base do site (index.html): cores, topo, abas, cartões de produto e alto contraste */
 /* ===== SmartMarket — base (tema escuro) ===== */
 
 :root {
@@ -231,43 +231,6 @@ body {
   stroke: var(--destaque)
 }
 
-#barra-pesquisa {
-  -webkit-appearance: none;
-  appearance: none;
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  font: 600 17px var(--fonte);
-  color: var(--texto)
-}
-
-#barra-pesquisa::placeholder {
-  color: #7D8AA6;
-  font-weight: 500
-}
-
-#barra-pesquisa::-webkit-search-cancel-button {
-  display: none
-}
-
-#limpar {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  font-size: 24px;
-  color: var(--texto-suave);
-  cursor: pointer
-}
-
-#limpar:hover {
-  background: var(--superficie);
-  color: var(--texto)
-}
-
 /* ===== Mini logo circular dentro da barra de busca ===== */
 .busca-logo {
   width: 38px;
@@ -336,8 +299,6 @@ main {
 @media (max-width: 360px) {
   .marca { font-size: 20px }
   .atalhos button { padding: 9px 13px; font-size: 13px }
-  .coluna { grid-template-rows: repeat(4, 56px) 24px repeat(4, 56px) }
-  .gondula { grid-template-columns: 1fr 40px 1fr; padding: 8px }
 }
 
 #resultados {
@@ -421,22 +382,6 @@ main {
   list-style: none
 }
 
-/* Link para a planta (Mapa.html) no fim de cada grupo de resultados */
-.ver-planta {
-  display: block;
-  padding: 12px 16px;
-  border-top: 1px solid var(--borda);
-  color: var(--destaque-forte);
-  font-weight: 600;
-  font-size: 14px;
-  text-decoration: none
-}
-
-.ver-planta:hover {
-  background: var(--superficie-2);
-  text-decoration: underline
-}
-
 .grupo li {
   display: flex;
   align-items: center;
@@ -489,10 +434,7 @@ main {
 
 .placa:focus-visible,
 .add:focus-visible,
-.atalhos button:focus-visible,
-#tabs button:focus-visible,
-.secao:focus-visible,
-#limpar:focus-visible {
+.atalhos button:focus-visible {
   outline: 3px solid var(--destaque);
   outline-offset: 2px
 }
@@ -508,251 +450,6 @@ main {
   font-size: 13px;
   color: var(--texto-suave)
 }
-
-#tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-  padding: 4px;
-  border-radius: 14px;
-  background: var(--superficie);
-  border: 1px solid var(--borda)
-}
-
-#tabs button {
-  flex: 1;
-  padding: 10px 0;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--texto-suave);
-  font: 700 13px var(--fonte);
-  cursor: pointer;
-  transition: background .15s, color .15s
-}
-
-#tabs button:hover {
-  color: var(--texto)
-}
-
-#tabs button.ativo {
-  background: var(--destaque);
-  color: var(--sobre-destaque)
-}
-
-#mercado2d {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  border-radius: 16px;
-  border: 1px solid var(--borda);
-  background: var(--superficie)
-}
-
-.trecho {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding-left: 18px
-}
-
-.trecho::before {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 28px;
-  bottom: 0;
-  border-left: 2px dashed rgba(76, 141, 255, .3)
-}
-
-.trecho-nome {
-  width: max-content;
-  margin-left: -6px;
-  padding: 5px 14px;
-  border-radius: 999px;
-  background: var(--superficie-2);
-  border: 1px solid var(--borda);
-  color: var(--destaque);
-  font: 800 13px var(--fonte-titulo);
-  letter-spacing: .06em
-}
-
-.secao.selecionada::before {
-  content: attr(data-qtd);
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  display: grid;
-  place-items: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 5px;
-  border-radius: 11px;
-  background: var(--destaque);
-  color: var(--sobre-destaque);
-  font: 800 12px var(--fonte);
-}
-
-.gondula {
-  flex: none;
-  width: 100%;
-  min-width: 0;
-  overflow: hidden;
-  scroll-snap-align: start;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
-  gap: 4px;
-  padding: 10px;
-  background:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 30px),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 30px),
-    #0E1628
-}
-
-.coluna {
-  display: grid;
-  grid-template-rows: repeat(4, 62px) 26px repeat(4, 62px);
-  gap: 4px
-}
-
-.corredor {
-  position: relative;
-  display: grid;
-  place-items: center
-}
-
-.corredor::before {
-  content: "";
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 50%;
-  border-left: 2px dashed rgba(76, 141, 255, .3)
-}
-
-.corredor span {
-  position: relative;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  padding: 10px 5px;
-  border-radius: 6px;
-  background: var(--destaque);
-  color: var(--sobre-destaque);
-  font: 800 12px var(--fonte-titulo);
-  letter-spacing: .14em;
-  box-shadow: 0 0 14px rgba(76, 141, 255, .3)
-}
-
-.secao {
-  position: relative;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 3px;
-  border: 1px solid #2E3D5E;
-  border-radius: 5px;
-  background: var(--superficie-2);
-  box-shadow: 0 3px 0 rgba(0, 0, 0, .5);
-  font-family: var(--fonte);
-  text-align: left;
-  color: var(--texto);
-  cursor: pointer;
-  transition: transform .2s, background-color .2s, box-shadow .2s, border-color .2s
-}
-
-.secao:hover {
-  border-color: #45567A
-}
-
-.produtos {
- --a: hsl(var(--h) var(--s) 46%);
- --b: hsl(var(--h) var(--s) 56%);
- --c: hsl(var(--h) calc(var(--s) * 0.7) 68%);
-  flex: 1;
-  border-radius: 2px;
-  background:
-    linear-gradient(#33426A 0 0) 0 33%/100% 3px no-repeat,
-    linear-gradient(#33426A 0 0) 0 67%/100% 3px no-repeat,
-    repeating-linear-gradient(90deg, var(--a) 0 var(--w), transparent 0 calc(var(--w) + 2px), var(--b) 0 calc(var(--w)*2 + 2px), transparent 0 calc(var(--w)*2 + 4px)) 0 0/100% 30% no-repeat,
-    repeating-linear-gradient(90deg, var(--b) 0 calc(var(--w) + 2px), transparent 0 calc(var(--w) + 4px), var(--a) 0 calc(var(--w)*2 + 4px), transparent 0 calc(var(--w)*2 + 6px)) 0 50%/100% 30% no-repeat,
-    repeating-linear-gradient(90deg, var(--c) 0 var(--w), transparent 0 calc(var(--w) + 1px), var(--a) 0 calc(var(--w)*2 + 1px), transparent 0 calc(var(--w)*2 + 3px)) 0 100%/100% 30% no-repeat
-}
-
-.etiqueta {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-  min-width: 0;
-  height: 17px;
-  margin-top: 3px;
-  padding: 0 5px;
-  border-radius: 3px;
-  background: var(--fundo);
-  color: var(--texto)
-}
-
-.etiqueta b {
-  font: 800 12px var(--fonte-titulo);
-  color: var(--sobre-destaque)
-}
-
-.etiqueta small {
-  overflow: hidden;
-  font-size: 10px;
-  font-weight: 700;
-  white-space: nowrap;
-  text-overflow: ellipsis
-}
-
-.secao.vazia {
-  opacity: .45;
-  cursor: default
-}
-
-.secao.vazia .produtos {
-  background:
-    linear-gradient(#24304C 0 0) 0 33%/100% 3px no-repeat,
-    linear-gradient(#24304C 0 0) 0 67%/100% 3px no-repeat
-}
-
-.secao.na-lista::after {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  width: 12px;
-  height: 12px;
-  border: 2px solid var(--fundo);
-  border-radius: 50%;
-  background: var(--destaque);
-  box-shadow: 0 0 8px rgba(76, 141, 255, .6)
-}
-
-.secao.selecionada {
-  z-index: 2;
-  transform: scale(1.06);
-  border-color: var(--destaque);
-  background: var(--superficie);
-  box-shadow: 0 0 0 2px var(--destaque), 0 10px 24px rgba(76, 141, 255, .25)
-}
-
-.secao.selecionada .etiqueta {
-  background: var(--destaque);
-  color: var(--sobre-destaque)
-}
-
-.secao.selecionada .etiqueta b {
-  color: var(--sobre-destaque)
-}
-
-#mercado2d.buscando .secao:not(.selecionada):not(.vazia) {
-  opacity: .5;
-}
-
-/* ===== Alto contraste (duplicado de boas-vindas.css) ===== */
 
 .botao-contraste {
   position: fixed;
@@ -850,8 +547,6 @@ html.alto-contraste .busca,
 html.alto-contraste .grupo,
 html.alto-contraste .atalhos button,
 html.alto-contraste .add,
-html.alto-contraste #tabs,
-html.alto-contraste #mercado2d,
 html.alto-contraste .tarefa,
 html.alto-contraste .tarefa-local,
 html.alto-contraste .form-item input,
@@ -866,7 +561,7 @@ html.alto-contraste .tarefa.status-pendente { border-left: 6px solid var(--azul)
 html.alto-contraste .tarefa.status-indisponivel { border-left: 6px solid var(--vermelho) }
 html.alto-contraste .tarefa.status-comprado { border-left: 6px solid var(--verde) }
 
-html.alto-contraste #barra-pesquisa::placeholder,
+html.alto-contraste #busca-mapa::placeholder,
 html.alto-contraste .form-item input::placeholder {
   color: #D0D0D0
 }
@@ -897,49 +592,6 @@ html.alto-contraste :focus-visible {
   outline-offset: 3px !important
 }
 
-html.alto-contraste .gondula {
-  background: #000
-}
-
-html.alto-contraste .secao {
-  border: 2px solid #FFF;
-  background: #000
-}
-
-html.alto-contraste .secao.vazia {
-  opacity: .7
-}
-
-html.alto-contraste .secao.selecionada {
-  border: 3px solid #FFE600;
-  background: #000
-}
-
-html.alto-contraste .etiqueta {
-  background: #000;
-  color: #FFF
-}
-
-html.alto-contraste .etiqueta b {
-  color: #FFE600
-}
-
-html.alto-contraste .secao.selecionada .etiqueta,
-html.alto-contraste .secao.selecionada .etiqueta b {
-  background: #FFE600;
-  color: #000
-}
-
-html.alto-contraste .corredor::before,
-html.alto-contraste .trecho::before {
-  border-left-color: #FFF
-}
-
-html.alto-contraste .trecho-nome {
-  border: 2px solid #FFF;
-  color: #FFE600
-}
-
 html.alto-contraste .bv-ilustracao {
   background: #000
 }
@@ -954,4 +606,26 @@ html.alto-contraste .bv-cartao--lati small {
 
 html.alto-contraste .bv-aviso {
   background: #000
+}
+/* ===== Celulares pequenos (até 380px) ===== */
+@media (max-width: 380px) {
+  .topo { padding-left: 12px; padding-right: 12px }
+  main { padding-left: 12px; padding-right: 12px }
+  .placa-num { min-width: 50px; font-size: 24px }
+  .placa-txt { padding: 8px 10px }
+  .placa-txt b { font-size: 16px }
+  .placa-txt small { font-size: 11px }
+  .placa-mapa { padding: 0 10px; font-size: 11px }
+  .grupo li { gap: 8px; padding: 8px 8px 8px 12px }
+  .nome { font-size: 14px }
+  .preco { font-size: 13px }
+  .add { width: 40px; height: 40px; font-size: 22px }
+  .tabbar { gap: 2px; padding-left: 6px; padding-right: 6px }
+  .tabbar a, .tabbar div { font-size: 12px; padding: 6px 2px }
+}
+
+/* Botão de alto contraste na mesma linha da logo, encostado à direita */
+.marca .lugar-contraste {
+  margin-left: auto;
+  display: flex
 }

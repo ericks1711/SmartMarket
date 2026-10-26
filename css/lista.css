@@ -163,9 +163,10 @@ body {
 /* ===== Lista ===== */
 
 .topo-lista {
+    position: relative;
     width: 100%;
     max-width: 560px;
-    padding: calc(14px + env(safe-area-inset-top)) 14px 10px;
+    padding: calc(14px + env(safe-area-inset-top)) 64px 10px 14px;
     border-bottom: 1px solid var(--borda);
 }
 
@@ -242,12 +243,58 @@ body {
 
 .form-item button:hover { background: var(--destaque-forte); }
 
+/* Pop-up temporário no canto de baixo, acima da barra de abas */
 .aviso-form {
-    min-height: 1.3em;
-    margin: 6px 2px 2px;
-    font-size: 0.85rem;
-    color: var(--texto-suave);
+    position: fixed;
+    right: 12px;
+    bottom: calc(96px + env(safe-area-inset-bottom));
+    z-index: 40;
+    max-width: min(300px, calc(100vw - 24px));
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 8px 12px 14px;
+    border: 1px solid var(--destaque);
+    border-radius: 14px;
+    background: var(--superficie-2);
+    color: var(--texto);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.35;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    animation: aviso-entra .2s ease-out;
 }
+
+.aviso-form:empty { display: none; }
+
+.aviso-fechar {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin-top: -4px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--texto-suave);
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.aviso-fechar:hover { background: var(--superficie); color: var(--texto); }
+.aviso-fechar:focus-visible { outline: 3px solid var(--destaque); outline-offset: 1px; }
+
+@keyframes aviso-entra {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aviso-form { animation: none; }
+}
+
+html.alto-contraste .aviso-form { border: 2px solid #FFE600; background: #000; }
 
 .filtros { display: flex; gap: 6px; flex-wrap: wrap; }
 
@@ -633,4 +680,287 @@ a.tarefa-local:hover,
 a.tarefa-local:focus-visible {
     border-color: var(--destaque);
     color: var(--destaque);
+}
+
+/* ===== Celular: botões de status sempre dentro do cartão ===== */
+.filtros { justify-content: flex-start; }
+
+.tarefa .marcadores {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.marcador {
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.15;
+    text-align: center;
+}
+
+.tarefa-local { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 380px) {
+    .topo-lista h1 { font-size: 22px; }
+    .conteudo-lista { padding: 0 12px 24px; }
+    .form-item button { padding: 10px 12px; }
+    .tarefa { padding: 10px 6px 10px 10px; }
+    .marcador { font-size: 0.68rem; padding: 4px 2px; }
+    .filtro { font-size: 0.8rem; }
+}
+
+/* Cores dos status no tema normal (antes só existiam no alto contraste,
+   e o filtro "Todos" ficava invisível) */
+:root:not(.alto-contraste) {
+    --azul: #6BA1FF;
+    --vermelho: #FF7A6B;
+    --verde: #4CD98A;
+    --neutro: #C9D3E8;
+}
+
+/* ===== Total estimado da compra (fica no topo fixo, junto dos filtros) ===== */
+.resumo-total {
+    margin: 10px 0 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    background: var(--superficie);
+}
+
+.resumo-linha {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.resumo-rotulo {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+
+.resumo-valor {
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--texto);
+    white-space: nowrap;
+}
+
+.resumo-partes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 16px;
+    margin-top: 2px;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+}
+
+.resumo-carrinho b { color: var(--verde); }
+.resumo-falta b { color: var(--azul); }
+
+.resumo-nota {
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: var(--texto-suave);
+}
+
+.tarefa-preco {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--destaque-forte, var(--azul));
+    white-space: nowrap;
+}
+
+.tarefa.status-indisponivel .tarefa-preco { text-decoration: line-through; opacity: .6; }
+
+html.alto-contraste .resumo-total { border: 2px solid #FFF; }
+
+@media (max-width: 380px) {
+    .resumo-valor { font-size: 1.3rem; }
+}
+
+/* ===== Janela de confirmação ("Limpar tudo") ===== */
+.modal {
+    width: min(340px, calc(100vw - 32px));
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    background: var(--superficie);
+    color: var(--texto);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.modal::backdrop {
+    background: rgba(5, 9, 18, 0.7);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.modal[open] { animation: modal-entra .18s ease-out; }
+
+@keyframes modal-entra {
+    from { opacity: 0; transform: translateY(10px) scale(.97); }
+    to { opacity: 1; transform: none; }
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px 20px;
+    text-align: center;
+}
+
+.modal-icone {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: rgba(255, 122, 107, 0.15);
+    color: var(--vermelho);
+}
+
+.modal-icone svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.modal h2 {
+    font-family: var(--fonte-titulo);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.modal p {
+    margin: 6px 0 20px;
+    font-size: 0.92rem;
+    color: var(--texto-suave);
+    line-height: 1.4;
+}
+
+.modal-botoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.modal-botoes button {
+    min-height: 46px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+}
+
+.modal-cancelar {
+    border: 1px solid var(--borda);
+    background: var(--superficie-2);
+    color: var(--texto);
+}
+
+.modal-cancelar:hover { border-color: var(--destaque); }
+
+.modal-apagar {
+    border: 1px solid var(--vermelho);
+    background: var(--vermelho);
+    color: #1A0C0A;
+}
+
+.modal-apagar:hover { filter: brightness(1.08); }
+
+.modal-botoes button:focus-visible {
+    outline: 3px solid var(--destaque);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal[open] { animation: none; }
+}
+
+html.alto-contraste .modal { border: 2px solid #FFF; background: #000; }
+html.alto-contraste .modal-cancelar { border: 2px solid #FFF; background: #000; }
+html.alto-contraste .modal-apagar { background: #FF9C9C; border-color: #FF9C9C; color: #000; }
+html.alto-contraste .modal-icone { background: #000; border: 2px solid #FF9C9C; }
+
+/* Botão de alto contraste no canto do topo (sobe junto com o título) */
+.topo-lista .lugar-contraste {
+    position: absolute;
+    top: calc(12px + env(safe-area-inset-top));
+    right: 12px;
+}
+
+/* Total e, embaixo dele, quanto já está no carrinho */
+.resumo-linha { align-items: flex-start; }
+
+.resumo-valores {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.resumo-valor-carrinho {
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+    white-space: nowrap;
+}
+
+.resumo-valor-carrinho b { color: var(--verde); }
+
+/* ===== Quantidade por item ( − 1 + ), na linha de baixo, à direita ===== */
+.tarefa .tarefa-qtd {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    justify-self: end;
+}
+
+.tarefa-qtd button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid var(--borda);
+    border-radius: 9px;
+    background: var(--superficie-2);
+    color: var(--texto);
+    font: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.tarefa-qtd button:hover:not(:disabled) { border-color: var(--destaque); }
+.tarefa-qtd button:disabled { opacity: .35; cursor: default; }
+.tarefa-qtd button:focus-visible { outline: 3px solid var(--destaque); outline-offset: 1px; }
+
+.qtd-valor {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 800;
+}
+
+html.alto-contraste .tarefa-qtd button { border: 2px solid #FFF; background: #000; }
+
+/* O × de remover fica no canto direito do cartão (a coluna é larga por causa do − 1 +) */
+.tarefa .remover {
+    justify-self: end;
+    align-self: start;
+    margin-right: -2px;
 }

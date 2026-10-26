@@ -15,17 +15,19 @@
   <header class="topo-lista">
     <a href="index.html" class="voltar">← Voltar ao mapa</a>
     <h1>Minha lista de compras</h1>
+    <!-- O botão de alto contraste entra aqui (contraste.js) e fica no topo, sem descer com a tela -->
+    <div id="lugar-contraste" class="lugar-contraste"></div>
   </header>
 
   <main class="conteudo-lista">
     <div class="painel-topo">
       <form id="form-item" class="form-item" autocomplete="off">
         <input id="novo-item" type="text"
-          placeholder="Digite um item e aperte Enter"
+          placeholder="Adicione seus itens!"
           aria-label="Novo item da lista">
         <button type="submit">Adicionar</button>
       </form>
-      <p id="aviso-form" class="aviso-form" aria-live="polite"></p>
+      <div id="resumo-total" class="resumo-total" aria-live="polite" hidden></div>
       <div id="filtros" class="filtros"></div>
     </div>
 
@@ -36,7 +38,24 @@
       <button type="button" id="btn-limpar" class="link-botao perigo">Limpar tudo</button>
     </div>
 
-    <a href="Mapa.html" class="ver-mapa">Ver no mapa</a>
+    <a href="index.html" class="ver-mapa">Ver no mapa</a>
+    <!-- Janela de confirmação do "Limpar tudo" (no lugar do confirm() do navegador) -->
+    <dialog id="confirmar-limpar" class="modal" aria-labelledby="modal-titulo" aria-describedby="modal-texto">
+      <form method="dialog">
+        <span class="modal-icone" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
+        </span>
+        <h2 id="modal-titulo">Apagar a lista inteira?</h2>
+        <p id="modal-texto"></p>
+        <div class="modal-botoes">
+          <button type="submit" value="cancelar" class="modal-cancelar" autofocus>Cancelar</button>
+          <button type="submit" value="apagar" class="modal-apagar">Apagar tudo</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Pop-up temporário (ex.: "Já estava na lista: arroz.") — fica fora do topo fixo para poder flutuar -->
+    <p id="aviso-form" class="aviso-form" role="status" aria-live="polite"></p>
   </main>
 
   <nav class="tabbar" aria-label="Principal">
@@ -44,17 +63,15 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5M5 9v11h5v-6h4v6h5V9"/></svg>Início
     </a>
     <a href="index.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Buscar
-    </a>
-    <a href="Mapa.html">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2ZM9 4v14M15 6v14"/></svg>Mapa
     </a>
-    <div href="lista.html" aria-current="page">
+    <div aria-current="page">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Lista <span id="badge" hidden></span>
     </div>
   </nav>
 
   <script src="js/data.js"></script>
+  <script src="js/comum.js"></script>
   <script src="js/lista.js"></script>
 </body>
 </html>
