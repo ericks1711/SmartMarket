@@ -189,7 +189,8 @@ body {
   letter-spacing: -.02em
 }
 
-.marca svg {
+/* Só um ícone colocado direto na .marca (não o do botão de contraste, que também fica aqui) */
+.marca > svg {
   width: 26px;
   height: 26px;
   stroke: var(--destaque);
