@@ -1,12 +1,8 @@
-/* ===== SmartMarket — Planta interativa (Mapa.html) =====
-   A base (cores, topo, tabbar, cartões de produto, alto contraste) vem do style.css. */
-
 body.pagina-mapa main,
 body.pagina-mapa .topo-int {
   max-width: 1000px
 }
 
-/* Campo de busca (o do index usa o id #barra-pesquisa) */
 #busca-mapa {
   -webkit-appearance: none;
   appearance: none;
@@ -32,7 +28,6 @@ body.pagina-mapa .topo-int {
   display: none
 }
 
-/* Botão de limpar a busca (o do index usa o id #limpar) */
 .limpar-busca {
   width: 40px;
   height: 40px;
@@ -50,7 +45,6 @@ body.pagina-mapa .topo-int {
   color: var(--texto)
 }
 
-/* ===== Cabeçalho e controles ===== */
 .mapa-cabecalho {
   display: flex;
   align-items: flex-end;
@@ -165,9 +159,6 @@ body.pagina-mapa .topo-int {
   font-weight: 600
 }
 
-/* ===== A planta ===== */
-/* A planta rola só para os lados; para cima e para baixo quem rola é a página.
-   Assim o dedo em cima da planta não "trava" a tela no celular. */
 .planta-wrap {
   overflow-x: auto;
   overflow-y: hidden;
@@ -229,7 +220,6 @@ body.pagina-mapa .topo-int {
   letter-spacing: .06em
 }
 
-/* Áreas clicáveis: a cor vem de --h e --s, definidos no mapa.js */
 .area {
   cursor: pointer;
   outline: none;
@@ -262,14 +252,12 @@ body.pagina-mapa .topo-int {
   stroke-width: 3
 }
 
-/* Tem item da lista nessa área */
 .area.na-lista rect,
 .area.na-lista path {
   stroke: var(--destaque-forte);
   stroke-width: 2.5
 }
 
-/* Procurando: apaga o que não tem resultado */
 #planta.buscando .area:not(.achada):not(.ativa) {
   opacity: .25
 }
@@ -281,7 +269,6 @@ body.pagina-mapa .topo-int {
   stroke-width: 2.5
 }
 
-/* Área aberta no painel */
 .area.ativa rect,
 .area.ativa path {
   fill: hsl(var(--h) calc(var(--s) + 15%) 46%);
@@ -289,7 +276,6 @@ body.pagina-mapa .topo-int {
   stroke-width: 3.5
 }
 
-/* Camada dos contadores: não bloqueia o toque nas áreas */
 .selos {
   pointer-events: none
 }
@@ -310,7 +296,6 @@ body.pagina-mapa .topo-int {
   fill: #FFD166
 }
 
-/* ===== Painel abaixo da planta ===== */
 .painel {
   margin-top: 18px
 }
@@ -375,7 +360,6 @@ body.pagina-mapa .topo-int {
   }
 }
 
-/* ===== Alto contraste ===== */
 html.alto-contraste .planta-wrap {
   background: #000;
   border: 2px solid #FFF
@@ -424,13 +408,11 @@ html.alto-contraste .painel-fechar {
   border: 2px solid #FFF
 }
 
-/* ===== Celular ===== */
 .so-celular { display: none }
 
 @media (max-width: 600px) {
   .so-celular { display: inline }
 
-  /* A planta cabe entre o topo fixo e a barra de baixo */
   .planta-wrap {
     border-radius: 14px
   }
@@ -446,7 +428,6 @@ html.alto-contraste .painel-fechar {
   .chip { padding: 8px 12px; font-size: 13px }
 }
 
-/* Botão "Ver todos os produtos de ..." (quando vem um item da lista) */
 .ver-area {
   display: block;
   width: 100%;
@@ -471,3 +452,4 @@ html.alto-contraste .painel-fechar {
 }
 
 html.alto-contraste .ver-area { border: 2px dashed #FFF }
+

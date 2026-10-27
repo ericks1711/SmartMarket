@@ -11,13 +11,15 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="css/boas-vindas.css">
+  <link rel="manifest" href="offline/manifest.webmanifest">
+  <link rel="icon" href="offline/icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="offline/icone-apple-180.png">
   <script src="js/contraste.js"></script>
 </head>
 
 <body class="bv">
   <main class="bv-tela">
 
-    <!-- Topo: logo + pular -->
     <header class="bv-topo">
       <div class="bv-logo">
         <img class="busca-logo" src="img/logo-smartmarket.webp" alt="" width="40" height="40">
@@ -28,7 +30,6 @@
       </div>
     </header>
 
-    <!-- Ilustração -->
     <section class="bv-ilustracao" aria-hidden="true">
       <svg class="bv-circulos" width="420" height="420" viewBox="0 0 420 420" fill="none">
         <circle cx="210" cy="210" r="200" stroke="currentColor" stroke-width="2"></circle>
@@ -77,13 +78,11 @@
       </div>
     </section>
 
-    <!-- Texto do slide (trocado pelo JS) -->
     <section class="bv-texto" aria-live="polite">
       <h1 id="bv-titulo">Ache qualquer produto.</h1>
       <p id="bv-descricao">Digite o que procura e o SmartMarket mostra na planta onde ele fica.</p>
     </section>
 
-    <!-- Indicadores -->
     <nav class="bv-pontos" aria-label="Telas de apresentação">
       <button type="button" class="bv-ponto ativo" aria-label="Ir para a tela 1 de 3"
         aria-current="true"><span></span></button>
@@ -91,7 +90,6 @@
       <button type="button" class="bv-ponto" aria-label="Ir para a tela 3 de 3"><span></span></button>
     </nav>
 
-    <!-- Ações -->
     <footer class="bv-acoes">
       <button type="button" id="bv-continuar" class="bv-botao">
         <span id="bv-botao-texto">Continuar</span>
@@ -106,6 +104,9 @@
   </main>
 
   <script src="js/boas-vindas.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+  </script>
 </body>
 
 </html>

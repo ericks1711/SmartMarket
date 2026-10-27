@@ -51,7 +51,6 @@ const NOMES_SECOES = {
 
 const produtos = [
 
-  // Seção 1 — Frutas
   { id: 61, nome: "Banana Prata 1kg", valor: 6.99, seção: 1 },
   { id: 62, nome: "Maçã Gala 1kg", valor: 8.99, seção: 1 },
   { id: 63, nome: "Laranja Pera 1kg", valor: 5.49, seção: 1 },
@@ -71,7 +70,6 @@ const produtos = [
   { id: 403, nome: "Maracujá 1kg", valor: 9.99, seção: 1 },
   { id: 404, nome: "Coco Seco Unidade", valor: 5.49, seção: 1 },
 
-  // Seção 2 — Verduras e Legumes
   { id: 64, nome: "Tomate 1kg", valor: 7.99, seção: 2 },
   { id: 65, nome: "Batata Inglesa 1kg", valor: 5.99, seção: 2 },
   { id: 66, nome: "Cebola 1kg", valor: 4.99, seção: 2 },
@@ -93,7 +91,6 @@ const produtos = [
   { id: 408, nome: "Rúcula Maço", valor: 3.99, seção: 2 },
   { id: 409, nome: "Cheiro Verde Maço", valor: 2.99, seção: 2 },
 
-  // Seção 3 — Leites
   { id: 41, nome: "Leite Integral Piracanjuba 1L", valor: 5.79, seção: 3 },
   { id: 47, nome: "Margarina Qualy 500g", valor: 7.99, seção: 3 },
   { id: 50, nome: "Leite em Pó Ninho 800g", valor: 18.90, seção: 3 },
@@ -110,7 +107,6 @@ const produtos = [
   { id: 413, nome: "Creme de Leite Italac 200g", valor: 3.79, seção: 3 },
   { id: 414, nome: "Bebida de Amêndoas Silk 1L", valor: 14.90, seção: 3 },
 
-  // Seção 4 — Padaria
   { id: 48, nome: "Pão de Forma Pullman 500g", valor: 8.99, seção: 4 },
   { id: 137, nome: "Pão Francês 1kg", valor: 12.90, seção: 4 },
   { id: 138, nome: "Pão de Forma Integral Wickbold 500g", valor: 9.49, seção: 4 },
@@ -126,7 +122,6 @@ const produtos = [
   { id: 418, nome: "Broa de Milho 300g", valor: 8.49, seção: 4 },
   { id: 419, nome: "Sonho de Creme Unidade", valor: 5.90, seção: 4 },
 
-  // Seção 5 — Bebidas (Águas)
   { id: 44, nome: "Água Mineral Crystal 1,5L", valor: 2.99, seção: 5 },
   { id: 142, nome: "Água Mineral com Gás Crystal 1,5L", valor: 3.49, seção: 5 },
   { id: 143, nome: "Água de Coco Kero Coco 1L", valor: 8.99, seção: 5 },
@@ -139,7 +134,6 @@ const produtos = [
   { id: 423, nome: "Água com Gás Perrier 330ml", valor: 7.49, seção: 5 },
   { id: 424, nome: "Água Mineral Galão 20L", valor: 12.90, seção: 5 },
 
-  // Seção 6 — Laticínios
   { id: 58, nome: "Iogurte Natural Nestlé 170g", valor: 3.99, seção: 6 },
   { id: 59, nome: "Requeijão Cremoso Vigor 200g", valor: 8.99, seção: 6 },
   { id: 60, nome: "Manteiga Aviação 200g", valor: 12.90, seção: 6 },
@@ -158,7 +152,6 @@ const produtos = [
   { id: 428, nome: "Manteiga Itambé com Sal 200g", valor: 11.90, seção: 6 },
   { id: 429, nome: "Requeijão Light Catupiry 200g", valor: 9.49, seção: 6 },
 
-  // Seção 7 — Frios
   { id: 45, nome: "Queijo Mussarela 500g", valor: 24.90, seção: 7 },
   { id: 46, nome: "Presunto Sadia 200g", valor: 8.49, seção: 7 },
   { id: 148, nome: "Peito de Peru Sadia 200g", valor: 9.99, seção: 7 },
@@ -175,7 +168,6 @@ const produtos = [
   { id: 433, nome: "Copa Fatiada 150g", valor: 12.49, seção: 7 },
   { id: 434, nome: "Lombo Canadense Fatiado 200g", valor: 10.90, seção: 7 },
 
-  // Seção 8 — Biscoitos e Salgadinhos
   { id: 42, nome: "Biscoito Recheado Oreo 90g", valor: 4.99, seção: 8 },
   { id: 89, nome: "Salgadinho Cheetos 140g", valor: 8.49, seção: 8 },
   { id: 90, nome: "Batata Ruffles 115g", valor: 9.49, seção: 8 },
@@ -191,7 +183,6 @@ const produtos = [
   { id: 438, nome: "Batata Pringles Original 114g", valor: 14.90, seção: 8 },
   { id: 439, nome: "Amendoim Japonês Dori 200g", valor: 6.99, seção: 8 },
 
-  // Seção 9 — Carnes
   { id: 51, nome: "Frango Congelado Seara 1kg", valor: 14.90, seção: 9 },
   { id: 52, nome: "Carne Moída Friboi 500g", valor: 19.90, seção: 9 },
   { id: 53, nome: "Linguiça Toscana Perdigão 700g", valor: 16.90, seção: 9 },
@@ -210,7 +201,6 @@ const produtos = [
   { id: 443, nome: "Hambúrguer de Frango Sadia 672g", valor: 17.90, seção: 9 },
   { id: 444, nome: "Coração de Frango 500g", valor: 13.90, seção: 9 },
 
-  // Seção 10 — Confeitaria
   { id: 161, nome: "Bolo Pronto de Chocolate Sadia 400g", valor: 14.90, seção: 10 },
   { id: 162, nome: "Cobertura de Chocolate Harald 400g", valor: 9.99, seção: 10 },
   { id: 163, nome: "Recheio de Morango Confeiteiro 400g", valor: 8.49, seção: 10 },
@@ -222,7 +212,6 @@ const produtos = [
   { id: 448, nome: "Essência de Baunilha Dr. Oetker 30ml", valor: 6.49, seção: 10 },
   { id: 449, nome: "Forminha de Papel para Docinhos (100un)", valor: 4.99, seção: 10 },
 
-  // Seção 11 — Congelados
   { id: 55, nome: "Pizza Congelada Sadia 460g", valor: 14.99, seção: 11 },
   { id: 56, nome: "Batata Congelada McCain 700g", valor: 18.49, seção: 11 },
   { id: 164, nome: "Lasanha Congelada Sadia 600g", valor: 16.90, seção: 11 },
@@ -237,7 +226,6 @@ const produtos = [
   { id: 453, nome: "Mandioca Congelada 1kg", valor: 9.99, seção: 11 },
   { id: 454, nome: "Brócolis Congelado 300g", valor: 7.49, seção: 11 },
 
-  // Seção 12 — Bebidas (Refrigerantes e Sucos)
   { id: 43, nome: "Refrigerante Coca-Cola 2L", valor: 9.49, seção: 12 },
   { id: 83, nome: "Suco de Laranja Del Valle 1L", valor: 7.49, seção: 12 },
   { id: 84, nome: "Chá Matte Leão 1,5L", valor: 6.99, seção: 12 },
@@ -253,7 +241,6 @@ const produtos = [
   { id: 458, nome: "Chá Gelado Ice Tea Pêssego 1,5L", valor: 6.49, seção: 12 },
   { id: 459, nome: "Refrigerante Coca-Cola Zero Lata 350ml", valor: 4.49, seção: 12 },
 
-  // Seção 13 — Sorvetes
   { id: 57, nome: "Sorvete Kibon 1,5L", valor: 24.90, seção: 13 },
   { id: 171, nome: "Picolé de Frutas Kibon (6un)", valor: 12.90, seção: 13 },
   { id: 172, nome: "Sorvete Napolitano Nestlé 1,5L", valor: 22.90, seção: 13 },
@@ -265,7 +252,6 @@ const produtos = [
   { id: 463, nome: "Sorvete Pote Morango Nestlé 1L", valor: 17.90, seção: 13 },
   { id: 464, nome: "Picolé de Limão Kibon (6un)", valor: 12.90, seção: 13 },
 
-  // Seção 14 — Doces
   { id: 86, nome: "Chocolate Lacta 90g", valor: 6.49, seção: 14 },
   { id: 87, nome: "Bombom Sonho de Valsa 1kg", valor: 39.90, seção: 14 },
   { id: 88, nome: "Bala de Gelatina Fini 100g", valor: 7.99, seção: 14 },
@@ -282,7 +268,6 @@ const produtos = [
   { id: 468, nome: "Doce de Leite Itambé 400g", valor: 9.49, seção: 14 },
   { id: 469, nome: "Goiabada Cascão 300g", valor: 6.99, seção: 14 },
 
-  // Seção 15 — Mercearia
   { id: 26, nome: "Arroz Branco Camil 1kg", valor: 5.49, seção: 15 },
   { id: 27, nome: "Feijão Carioca Kicaldo 1kg", valor: 7.99, seção: 15 },
   { id: 28, nome: "Açúcar Refinado União 1kg", valor: 4.29, seção: 15 },
@@ -319,7 +304,6 @@ const produtos = [
   { id: 473, nome: "Café Torrado Melitta 500g", valor: 14.90, seção: 15 },
   { id: 474, nome: "Açúcar Cristal Caravelas 5kg", valor: 21.90, seção: 15 },
 
-  // Seção 16 — Molhos
   { id: 114, nome: "Maionese Hellmann's 500g", valor: 9.99, seção: 16 },
   { id: 115, nome: "Ketchup Heinz 397g", valor: 11.90, seção: 16 },
   { id: 116, nome: "Mostarda Hemmer 200g", valor: 6.99, seção: 16 },
@@ -334,7 +318,6 @@ const produtos = [
   { id: 478, nome: "Molho de Alho Hemmer 200g", valor: 7.49, seção: 16 },
   { id: 479, nome: "Maionese Light Hellmann's 500g", valor: 9.49, seção: 16 },
 
-  // Seção 17 — Condimentos
   { id: 117, nome: "Molho de Pimenta Tabasco 60ml", valor: 14.90, seção: 17 },
   { id: 188, nome: "Orégano Kitano 20g", valor: 3.49, seção: 17 },
   { id: 189, nome: "Páprica Doce Kitano 30g", valor: 3.99, seção: 17 },
@@ -348,7 +331,6 @@ const produtos = [
   { id: 483, nome: "Salsa Desidratada Kitano 10g", valor: 2.99, seção: 17 },
   { id: 484, nome: "Pimenta Calabresa Kitano 25g", valor: 3.99, seção: 17 },
 
-  // Seção 18 — Óleos e Vinagres
   { id: 118, nome: "Azeite Gallo 500ml", valor: 29.90, seção: 18 },
   { id: 119, nome: "Vinagre Castelo 750ml", valor: 4.99, seção: 18 },
   { id: 192, nome: "Óleo de Canola Liza 900ml", valor: 8.99, seção: 18 },
@@ -360,7 +342,6 @@ const produtos = [
   { id: 488, nome: "Óleo de Coco Copra 200ml", valor: 16.90, seção: 18 },
   { id: 489, nome: "Vinagre de Vinho Tinto Castelo 750ml", valor: 6.99, seção: 18 },
 
-  // Seção 19 — Temperos
   { id: 120, nome: "Sal Refinado Cisne 1kg", valor: 3.29, seção: 19 },
   { id: 194, nome: "Tempero Alho e Sal Ajinomoto 100g", valor: 4.99, seção: 19 },
   { id: 195, nome: "Caldo de Galinha Knorr (6un)", valor: 5.49, seção: 19 },
@@ -372,7 +353,6 @@ const produtos = [
   { id: 493, nome: "Sal Rosa do Himalaia 500g", valor: 12.90, seção: 19 },
   { id: 494, nome: "Tempero Baiano Kitano 40g", valor: 4.49, seção: 19 },
 
-  // Seção 20 — Limpeza
   { id: 35, nome: "Papel Higiênico Neve 12 rolos", valor: 21.90, seção: 20 },
   { id: 36, nome: "Sabão em Pó Omo 1,6kg", valor: 19.90, seção: 20 },
   { id: 37, nome: "Detergente Ypê 500ml", valor: 2.49, seção: 20 },
@@ -392,7 +372,6 @@ const produtos = [
   { id: 498, nome: "Limpador Perfumado Pinho Sol 500ml", valor: 8.49, seção: 20 },
   { id: 499, nome: "Removedor de Mofo Mr. Músculo 500ml", valor: 13.90, seção: 20 },
 
-  // Seção 21 — Higiene Pessoal
   { id: 39, nome: "Sabonete Dove 90g", valor: 3.19, seção: 21 },
   { id: 40, nome: "Shampoo Seda 325ml", valor: 12.49, seção: 21 },
   { id: 75, nome: "Creme Dental Colgate 90g", valor: 5.49, seção: 21 },
@@ -412,7 +391,6 @@ const produtos = [
   { id: 503, nome: "Cotonete Cotton Pop (150un)", valor: 5.99, seção: 21 },
   { id: 504, nome: "Papel Higiênico Folha Dupla 4 rolos", valor: 7.99, seção: 21 },
 
-  // Seção 22 — Utilidades de Limpeza
   { id: 73, nome: "Esponja Scotch-Brite 4 unidades", valor: 5.99, seção: 22 },
   { id: 74, nome: "Saco para Lixo 50L 30 unidades", valor: 12.49, seção: 22 },
   { id: 206, nome: "Pano de Prato (kit 3un)", valor: 9.99, seção: 22 },
@@ -426,7 +404,6 @@ const produtos = [
   { id: 508, nome: "Pano de Chão Algodão", valor: 6.49, seção: 22 },
   { id: 509, nome: "Esponja de Aço Bombril (8un)", valor: 4.49, seção: 22 },
 
-  // Seção 23 — Papelaria Doméstica
   { id: 79, nome: "Papel Toalha Kitchen 2 rolos", valor: 6.99, seção: 23 },
   { id: 80, nome: "Guardanapo de Papel 50 unidades", valor: 3.99, seção: 23 },
   { id: 210, nome: "Filme Plástico PVC 30cm", valor: 5.99, seção: 23 },
@@ -438,7 +415,6 @@ const produtos = [
   { id: 513, nome: "Forma de Papel Alumínio Descartável (5un)", valor: 7.99, seção: 23 },
   { id: 514, nome: "Palito de Dente (200un)", valor: 2.49, seção: 23 },
 
-  // Seção 24 — Perfumaria
   { id: 212, nome: "Perfume Corporal O Boticário 100ml", valor: 49.90, seção: 24 },
   { id: 213, nome: "Loção Hidratante Nivea 400ml", valor: 19.90, seção: 24 },
   { id: 214, nome: "Talco Johnson's 100g", valor: 6.99, seção: 24 },
@@ -449,7 +425,6 @@ const produtos = [
   { id: 518, nome: "Perfume Masculino Jequiti 100ml", valor: 59.90, seção: 24 },
   { id: 519, nome: "Água de Colônia Lavanda 200ml", valor: 19.90, seção: 24 },
 
-  // Seção 25 — Bebidas Alcoólicas
   { id: 81, nome: "Cerveja Heineken 350ml", valor: 5.99, seção: 25 },
   { id: 215, nome: "Vodka Smirnoff 998ml", valor: 39.90, seção: 25 },
   { id: 216, nome: "Whisky Red Label 1L", valor: 89.90, seção: 25 },
@@ -462,7 +437,6 @@ const produtos = [
   { id: 523, nome: "Rum Bacardi 980ml", valor: 44.90, seção: 25 },
   { id: 524, nome: "Cachaça Ypioca 965ml", valor: 16.90, seção: 25 },
 
-  // Seção 26 — Vinhos
   { id: 82, nome: "Vinho Tinto Aurora 750ml", valor: 29.90, seção: 26 },
   { id: 218, nome: "Vinho Branco Concha y Toro 750ml", valor: 34.90, seção: 26 },
   { id: 219, nome: "Espumante Chandon Brut 750ml", valor: 79.90, seção: 26 },
@@ -473,7 +447,6 @@ const produtos = [
   { id: 528, nome: "Vinho Branco Santa Helena 750ml", valor: 32.90, seção: 26 },
   { id: 529, nome: "Vinho Tinto Suave Canção 750ml", valor: 24.90, seção: 26 },
 
-  // Seção 27 — Energéticos
   { id: 85, nome: "Energético Red Bull 250ml", valor: 9.49, seção: 27 },
   { id: 220, nome: "Energético Monster 473ml", valor: 10.99, seção: 27 },
   { id: 221, nome: "Energético TNT 269ml", valor: 6.49, seção: 27 },
@@ -483,7 +456,6 @@ const produtos = [
   { id: 533, nome: "Energético Baly 250ml", valor: 5.49, seção: 27 },
   { id: 534, nome: "Repositor Energético Gatorade Frutas Cítricas 500ml", valor: 5.99, seção: 27 },
 
-  // Seção 28 — Chás e Infusões
   { id: 222, nome: "Chá Verde Leão Sachê (25un)", valor: 7.99, seção: 28 },
   { id: 223, nome: "Chá de Camomila Leão Sachê (25un)", valor: 7.49, seção: 28 },
   { id: 330, nome: "Chá de Hortelã Leão Sachê (25un)", valor: 7.49, seção: 28 },
@@ -494,14 +466,12 @@ const produtos = [
   { id: 538, nome: "Chá de Hibisco a Granel 100g", valor: 8.90, seção: 28 },
   { id: 539, nome: "Chimarrão Erva-Mate Barão 1kg", valor: 17.90, seção: 28 },
 
-  // Seção 29 — Suplementos Alimentares
   { id: 86, nome: "Whey Protein Integralmedica 900g", valor: 129.90, seção: 29 },
   { id: 87, nome: "Creatina Atlhetica Nutrition 300g", valor: 49.90, seção: 29 },
   { id: 88, nome: "BCAA Max Titanium 120 cápsulas", valor: 79.90, seção: 29 },
   { id: 89, nome: "Vitamina C Now Foods 1000mg 100 cápsulas", valor: 39.90, seção: 29 },
   { id: 90, nome: "Ômega 3 Sundown Naturals 1000mg 60 cápsulas", valor: 49.90, seção: 29 },
 
-  // Seção 30 — Produtos para Animais
   { id: 91, nome: "Ração Pedigree 1kg", valor: 14.90, seção: 30 },
   { id: 92, nome: "Areia Sanitária para Gatos 4kg", valor: 19.90, seção: 30 },
   { id: 224, nome: "Petisco Pedigree para Cães 80g", valor: 6.99, seção: 30 },
@@ -513,7 +483,6 @@ const produtos = [
   { id: 543, nome: "Sachê Whiskas Carne 85g", valor: 2.99, seção: 30 },
   { id: 544, nome: "Brinquedo Bolinha para Cães", valor: 9.90, seção: 30 },
 
-  // Seção 31 — Higiene Animal
   { id: 93, nome: "Shampoo para Cachorros 500ml", valor: 17.49, seção: 31 },
   { id: 226, nome: "Coleira Antipulgas para Cães", valor: 24.90, seção: 31 },
   { id: 227, nome: "Tapete Higiênico para Cães (30un)", valor: 39.90, seção: 31 },
@@ -524,7 +493,6 @@ const produtos = [
   { id: 548, nome: "Lenço Umedecido Pet (50un)", valor: 12.90, seção: 31 },
   { id: 549, nome: "Colônia Pet 120ml", valor: 14.90, seção: 31 },
 
-  // Antiga seção 32: os produtos agora são das seções 11 (Congelados) e 13 (Sorvetes)
   { id: 223, nome: "Pizza Congelada Seara 400g", valor: 19.90, seção: 11 },
   { id: 224, nome: "Hambúrguer Bovino Congelado 500g", valor: 14.90, seção: 11 },
   { id: 638, nome: "Lasanha Bolonhesa Congelada 600g", valor: 18.90, seção: 11 },
@@ -536,7 +504,6 @@ const produtos = [
   { id: 644, nome: "Sorvete de Creme 1,5L", valor: 24.90, seção: 13 },
   { id: 645, nome: "Polpa de Açaí Congelada 400g", valor: 16.90, seção: 13 },
 
-  // Seção 33 — Peixaria
   { id: 228, nome: "Camarão Congelado 500g", valor: 34.90, seção: 33 },
   { id: 229, nome: "Salmão Fresco 500g", valor: 44.90, seção: 33 },
   { id: 334, nome: "Sardinha Fresca 1kg", valor: 16.90, seção: 33 },
@@ -547,7 +514,6 @@ const produtos = [
   { id: 553, nome: "Sardinha em Lata Coqueiro 125g", valor: 6.49, seção: 33 },
   { id: 554, nome: "Mexilhão Cozido Congelado 500g", valor: 22.90, seção: 33 },
 
-  // Seção 34 — Salgados e Massas Prontas
   { id: 230, nome: "Coxinha Congelada Perdigão 300g", valor: 12.90, seção: 34 },
   { id: 231, nome: "Pastel Congelado Sadia 300g", valor: 11.49, seção: 34 },
   { id: 336, nome: "Massa de Pastel Fresca 500g", valor: 8.99, seção: 34 },
@@ -558,7 +524,6 @@ const produtos = [
   { id: 558, nome: "Rissole de Queijo Congelado 300g", valor: 11.90, seção: 34 },
   { id: 559, nome: "Nhoque de Batata 500g", valor: 9.99, seção: 34 },
 
-  // Seção 35 — Elétrica
   { id: 94, nome: "Lâmpada LED 9W", valor: 7.99, seção: 35 },
   { id: 95, nome: "Pilha Alcalina AA 4 unidades", valor: 12.99, seção: 35 },
   { id: 232, nome: "Fita Isolante 3M 18m", valor: 4.99, seção: 35 },
@@ -570,7 +535,6 @@ const produtos = [
   { id: 563, nome: "Fita LED 5m", valor: 39.90, seção: 35 },
   { id: 564, nome: "Pilha Recarregável AA (2un)", valor: 29.90, seção: 35 },
 
-  // Seção 36 — Ferramentas e Utilidades
   { id: 96, nome: "Extensão Elétrica 3m", valor: 24.90, seção: 36 },
   { id: 97, nome: "Fita Adesiva Transparente", valor: 4.49, seção: 36 },
   { id: 234, nome: "Chave de Fenda 6mm", valor: 8.49, seção: 36 },
@@ -582,7 +546,6 @@ const produtos = [
   { id: 568, nome: "Parafusos Sortidos (kit 100un)", valor: 12.90, seção: 36 },
   { id: 569, nome: "Nível de Bolha 30cm", valor: 16.90, seção: 36 },
 
-  // Seção 37 — Utensílios Domésticos
   { id: 97, nome: "Panela de Pressão 4L", valor: 129.90, seção: 37 },
   { id: 234, nome: "Frigideira Antiaderente 20cm", valor: 49.90, seção: 37 },
   { id: 235, nome: "Conjunto de Facas Inox 3 peças", valor: 79.90, seção: 37 },
@@ -598,7 +561,6 @@ const produtos = [
   { id: 628, nome: "Peneira de Inox 16cm", valor: 17.90, seção: 37 },
   { id: 629, nome: "Garrafa Térmica 1L", valor: 49.90, seção: 37 },
 
-  // Seção 38 — Descartáveis
   { id: 98, nome: "Copo Descartável 200ml 100 unidades", valor: 8.99, seção: 38 },
   { id: 99, nome: "Prato Descartável 15cm 10 unidades", valor: 5.99, seção: 38 },
   { id: 100, nome: "Talheres Descartáveis 50 unidades", valor: 9.99, seção: 38 },
@@ -611,7 +573,6 @@ const produtos = [
   { id: 573, nome: "Prato Descartável 21cm 10un", valor: 6.99, seção: 38 },
   { id: 574, nome: "Toalha de Mesa Descartável", valor: 5.99, seção: 38 },
 
-  // Seção 39 — Brinquedos
   { id: 100, nome: "Boneca Barbie Fashionista", valor: 89.90, seção: 39 },
   { id: 101, nome: "Carrinho Hot Wheels Sortido", valor: 14.90, seção: 39 },
   { id: 646, nome: "Blocos de Montar (100 peças)", valor: 39.90, seção: 39 },
@@ -623,7 +584,6 @@ const produtos = [
   { id: 652, nome: "Pião de Brinquedo", valor: 8.90, seção: 39 },
   { id: 653, nome: "Kit de Pintura Infantil", valor: 27.90, seção: 39 },
 
-  // Seção 40 — Material Escolar
   { id: 101, nome: "Papel Sulfite A4 500 folhas", valor: 29.90, seção: 40 },
   { id: 102, nome: "Caneta Esferográfica Azul", valor: 2.49, seção: 40 },
   { id: 238, nome: "Borracha Branca Faber-Castell", valor: 1.49, seção: 40 },
@@ -636,7 +596,6 @@ const produtos = [
   { id: 578, nome: "Giz de Cera (12un)", valor: 6.99, seção: 40 },
   { id: 579, nome: "Mochila Escolar Simples", valor: 59.90, seção: 40 },
 
-  // Seção 41 — Papelaria
   { id: 103, nome: "Lápis Preto HB", valor: 1.99, seção: 41 },
   { id: 104, nome: "Caderno Universitário 10 matérias", valor: 24.90, seção: 41 },
   { id: 241, nome: "Estojo Escolar Simples", valor: 14.90, seção: 41 },
@@ -649,7 +608,6 @@ const produtos = [
   { id: 583, nome: "Grampeador Pequeno", valor: 14.90, seção: 41 },
   { id: 584, nome: "Fita Adesiva Crepe", valor: 5.49, seção: 41 },
 
-  // Seção 42 — Eletrônicos e Acessórios
   { id: 244, nome: "Carregador USB Turbo", valor: 29.90, seção: 42 },
   { id: 245, nome: "Fone de Ouvido com Fio", valor: 19.90, seção: 42 },
   { id: 343, nome: "Cabo USB-C 1m", valor: 14.90, seção: 42 },
@@ -659,7 +617,6 @@ const produtos = [
   { id: 588, nome: "Pen Drive 32GB", valor: 34.90, seção: 42 },
   { id: 589, nome: "Cartão de Memória microSD 64GB", valor: 44.90, seção: 42 },
 
-  // Seção 43 — Bebês
   { id: 105, nome: "Fralda Pampers M 32 unidades", valor: 39.90, seção: 43 },
   { id: 106, nome: "Lenço Umedecido Huggies 48 unidades", valor: 9.99, seção: 43 },
   { id: 246, nome: "Chupeta Ortodôntica NUK", valor: 19.90, seção: 43 },
@@ -672,7 +629,6 @@ const produtos = [
   { id: 593, nome: "Shampoo Infantil Johnson's 200ml", valor: 12.90, seção: 43 },
   { id: 594, nome: "Cotonete Infantil (75un)", valor: 4.49, seção: 43 },
 
-  // Seção 44 — Alimentação Infantil
   { id: 107, nome: "Fórmula Infantil Nestogeno 800g", valor: 42.90, seção: 44 },
   { id: 249, nome: "Papinha Nestlé Sachê 120g", valor: 4.99, seção: 44 },
   { id: 250, nome: "Suco Infantil Danoninho (pacote)", valor: 8.49, seção: 44 },
@@ -683,7 +639,6 @@ const produtos = [
   { id: 598, nome: "Leite Infantil Aptamil 800g", valor: 64.90, seção: 44 },
   { id: 599, nome: "Iogurte Infantil Piracanjuba 100g", valor: 2.99, seção: 44 },
 
-  // Seção 45 — Jardinagem
   { id: 251, nome: "Terra Adubada Saco 5kg", valor: 12.90, seção: 45 },
   { id: 252, nome: "Vaso de Planta Médio", valor: 24.90, seção: 45 },
   { id: 253, nome: "Adubo Orgânico 1kg", valor: 9.99, seção: 45 },
@@ -694,7 +649,6 @@ const produtos = [
   { id: 603, nome: "Semente de Manjericão (pacote)", valor: 3.99, seção: 45 },
   { id: 604, nome: "Luva de Jardinagem", valor: 8.49, seção: 45 },
 
-  // Seção 46 — Aquarismo
   { id: 108, nome: "Ração para Peixes 100g", valor: 8.49, seção: 46 },
   { id: 254, nome: "Filtro para Aquário Pequeno", valor: 49.90, seção: 46 },
   { id: 255, nome: "Termômetro para Aquário", valor: 8.99, seção: 46 },
@@ -704,7 +658,6 @@ const produtos = [
   { id: 608, nome: "Cascalho Decorativo 1kg", valor: 9.99, seção: 46 },
   { id: 609, nome: "Rede de Pesca para Aquário", valor: 5.99, seção: 46 },
 
-  // Seção 47 — Churrasco
   { id: 109, nome: "Carvão Vegetal 3kg", valor: 14.99, seção: 47 },
   { id: 256, nome: "Sal Grosso 1kg", valor: 4.99, seção: 47 },
   { id: 257, nome: "Espeto de Churrasco (kit 6un)", valor: 9.99, seção: 47 },
@@ -715,7 +668,6 @@ const produtos = [
   { id: 613, nome: "Grelha Descartável Alumínio", valor: 12.90, seção: 47 },
   { id: 614, nome: "Pão de Alho Tradicional 300g", valor: 11.90, seção: 47 },
 
-  // Seção 48 — Utilidades / Automotivo
   { id: 110, nome: "Fósforo Extra Longo 40 unidades", valor: 4.49, seção: 48 },
   { id: 258, nome: "Vela Branca (pacote 4un)", valor: 6.49, seção: 48 },
   { id: 259, nome: "Isqueiro Bic", valor: 3.99, seção: 48 },
@@ -729,10 +681,6 @@ const produtos = [
   { id: 619, nome: "Cabo de Bateria Auxiliar", valor: 59.90, seção: 48 },
 
 ];
-/* ===== Planta da loja (usado pelo Mapa.html) =====
-   Cada área da planta recebe as seções que ficam nela.
-   Para mudar um produto de lugar na planta, troque a seção de área aqui
-   ou crie uma regra em REGRAS_AREA (vale só para os produtos daquele nome). */
 const AREAS_MAPA = {
   "adega":              { nome: "Bebidas Alcoólicas",             secoes: [25, 26] },
   "bebidas-churrasco":  { nome: "Churrasco",                      secoes: [47] },
@@ -761,7 +709,6 @@ const AREAS_MAPA = {
   "flores":             { nome: "Jardim e Pets",                  secoes: [30, 31, 45, 46] }
 };
 
-// Produtos que ficam numa área diferente da seção deles (o nome tem que começar assim)
 const REGRAS_AREA = [
   { area: "ovos",              comeca: ["Ovos"] },
   { area: "laticinios",        comeca: ["Margarina"] },
@@ -774,3 +721,4 @@ const REGRAS_AREA = [
   { area: "carnes-preparadas", comeca: ["Salsicha", "Linguiça Calabresa"] },
   { area: "perfumaria-higiene", comeca: ["Papel Higiênico"] }
 ];
+

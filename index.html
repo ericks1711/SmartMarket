@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <script> // Quem nunca viu as boas-vindas vai primeiro para lá
+  <script>
     try {
       if (!localStorage.getItem('smartmarket-boas-vindas')) location.replace('boas-vindas.html')
     } catch (e) { }
@@ -18,6 +18,9 @@
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mapa.css">
+  <link rel="manifest" href="offline/manifest.webmanifest">
+  <link rel="icon" href="offline/icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="offline/icone-apple-180.png">
   <script src="js/contraste.js"></script>
 </head>
 
@@ -27,7 +30,6 @@
       <div class="marca">
         <img class="busca-logo" src="img/logo-smartmarket.webp" alt="" width="40" height="40">
         SmartMarket
-        <!-- O botão de alto contraste entra aqui (contraste.js), ao lado da logo -->
         <div id="lugar-contraste" class="lugar-contraste"></div>
       </div>
       <label class="busca">
@@ -96,6 +98,10 @@
   <script src="js/data.js"></script>
   <script src="js/comum.js"></script>
   <script src="js/mapa.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+  </script>
 </body>
 
 </html>
+

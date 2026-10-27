@@ -9,13 +9,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="css/lista.css">
+  <link rel="manifest" href="offline/manifest.webmanifest">
+  <link rel="icon" href="offline/icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="offline/icone-apple-180.png">
   <script src="js/contraste.js"></script>
 </head>
 <body>
   <header class="topo-lista">
     <a href="index.html" class="voltar">← Voltar ao mapa</a>
     <h1>Minha lista de compras</h1>
-    <!-- O botão de alto contraste entra aqui (contraste.js) e fica no topo, sem descer com a tela -->
     <div id="lugar-contraste" class="lugar-contraste"></div>
   </header>
 
@@ -40,7 +42,6 @@
     </div>
 
     <a href="index.html" class="ver-mapa">Ver no mapa</a>
-    <!-- Janela de confirmação do "Limpar tudo" (no lugar do confirm() do navegador) -->
     <dialog id="confirmar-limpar" class="modal" aria-labelledby="modal-titulo" aria-describedby="modal-texto">
       <form method="dialog">
         <span class="modal-icone" aria-hidden="true">
@@ -55,7 +56,6 @@
       </form>
     </dialog>
 
-    <!-- Pop-up temporário (ex.: "Já estava na lista: arroz.") — fica fora do topo fixo para poder flutuar -->
     <p id="aviso-form" class="aviso-form" role="status" aria-live="polite"></p>
   </main>
 
@@ -74,5 +74,8 @@
   <script src="js/data.js"></script>
   <script src="js/comum.js"></script>
   <script src="js/lista.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+  </script>
 </body>
 </html>

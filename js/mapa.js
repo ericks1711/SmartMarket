@@ -1,20 +1,9 @@
-// ===== SmartMarket — Planta interativa da loja =====
-// Usa AREAS_MAPA e REGRAS_AREA do data.js para saber em que área fica cada produto.
-// O desenho segue a planta (coordenadas de 0 a 960 x 0 a 600), mas só a parte do prédio aparece:
-// VIEW corta a planta na parede externa, sem as ruas em volta.
-
-/* ===== Desenho das áreas =====
-   formas: retângulos {x, y, w, h, r} ou caminhos {d}
-   rotulo: texto da área (rot: -90 deixa o texto em pé); sem x/y fica no centro da 1ª forma
-   rotulo2: (opcional) um segundo nome, para áreas com duas partes, como o hortifrúti
-   h / s:  matiz e saturação da cor (igual ao GRUPOS do script.js) */
 const DESENHO = [
   { id: "adega", h: 345, s: 42, formas: [{ d: "M180 84V58L208 30L245 20H285V40H250L222 58L210 70V84Z" }], rotulo: { x: 258, y: 68, t: ["Bebidas", "Alcoólicas"], tam: 11 } },
   { id: "bebidas-churrasco", h: 18, s: 45, formas: [{ x: 288, y: 18, w: 212, h: 22 }], rotulo: { t: ["Churrasco"] } },
   { id: "laticinios", h: 190, s: 55, formas: [{ x: 522, y: 16, w: 246, h: 32 }], rotulo: { t: ["Laticínios"] } },
   { id: "hortifruti", h: 140, s: 45, formas: [{ x: 655, y: 90, w: 100, h: 44, r: 20 }, { d: "M772 16H850V132H814V50H772Z" }], rotulo: { t: ["Hortifrúti"] }, rotulo2: { x: 832, y: 76, rot: -90, t: ["Hortifrúti"] } },
 
-  // Gôndolas centrais (lado de cima / lado de baixo)
   { id: "bebidas", h: 44, s: 50, formas: [{ x: 285, y: 100, w: 318, h: 22 }], rotulo: { t: ["Águas, Sucos e Refrigerantes"] } },
   { id: "limpeza-utilidades", h: 32, s: 50, formas: [{ x: 285, y: 122, w: 318, h: 22 }], rotulo: { t: ["Casa, Cozinha e Ferramentas"] } },
   { id: "limpeza", h: 44, s: 50, formas: [{ x: 285, y: 185, w: 318, h: 22 }], rotulo: { t: ["Produtos de Limpeza"] } },
@@ -39,7 +28,6 @@ const DESENHO = [
   { id: "flores", h: 120, s: 40, formas: [{ x: 132, y: 436, w: 104, h: 26 }], rotulo: { t: ["Jardim e Pets"] } }
 ];
 
-// Lugares que aparecem na planta mas não têm produtos
 const SERVICOS = [
   { nome: "Caixas", x: 135, y: 104, w: 105, h: 72 },
   { nome: "Caixa rápido", x: 120, y: 208, w: 120, h: 42 },
@@ -48,21 +36,10 @@ const SERVICOS = [
   { nome: "Padaria · Rotisseria · Confeitaria", x: 440, y: 494, w: 330, h: 62 }
 ];
 
-/* ===== Onde fica cada produto =====
-   AREA_POR_SECAO, areaDoProduto e AREA_DO_PRODUTO vêm do comum.js */
-
-// norm, esc, brl e a busca (buscarItem, produtosDoTexto) vêm do comum.js
-
-// Barra de busca: usa a busca do comum.js, procurando também no nome da área e da seção
 function buscar(texto) {
   return buscarItem(texto, { comLugar: true, prefixoMin: 2 })?.produtos || [];
 }
 
-// produtosDoTexto e localizar (onde fica um item da lista) vêm do comum.js
-
-/* Lista de compras, badge e botão "+" (alternarItem) ficam no comum.js */
-
-/* ===== Elementos da página ===== */
 const svg = document.getElementById("planta");
 const wrap = document.getElementById("planta-wrap");
 const painel = document.getElementById("painel");
@@ -74,19 +51,16 @@ const qtdLista = document.getElementById("qtd-lista");
 const aviso = document.getElementById("aviso-mapa");
 
 let areaAtiva = null;
-let itemAtivo = null; // item vindo da lista (index.html?item=...): { texto, achados }
+let itemAtivo = null;
 let mostrarLista = true;
 let zoom = 0;
 const ZOOMS = [1, 1.4, 1.9, 2.6];
 
-// O que deve ficar aceso na planta agora: a busca digitada ou o item vindo da lista
 function destaqueAtual() {
   if (campo.value.trim()) return buscar(campo.value);
   return itemAtivo ? itemAtivo.achados : null;
 }
 
-/* ===== Desenhar a planta ===== */
-// Pedaço da planta que aparece: da parede esquerda (x 65) à direita (x 854), do topo (y 10) ao fundo (y 560)
 const VIEW = { x: 60, y: 5, w: 800, h: 560 };
 svg.setAttribute("viewBox", `${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`);
 
@@ -96,7 +70,6 @@ function formaSvg(f) {
     : `<rect x="${f.x}" y="${f.y}" width="${f.w}" height="${f.h}" rx="${f.r ?? 4}"/>`;
 }
 
-// No celular a planta fica menor, então as letras crescem para continuar legíveis
 const ehCelular = () => window.innerWidth < 600;
 let letrasGrandes = ehCelular();
 
@@ -138,15 +111,12 @@ function desenharPlanta() {
     </g>`;
   }).join("");
 
-  // Os selos (contadores) ficam numa camada própria, desenhada por último,
-  // para nenhuma área vizinha ficar por cima do círculo
   const selos = DESENHO.map(a =>
     `<g class="selo" data-area="${a.id}" hidden><circle r="11"/><text></text></g>`).join("");
 
   svg.innerHTML = paredes + servicos + entradas +
     `<g class="areas">${areas}</g><g class="selos" aria-hidden="true">${selos}</g>`;
 
-  // Posiciona o selo no canto de cada área
   svg.querySelectorAll(".area").forEach(g => {
     const forma = g.querySelector("rect, path").getBBox();
     const selo = seloDe(g);
@@ -164,12 +134,11 @@ const seloDe = g => svg.querySelector(`.selo[data-area="${g.dataset.area}"]`);
 
 function marcarSelo(g, n, tipo) {
   const selo = seloDe(g);
-  selo.toggleAttribute("hidden", !n); // em SVG, .hidden não funciona
+  selo.toggleAttribute("hidden", !n);
   selo.dataset.tipo = tipo || "";
   selo.querySelector("text").textContent = n > 99 ? "99+" : n;
 }
 
-/* ===== Estado visual ===== */
 function areasDaLista() {
   const contagem = new Map();
   pendentes().forEach(e => {
@@ -203,7 +172,6 @@ function atualizarPlanta(achados = null) {
   });
 }
 
-/* ===== Painel abaixo da planta ===== */
 function cartaoHtml(titulo, subtitulo, itens, area, numero) {
   return `
     <article class="grupo">
@@ -264,7 +232,6 @@ function mostrarBusca(texto, achados) {
       grupos.get(id).slice(0, 30).map(produtoHtml).join(""), id, grupos.get(id).length)).join("");
 }
 
-// Mostra só os produtos que combinam com o item da lista, separados por área
 function mostrarItem() {
   const { texto, achados } = itemAtivo;
   const grupos = new Map();
@@ -273,7 +240,6 @@ function mostrarItem() {
     if (!grupos.has(a)) grupos.set(a, []);
     grupos.get(a).push(p);
   });
-  // a área principal (onde tem mais opções) vem primeiro
   const ordem = [...grupos.keys()].sort((a, b) => grupos.get(b).length - grupos.get(a).length);
   const principal = ordem[0];
 
@@ -309,7 +275,6 @@ function mostrarResumoLista() {
       semLugar.map(i => `<li><span class="nome">${esc(i)}</span></li>`).join(""), null, semLugar.length) : "");
 }
 
-/* ===== Ações ===== */
 function selecionarArea(id, rolar = true) {
   areaAtiva = id;
   itemAtivo = null;
@@ -328,7 +293,7 @@ function selecionarArea(id, rolar = true) {
 function pesquisar() {
   const texto = campo.value.trim();
   btnLimpar.hidden = !campo.value;
-  atalhos.hidden = Boolean(texto); // os atalhos somem enquanto a pessoa pesquisa
+  atalhos.hidden = Boolean(texto);
   areaAtiva = null;
   itemAtivo = null;
   if (!texto) {
@@ -346,7 +311,6 @@ function avisar(texto) {
   aviso.textContent = texto;
 }
 
-/* ===== Zoom e rolagem ===== */
 function aplicarZoom() {
   const base = ehCelular() ? 680 : Math.max(wrap.clientWidth, 820);
   svg.style.width = Math.round(base * ZOOMS[zoom]) + "px";
@@ -359,13 +323,11 @@ function centralizarArea(id) {
   if (!g) return;
   const caixa = g.getBBox();
   const escala = svg.clientWidth / VIEW.w;
-  // Para os lados: rola a planta
   wrap.scrollTo({
     left: (caixa.x - VIEW.x + caixa.width / 2) * escala - wrap.clientWidth / 2,
     behavior: "smooth"
   });
 
-  // Para cima/baixo: rola a página, só se a área estiver escondida atrás do topo ou da barra de baixo
   const topoFixo = document.querySelector(".topo")?.getBoundingClientRect().bottom || 0;
   const barra = document.querySelector(".tabbar")?.getBoundingClientRect().top || window.innerHeight;
   const yNaTela = wrap.getBoundingClientRect().top + (caixa.y - VIEW.y + caixa.height / 2) * escala;
@@ -381,7 +343,6 @@ function mudarZoom(passo) {
   wrap.scrollLeft = centroX * svg.clientWidth - wrap.clientWidth / 2;
 }
 
-/* ===== Eventos ===== */
 svg.addEventListener("click", e => {
   const g = e.target.closest(".area");
   if (!g) return;
@@ -431,7 +392,6 @@ painel.addEventListener("click", e => {
 
 campo.addEventListener("input", () => { avisar(""); pesquisar(); });
 
-// Atalhos de categorias: tocar num deles pesquisa por aquele nome
 const ATALHOS = ["Frutas", "Verduras", "Padaria", "Carnes", "Laticínios", "Bebidas", "Limpeza", "Higiene"];
 atalhos.innerHTML = ATALHOS.map(a => `<button type="button">${a}</button>`).join("");
 atalhos.addEventListener("click", e => {
@@ -461,16 +421,12 @@ window.addEventListener("resize", () => {
   aplicarZoom();
 });
 
-// Ao voltar de outra página (botão voltar do celular), atualiza a lista
 window.addEventListener("pageshow", () => {
   atualizarBadge();
   if (!areaAtiva && !campo.value.trim()) mostrarResumoLista();
   atualizarPlanta(destaqueAtual());
 });
 
-/* ===== Início =====
-   Links aceitos: index.html?secao=15  ·  index.html?area=cereais
-                  index.html?busca=arroz  ·  index.html?item=arroz (vindo da lista) */
 desenharPlanta();
 aplicarZoom();
 atualizarBadge();
@@ -489,7 +445,6 @@ if (areaUrl && AREAS_MAPA[areaUrl]) {
 } else if (itemUrl) {
   const l = localizar(itemUrl);
   if (l && l.area) {
-    // Mostra só o que combina com o item, não a prateleira inteira
     itemAtivo = { texto: itemUrl, achados: produtosDoTexto(itemUrl) };
     areaAtiva = l.area;
     mostrarItem();
@@ -507,3 +462,4 @@ if (areaUrl && AREAS_MAPA[areaUrl]) {
   selecionarArea(null);
   if (ehCelular()) wrap.scrollLeft = (110 - VIEW.x) * (svg.clientWidth / VIEW.w);
 }
+

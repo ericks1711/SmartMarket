@@ -1,6 +1,3 @@
-/* Base do site (index.html): cores, topo, abas, cartões de produto e alto contraste */
-/* ===== SmartMarket — base (tema escuro) ===== */
-
 :root {
   color-scheme: dark;
 
@@ -125,7 +122,7 @@ body {
 }
 
 @media (min-width: 600px) {
-  .tabbar a {
+  .tabbar a, .tabbar div {
     flex-direction: row;
     gap: 8px;
     font-size: 15px
@@ -160,8 +157,6 @@ body {
   }
 }
 
-/* ===== Busca e mapa (antes: style.css) ===== */
-
 .topo {
   width: 100%;
   position: sticky;
@@ -189,7 +184,6 @@ body {
   letter-spacing: -.02em
 }
 
-/* Só um ícone colocado direto na .marca (não o do botão de contraste, que também fica aqui) */
 .marca > svg {
   width: 26px;
   height: 26px;
@@ -232,7 +226,6 @@ body {
   stroke: var(--destaque)
 }
 
-/* ===== Mini logo circular dentro da barra de busca ===== */
 .busca-logo {
   width: 38px;
   height: 38px;
@@ -608,7 +601,6 @@ html.alto-contraste .bv-cartao--lati small {
 html.alto-contraste .bv-aviso {
   background: #000
 }
-/* ===== Celulares pequenos (até 380px) ===== */
 @media (max-width: 380px) {
   .topo { padding-left: 12px; padding-right: 12px }
   main { padding-left: 12px; padding-right: 12px }
@@ -625,8 +617,8 @@ html.alto-contraste .bv-aviso {
   .tabbar a, .tabbar div { font-size: 12px; padding: 6px 2px }
 }
 
-/* Botão de alto contraste na mesma linha da logo, encostado à direita */
 .marca .lugar-contraste {
   margin-left: auto;
   display: flex
 }
+

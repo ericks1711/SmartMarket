@@ -1,6 +1,3 @@
-/*lista.css*/
-/* ===== SmartMarket — base (tema escuro) ===== */
-
 :root {
   color-scheme: dark;
 
@@ -125,7 +122,7 @@ body {
 }
 
 @media (min-width: 600px) {
-  .tabbar a {
+  .tabbar a, .tabbar div {
     flex-direction: row;
     gap: 8px;
     font-size: 15px
@@ -159,8 +156,6 @@ body {
     scroll-behavior: auto !important
   }
 }
-
-/* ===== Lista ===== */
 
 .topo-lista {
     position: relative;
@@ -243,7 +238,6 @@ body {
 
 .form-item button:hover { background: var(--destaque-forte); }
 
-/* Pop-up temporário no canto de baixo, acima da barra de abas */
 .aviso-form {
     position: fixed;
     right: 12px;
@@ -467,8 +461,6 @@ html.alto-contraste .aviso-form { border: 2px solid #FFE600; background: #000; }
 
 .marcador { flex: 1; min-height: 40px; padding: 4px 4px; font-size: 0.72rem; }
 
-/* ===== Alto contraste (duplicado de boas-vindas.css e index.css) ===== */
-
 .botao-contraste {
   position: fixed;
   top: calc(10px + env(safe-area-inset-top));
@@ -670,7 +662,6 @@ html.alto-contraste .bv-cartao--lati small {
 html.alto-contraste .bv-aviso {
   background: #000
 }
-/* A etiqueta de local vira link para o Mapa.html */
 a.tarefa-local {
     text-decoration: none;
     transition: border-color .15s, color .15s;
@@ -682,7 +673,6 @@ a.tarefa-local:focus-visible {
     color: var(--destaque);
 }
 
-/* ===== Celular: botões de status sempre dentro do cartão ===== */
 .filtros { justify-content: flex-start; }
 
 .tarefa .marcadores {
@@ -709,8 +699,6 @@ a.tarefa-local:focus-visible {
     .filtro { font-size: 0.8rem; }
 }
 
-/* Cores dos status no tema normal (antes só existiam no alto contraste,
-   e o filtro "Todos" ficava invisível) */
 :root:not(.alto-contraste) {
     --azul: #6BA1FF;
     --vermelho: #FF7A6B;
@@ -718,7 +706,6 @@ a.tarefa-local:focus-visible {
     --neutro: #C9D3E8;
 }
 
-/* ===== Total estimado da compra (fica no topo fixo, junto dos filtros) ===== */
 .resumo-total {
     margin: 10px 0 10px;
     padding: 10px 14px;
@@ -781,7 +768,6 @@ html.alto-contraste .resumo-total { border: 2px solid #FFF; }
     .resumo-valor { font-size: 1.3rem; }
 }
 
-/* ===== Janela de confirmação ("Limpar tudo") ===== */
 .modal {
     width: min(340px, calc(100vw - 32px));
     margin: auto;
@@ -896,14 +882,12 @@ html.alto-contraste .modal-cancelar { border: 2px solid #FFF; background: #000; 
 html.alto-contraste .modal-apagar { background: #FF9C9C; border-color: #FF9C9C; color: #000; }
 html.alto-contraste .modal-icone { background: #000; border: 2px solid #FF9C9C; }
 
-/* Botão de alto contraste no canto do topo (sobe junto com o título) */
 .topo-lista .lugar-contraste {
     position: absolute;
     top: calc(12px + env(safe-area-inset-top));
     right: 12px;
 }
 
-/* Total e, embaixo dele, quanto já está no carrinho */
 .resumo-linha { align-items: flex-start; }
 
 .resumo-valores {
@@ -921,7 +905,6 @@ html.alto-contraste .modal-icone { background: #000; border: 2px solid #FF9C9C; 
 
 .resumo-valor-carrinho b { color: var(--verde); }
 
-/* ===== Quantidade por item ( − 1 + ), na linha de baixo, à direita ===== */
 .tarefa .tarefa-qtd {
     grid-column: 2;
     grid-row: 2;
@@ -958,14 +941,12 @@ html.alto-contraste .modal-icone { background: #000; border: 2px solid #FF9C9C; 
 
 html.alto-contraste .tarefa-qtd button { border: 2px solid #FFF; background: #000; }
 
-/* O × de remover fica no canto direito do cartão (a coluna é larga por causa do − 1 +) */
 .tarefa .remover {
     justify-self: end;
     align-self: start;
     margin-right: -2px;
 }
 
-/* Título acima do campo de adicionar ("Adicione seus itens à Lista") */
 .painel-topo h3 {
     margin: 0 0 8px 2px;
     font-family: var(--fonte-titulo);
@@ -978,3 +959,21 @@ html.alto-contraste .tarefa-qtd button { border: 2px solid #FFF; background: #00
 @media (max-width: 380px) {
     .painel-topo h3 { font-size: 0.92rem; }
 }
+
+.topo-lista,
+.conteudo-lista {
+    max-width: 1000px;
+}
+
+@media (min-width: 760px) {
+    .lista-tarefas {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 10px;
+        align-items: start;
+    }
+
+    .lista-tarefas .tarefa { margin-bottom: 0; }
+    .lista-tarefas .vazio { grid-column: 1 / -1; }
+}
+

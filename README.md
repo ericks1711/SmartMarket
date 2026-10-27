@@ -63,6 +63,10 @@ A mesma busca funciona no mapa e na lista e entende:
 - **um erro de digitação**: `chocolat` também acha *Chocolate*
 - e ignora palavras como `de`, `com` e quantidades: `2kg de arroz` acha *Arroz*
 
+### 📶 Funciona sem internet
+- Depois da primeira visita, o site abre **mesmo sem sinal** (comum dentro de mercados)
+- Pode ser **instalado na tela inicial** do celular e abre como um app, em tela cheia
+
 ### ♿ Acessibilidade
 - Botão de **alto contraste** (preto, branco e amarelo), que fica salvo entre as páginas
 - Navegação por teclado na planta (Tab + Enter)
@@ -76,6 +80,7 @@ A mesma busca funciona no mapa e na lista e entende:
 | **HTML5** | estrutura das páginas, `<dialog>` para a confirmação de "Limpar tudo" |
 | **CSS3** | variáveis de cor, Grid e Flexbox, layout pensado para o celular, tema escuro |
 | **JavaScript** | sem bibliotecas: planta em SVG, busca, lista e `localStorage` |
+| **PWA** | service worker e manifest: funciona offline e pode ser instalado |
 | **Google Fonts** | Bricolage Grotesque, Inter e DM Sans |
 
 ## ▶️ Como usar
@@ -92,6 +97,8 @@ A mesma busca funciona no mapa e na lista e entende:
 ```
 SmartMarket/
 ├── index.html          → planta da loja + busca (página principal)
+├── sw.js               → liga o modo offline (precisa ficar na raiz)
+├── offline/            → código do modo offline, manifest e ícones do app
 ├── lista.html          → lista de compras
 ├── boas-vindas.html    → apresentação da primeira visita
 ├── css/

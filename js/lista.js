@@ -9,32 +9,21 @@ const botaoLimparComprados = document.getElementById("btn-limpar-comprados");
 const botaoLimparTudo = document.getElementById("btn-limpar");
 const janelaLimpar = document.getElementById("confirmar-limpar");
 
-// norm, esc, brl, CHAVE_LISTA, gravarJSON, lerLista, atualizarBadge e AREA_DO_PRODUTO vêm do comum.js
-
-// Os três marcadores: azul, vermelho e verde (as cores ficam no lista.css)
 const STATUS = {
     pendente:     { nome: "Falta comprar",      simbolo: "○", classe: "status-pendente" },
     indisponivel: { nome: "Não tem no mercado", simbolo: "✕", classe: "status-indisponivel" },
     comprado:     { nome: "Comprado",           simbolo: "✓", classe: "status-comprado" }
 };
 
-// Ordem na tela: o que falta comprar primeiro, comprados por último
 const ORDEM_STATUS = { pendente: 0, indisponivel: 1, comprado: 2 };
 
-// Cada entrada da lista é { item: "arroz", status: "pendente", qtd: 2 } (sem qtd = 1)
 let lista = carregarLista();
 let filtroAtual = "todos";
 
-// A busca (buscarItem) fica no comum.js: é a mesma do mapa
-
-// ---------- Guardar e recuperar a lista (localStorage) ----------
-
-// Só aceita entradas com um status conhecido
 function carregarLista() {
     return lerLista().filter(e => STATUS[e.status]);
 }
 
-// Quantidade de um item: de 1 a 99 (listas antigas não têm "qtd", então vale 1)
 const QTD_MAX = 99;
 const qtdDe = entrada => Math.min(QTD_MAX, Math.max(1, Number.isInteger(entrada.qtd) ? entrada.qtd : 1));
 
@@ -42,14 +31,8 @@ function salvarLista() {
     gravarJSON(CHAVE_LISTA, lista);
 }
 
-// ---------- Onde o item está no mercado ----------
-// localizar(item) fica no comum.js: é o mesmo que o mapa usa
-
-// ---------- Adicionar, marcar e remover ----------
-
 let temporizadorAviso;
 
-// Mostra um pop-up no canto de baixo que some sozinho depois de 3,5 segundos
 function avisar(texto) {
     clearTimeout(temporizadorAviso);
     avisoForm.innerHTML = texto
@@ -74,7 +57,6 @@ function adicionarItens(texto) {
     let mudou = false;
 
     novos.forEach(item => {
-        // Se o item já está na lista, aumenta a quantidade em vez de repetir
         const existente = lista.find(e => norm(e.item) === norm(item));
         if (existente) {
             existente.qtd = Math.min(QTD_MAX, qtdDe(existente) + 1);
@@ -86,14 +68,12 @@ function adicionarItens(texto) {
     });
 
     if (mudou) {
-        filtroAtual = "todos"; // para o item novo aparecer
+        filtroAtual = "todos";
         salvarLista();
         renderizar();
     }
     avisar(aumentados.length ? `Já estava na lista, aumentei a quantidade: ${aumentados.join(", ")}.` : "");
 }
-
-// ---------- Desenhar ----------
 
 function desenharFiltros() {
     if (!lista.length) {
@@ -138,7 +118,6 @@ function tarefaHtml(linha) {
 
     const qtd = qtdDe(entrada);
 
-    // Detalhe: quais produtos combinam. Para um produto exato ele só repetiria o nome, então some.
     let detalhe = "Procure um atendente.";
     if (local && local.precoExato) {
         detalhe = "";
@@ -171,9 +150,6 @@ function tarefaHtml(linha) {
         </li>`;
 }
 
-// ---------- Total estimado da compra ----------
-// Soma o preço do que falta comprar e do que já está no carrinho ("Não tem no mercado" fica de fora)
-// e conta quantos itens estão em cada um
 function desenharTotal(linhas) {
     const contam = linhas.filter(l => l.entrada.status !== "indisponivel");
     if (!contam.length) {
@@ -181,7 +157,6 @@ function desenharTotal(linhas) {
         return;
     }
 
-    // Valor: soma dos preços; "No carrinho" e "Falta": quantidade de itens
     let total = 0, totalCarrinho = 0, semPreco = 0, aproximado = false;
     contam.forEach(({ entrada, local }) => {
         if (!local) { semPreco++; return; }
@@ -228,7 +203,6 @@ function renderizar() {
 
     const visiveis = linhas
         .filter(l => filtroAtual === "todos" || l.entrada.status === filtroAtual)
-        // Falta comprar primeiro, comprados por último; dentro de cada grupo, ordem alfabética
         .sort((a, b) =>
             ORDEM_STATUS[a.entrada.status] - ORDEM_STATUS[b.entrada.status] ||
             a.entrada.item.localeCompare(b.entrada.item, "pt-BR", { sensitivity: "base" })
@@ -243,8 +217,6 @@ function renderizar() {
     }
 }
 
-// ---------- Eventos ----------
-
 formItem.addEventListener("submit", evento => {
     evento.preventDefault();
     if (!campoNovoItem.value.trim()) return;
@@ -253,7 +225,6 @@ formItem.addEventListener("submit", evento => {
     campoNovoItem.focus();
 });
 
-// Um único "ouvinte" cuida dos cliques nos marcadores e no botão de remover
 saidaLista.addEventListener("click", evento => {
     const botaoMarcador = evento.target.closest(".marcador");
     if (botaoMarcador) {
@@ -261,7 +232,6 @@ saidaLista.addEventListener("click", evento => {
         if (!entrada) return;
 
         const novo = botaoMarcador.dataset.status;
-        // Clicar de novo no marcador ativo (vermelho ou verde) volta para "falta comprar"
         entrada.status = entrada.status === novo ? "pendente" : novo;
 
         salvarLista();
@@ -307,7 +277,6 @@ function apagarTudo() {
     renderizar();
 }
 
-// "Limpar tudo" abre a janela de confirmação do site
 botaoLimparTudo.addEventListener("click", () => {
     if (!lista.length) return;
 
@@ -318,16 +287,13 @@ botaoLimparTudo.addEventListener("click", () => {
     janelaLimpar.showModal();
 });
 
-// Os botões da janela fecham ela com o valor "cancelar" ou "apagar"
 janelaLimpar.addEventListener("close", () => {
     if (janelaLimpar.returnValue === "apagar") apagarTudo();
 });
 
-// Tocar fora da janela (no fundo escuro) também cancela
 janelaLimpar.addEventListener("click", evento => {
     if (evento.target === janelaLimpar) janelaLimpar.close("cancelar");
 });
 
-// Ao abrir a página, mostra a lista que já estava salva
 atualizarBadge();
 renderizar();
