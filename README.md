@@ -13,7 +13,7 @@
 
 ### [🔗 Acessar o site](https://ericks1711.github.io/SmartMarket/)
 
-<img src="docs/prints/planta.png" alt="Planta interativa do mercado, com as áreas coloridas e contadores dos itens da lista" width="820">
+<img src="img/planta.png" alt="Planta interativa do mercado, com as áreas coloridas e contadores dos itens da lista" width="820">
 
 </div>
 
@@ -23,11 +23,11 @@
 
 <table>
   <tr>
-    <td align="center"><img src="docs/prints/boas-vindas.png" width="200" alt="Tela de boas-vindas"><br><sub><b>Boas-vindas</b></sub></td>
-    <td align="center"><img src="docs/prints/mapa.png" width="200" alt="Planta da loja no celular"><br><sub><b>Planta da loja</b></sub></td>
-    <td align="center"><img src="docs/prints/busca.png" width="200" alt="Busca por chocolate acendendo as áreas na planta"><br><sub><b>Busca na planta</b></sub></td>
-    <td align="center"><img src="docs/prints/lista.png" width="200" alt="Lista de compras com total e quantidades"><br><sub><b>Lista de compras</b></sub></td>
-    <td align="center"><img src="docs/prints/alto-contraste.png" width="200" alt="Modo de alto contraste"><br><sub><b>Alto contraste</b></sub></td>
+    <td align="center"><img src="img/boas-vindas.png" width="200" alt="Tela de boas-vindas"><br><sub><b>Boas-vindas</b></sub></td>
+    <td align="center"><img src="img/mapa.png" width="200" alt="Planta da loja no celular"><br><sub><b>Planta da loja</b></sub></td>
+    <td align="center"><img src="img/busca.png" width="200" alt="Busca por chocolate acendendo as áreas na planta"><br><sub><b>Busca na planta</b></sub></td>
+    <td align="center"><img src="img/lista.png" width="200" alt="Lista de compras com total e quantidades"><br><sub><b>Lista de compras</b></sub></td>
+    <td align="center"><img src="img/alto-contraste.png" width="200" alt="Modo de alto contraste"><br><sub><b>Alto contraste</b></sub></td>
   </tr>
 </table>
 
@@ -71,26 +71,21 @@ A mesma busca funciona no mapa e na lista e entende:
 
 ## 🛠️ Tecnologias
 
-| | |
+| **Linguagem**| **Forma de Uso**|
 |---|---|
 | **HTML5** | estrutura das páginas, `<dialog>` para a confirmação de "Limpar tudo" |
 | **CSS3** | variáveis de cor, Grid e Flexbox, layout pensado para o celular, tema escuro |
 | **JavaScript** | sem bibliotecas: planta em SVG, busca, lista e `localStorage` |
 | **Google Fonts** | Bricolage Grotesque, Inter e DM Sans |
 
-## ▶️ Como rodar no seu computador
+## ▶️ Como usar
 
-Não precisa instalar nada. Basta abrir o projeto com um servidor local:
+É só abrir **[ericks1711.github.io/SmartMarket](https://ericks1711.github.io/SmartMarket/)**, de preferência no celular. Não precisa instalar nem criar conta.
 
-```bash
-git clone https://github.com/ericks1711/SmartMarket.git
-cd SmartMarket
-```
-
-- **VS Code:** abra a pasta e use a extensão **Live Server** no `index.html`, ou
-- **Python:** rode `python -m http.server` e acesse `http://localhost:8000`
-
-> Na primeira visita o site abre a tela de boas-vindas; depois disso vai direto para a planta.
+1. Na primeira visita aparece uma apresentação rápida; toque em **Continuar** até chegar na planta
+2. Digite o que procura ou toque num atalho (Frutas, Padaria...) e veja na planta onde fica
+3. Toque no **+** ao lado dos produtos, ou vá em **Lista** e digite seus itens
+4. No mercado, marque o que já pegou e acompanhe o total da compra
 
 ## 📂 Estrutura
 
@@ -111,8 +106,7 @@ SmartMarket/
 │   ├── lista.js        → lista de compras
 │   ├── boas-vindas.js
 │   └── contraste.js    → botão de alto contraste
-├── img/
-└── docs/prints/        → imagens deste README
+└── img/                → logo e imagens deste README
 ```
 
 ## 🗃️ Como os dados funcionam
@@ -133,17 +127,7 @@ Tudo fica no `js/data.js`, sem banco de dados:
 **Para adicionar um produto**, basta incluir uma linha em `produtos`; ele aparece na busca, na planta e na lista automaticamente.
 **Para mudar algo de lugar na planta**, troque a seção de área em `AREAS_MAPA` ou crie uma regra em `REGRAS_AREA`.
 
-## 📌 Padrão de commits
-
-| Prefixo | Uso |
-|---|---|
-| `feat:` | nova funcionalidade |
-| `fix:` | correção de bug |
-| `style:` | mudanças visuais, sem mexer na lógica |
-| `refactor:` | reorganização do código sem mudar o comportamento |
-| `docs:` | documentação |
-| `chore:` | manutenção e configurações |
-
-## 👤 Autor
-
-Feito por **Erick**: [@ericks1711](https://github.com/ericks1711)
+## 👤 Autores
+- **Erick Santos**: [@ericks1711](https://github.com/ericks1711)
+- **Emerson Gomes**: [@emersonsgseg-svg](https://github.com/emersonsgseg-svg)
+- **Pedro Henrique**: [@PedroHLima2010](https://github.com/PedroHLima2010)

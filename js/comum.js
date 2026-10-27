@@ -138,6 +138,42 @@ function produtosDoTexto(texto) {
   return buscarItem(texto)?.produtos || [];
 }
 
+/* ===== Onde fica um item da lista (usado pela lista e pelo mapa) =====
+   localizar("arroz") -> {
+     area: "cereais",            área da planta com mais produtos que combinam
+     produtos: [...],            os produtos dessa área que combinam
+     outrasAreas: ["massas"],    outras áreas onde também tem
+     preco, precoExato,          preço do produto exato ou o menor encontrado
+     aproximado                  true se a busca precisou aceitar erro de digitação
+   }
+   Devolve null se não achar nada. */
+const cacheLocal = new Map();
+
+function localizar(texto) {
+  if (cacheLocal.has(texto)) return cacheLocal.get(texto);
+
+  const exato = produtos.find(p => norm(p.nome) === norm(texto));
+  const busca = exato ? null : buscarItem(texto);
+  const achados = exato ? [exato] : busca?.produtos || [];
+  let local = null;
+
+  if (achados.length) {
+    const area = maisComum(achados.map(p => AREA_DO_PRODUTO.get(p)));
+    const daArea = achados.filter(p => AREA_DO_PRODUTO.get(p) === area);
+    local = {
+      area,
+      produtos: daArea,
+      outrasAreas: [...new Set(achados.map(p => AREA_DO_PRODUTO.get(p)))].filter(a => a && a !== area),
+      preco: exato ? exato.valor : Math.min(...daArea.map(p => p.valor)),
+      precoExato: Boolean(exato),
+      aproximado: Boolean(busca?.aproximado)
+    };
+  }
+
+  cacheLocal.set(texto, local);
+  return local;
+}
+
 /* ===== Botão "+" dos produtos ===== */
 
 // Põe ou tira o produto da lista e atualiza o badge

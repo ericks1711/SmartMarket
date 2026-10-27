@@ -9,34 +9,34 @@
    rotulo2: (opcional) um segundo nome, para áreas com duas partes, como o hortifrúti
    h / s:  matiz e saturação da cor (igual ao GRUPOS do script.js) */
 const DESENHO = [
-  { id: "adega", h: 345, s: 42, formas: [{ d: "M180 84V58L208 30L245 20H285V40H250L222 58L210 70V84Z" }], rotulo: { x: 254, y: 68, t: ["Adega"] } },
-  { id: "bebidas-churrasco", h: 18, s: 45, formas: [{ x: 288, y: 18, w: 212, h: 22 }], rotulo: { t: ["Bebidas e Churrasco"] } },
+  { id: "adega", h: 345, s: 42, formas: [{ d: "M180 84V58L208 30L245 20H285V40H250L222 58L210 70V84Z" }], rotulo: { x: 258, y: 68, t: ["Bebidas", "Alcoólicas"], tam: 11 } },
+  { id: "bebidas-churrasco", h: 18, s: 45, formas: [{ x: 288, y: 18, w: 212, h: 22 }], rotulo: { t: ["Churrasco"] } },
   { id: "laticinios", h: 190, s: 55, formas: [{ x: 522, y: 16, w: 246, h: 32 }], rotulo: { t: ["Laticínios"] } },
   { id: "hortifruti", h: 140, s: 45, formas: [{ x: 655, y: 90, w: 100, h: 44, r: 20 }, { d: "M772 16H850V132H814V50H772Z" }], rotulo: { t: ["Hortifrúti"] }, rotulo2: { x: 832, y: 76, rot: -90, t: ["Hortifrúti"] } },
 
   // Gôndolas centrais (lado de cima / lado de baixo)
-  { id: "bebidas", h: 44, s: 50, formas: [{ x: 285, y: 100, w: 318, h: 22 }], rotulo: { t: ["Bebidas"] } },
-  { id: "limpeza-utilidades", h: 32, s: 50, formas: [{ x: 285, y: 122, w: 318, h: 22 }], rotulo: { t: ["Produtos de Limpeza e Utilidades"] } },
+  { id: "bebidas", h: 44, s: 50, formas: [{ x: 285, y: 100, w: 318, h: 22 }], rotulo: { t: ["Águas, Sucos e Refrigerantes"] } },
+  { id: "limpeza-utilidades", h: 32, s: 50, formas: [{ x: 285, y: 122, w: 318, h: 22 }], rotulo: { t: ["Casa, Cozinha e Ferramentas"] } },
   { id: "limpeza", h: 44, s: 50, formas: [{ x: 285, y: 185, w: 318, h: 22 }], rotulo: { t: ["Produtos de Limpeza"] } },
-  { id: "perfumaria", h: 32, s: 50, formas: [{ x: 285, y: 207, w: 318, h: 22 }], rotulo: { t: ["Perfumaria"] } },
-  { id: "perfumaria-higiene", h: 44, s: 50, formas: [{ x: 285, y: 265, w: 318, h: 22 }], rotulo: { t: ["Perfumaria e Higiene"] } },
-  { id: "lataria", h: 32, s: 50, formas: [{ x: 285, y: 287, w: 159, h: 22 }], rotulo: { t: ["Lataria"] } },
-  { id: "massas", h: 32, s: 50, formas: [{ x: 444, y: 287, w: 159, h: 22 }], rotulo: { t: ["Massas"] } },
-  { id: "biscoitos-doces", h: 44, s: 50, formas: [{ x: 285, y: 345, w: 318, h: 22 }], rotulo: { t: ["Biscoitos · Balas · Doces · Sobremesas"] } },
-  { id: "matinais", h: 32, s: 50, formas: [{ x: 285, y: 367, w: 159, h: 22 }], rotulo: { t: ["Matinais"] } },
-  { id: "festas", h: 32, s: 50, formas: [{ x: 444, y: 367, w: 159, h: 22 }], rotulo: { t: ["Festas"] } },
+  { id: "perfumaria", h: 32, s: 50, formas: [{ x: 285, y: 207, w: 318, h: 22 }], rotulo: { t: ["Perfumes e Hidratantes"] } },
+  { id: "perfumaria-higiene", h: 44, s: 50, formas: [{ x: 285, y: 265, w: 318, h: 22 }], rotulo: { t: ["Higiene, Bebês e Saúde"] } },
+  { id: "lataria", h: 32, s: 50, formas: [{ x: 285, y: 287, w: 159, h: 22 }], rotulo: { t: ["Molhos, Óleos e Latas"], tam: 10.5 } },
+  { id: "massas", h: 32, s: 50, formas: [{ x: 444, y: 287, w: 159, h: 22 }], rotulo: { t: ["Massas e Temperos"] } },
+  { id: "biscoitos-doces", h: 44, s: 50, formas: [{ x: 285, y: 345, w: 318, h: 22 }], rotulo: { t: ["Biscoitos, Salgadinhos e Doces"] } },
+  { id: "matinais", h: 32, s: 50, formas: [{ x: 285, y: 367, w: 159, h: 22 }], rotulo: { t: ["Café da Manhã"] } },
+  { id: "festas", h: 32, s: 50, formas: [{ x: 444, y: 367, w: 159, h: 22 }], rotulo: { t: ["Festas e Brinquedos"], tam: 11 } },
 
-  { id: "congelados", h: 205, s: 45, formas: [{ x: 652, y: 185, w: 46, h: 188 }], rotulo: { rot: -90, t: ["Congelados"] } },
+  { id: "congelados", h: 205, s: 45, formas: [{ x: 652, y: 185, w: 46, h: 188 }], rotulo: { rot: -90, t: ["Congelados e Sorvetes"] } },
   { id: "ovos", h: 48, s: 35, formas: [{ x: 702, y: 185, w: 26, h: 188 }], rotulo: { rot: -90, t: ["Ovos"] } },
-  { id: "doces-bolos", h: 330, s: 40, formas: [{ x: 652, y: 378, w: 76, h: 32 }], rotulo: { t: ["Doces e", "Bolos"], tam: 10 } },
-  { id: "carnes-preparadas", h: 8, s: 40, formas: [{ x: 764, y: 165, w: 36, h: 195 }], rotulo: { rot: -90, t: ["Carnes Preparadas"] } },
-  { id: "acougue", h: 356, s: 55, formas: [{ x: 804, y: 160, w: 46, h: 200 }], rotulo: { rot: -90, t: ["Açougue"] } },
-  { id: "refeicoes", h: 14, s: 55, formas: [{ x: 505, y: 455, w: 265, h: 34 }], rotulo: { t: ["Refeições (fabricação própria)"] } },
+  { id: "doces-bolos", h: 330, s: 40, formas: [{ x: 652, y: 378, w: 76, h: 32 }], rotulo: { t: ["Bolos e", "Doces"], tam: 10 } },
+  { id: "carnes-preparadas", h: 8, s: 40, formas: [{ x: 764, y: 165, w: 36, h: 195 }], rotulo: { rot: -90, t: ["Frios e Queijos"] } },
+  { id: "acougue", h: 356, s: 55, formas: [{ x: 804, y: 160, w: 46, h: 200 }], rotulo: { rot: -90, t: ["Açougue e Peixaria"] } },
+  { id: "refeicoes", h: 14, s: 55, formas: [{ x: 505, y: 455, w: 265, h: 34 }], rotulo: { t: ["Salgados e Massas Prontas"] } },
   { id: "paes", h: 30, s: 55, formas: [{ x: 285, y: 432, w: 150, h: 48 }], rotulo: { t: ["Pães"] } },
-  { id: "cereais", h: 40, s: 50, formas: [{ x: 185, y: 528, w: 160, h: 26 }], rotulo: { t: ["Cereais"] } },
-  { id: "leite", h: 200, s: 30, formas: [{ x: 345, y: 528, w: 95, h: 26 }], rotulo: { t: ["Leite"] } },
-  { id: "revistas", h: 262, s: 25, formas: [{ x: 132, y: 368, w: 104, h: 62 }], rotulo: { t: ["Revistas"] } },
-  { id: "flores", h: 120, s: 40, formas: [{ x: 132, y: 436, w: 104, h: 26 }], rotulo: { t: ["Flores"] } }
+  { id: "cereais", h: 40, s: 50, formas: [{ x: 185, y: 528, w: 160, h: 26 }], rotulo: { t: ["Grãos e Farinhas"] } },
+  { id: "leite", h: 200, s: 30, formas: [{ x: 345, y: 528, w: 95, h: 26 }], rotulo: { t: ["Leites"] } },
+  { id: "revistas", h: 262, s: 25, formas: [{ x: 132, y: 368, w: 104, h: 62 }], rotulo: { t: ["Papelaria e", "Eletrônicos"] } },
+  { id: "flores", h: 120, s: 40, formas: [{ x: 132, y: 436, w: 104, h: 26 }], rotulo: { t: ["Jardim e Pets"] } }
 ];
 
 // Lugares que aparecem na planta mas não têm produtos
@@ -58,15 +58,7 @@ function buscar(texto) {
   return buscarItem(texto, { comLugar: true, prefixoMin: 2 })?.produtos || [];
 }
 
-// produtosDoTexto (achar produtos de um item da lista) vem do comum.js
-
-// Escolhe a área com mais produtos encontrados
-function localizarTexto(texto) {
-  const achados = produtosDoTexto(texto);
-  if (!achados.length) return null;
-
-  return { area: maisComum(achados.map(p => AREA_DO_PRODUTO.get(p))) };
-}
+// produtosDoTexto e localizar (onde fica um item da lista) vêm do comum.js
 
 /* Lista de compras, badge e botão "+" (alternarItem) ficam no comum.js */
 
@@ -181,7 +173,7 @@ function marcarSelo(g, n, tipo) {
 function areasDaLista() {
   const contagem = new Map();
   pendentes().forEach(e => {
-    const l = localizarTexto(e.item);
+    const l = localizar(e.item);
     if (l && l.area) contagem.set(l.area, (contagem.get(l.area) || 0) + 1);
   });
   return contagem;
@@ -303,7 +295,7 @@ function mostrarResumoLista() {
   }
   const grupos = new Map(), semLugar = [];
   itens.forEach(e => {
-    const l = localizarTexto(e.item);
+    const l = localizar(e.item);
     if (!l || !l.area) { semLugar.push(e.item); return; }
     if (!grupos.has(l.area)) grupos.set(l.area, []);
     grupos.get(l.area).push(e.item);
@@ -495,7 +487,7 @@ if (areaUrl && AREAS_MAPA[areaUrl]) {
   selecionarArea(AREA_POR_SECAO[secaoUrl]);
   avisar(`${NOMES_SECOES[secaoUrl]} fica em ${AREAS_MAPA[AREA_POR_SECAO[secaoUrl]].nome}.`);
 } else if (itemUrl) {
-  const l = localizarTexto(itemUrl);
+  const l = localizar(itemUrl);
   if (l && l.area) {
     // Mostra só o que combina com o item, não a prateleira inteira
     itemAtivo = { texto: itemUrl, achados: produtosDoTexto(itemUrl) };

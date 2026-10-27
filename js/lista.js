@@ -43,53 +43,7 @@ function salvarLista() {
 }
 
 // ---------- Onde o item está no mercado ----------
-
-const cacheLocal = new Map();
-
-// Devolve null se o produto não existe no mapa
-function localizar(item) {
-    if (cacheLocal.has(item)) return cacheLocal.get(item);
-
-    const r = buscarItem(item);
-    let local = null;
-
-    if (r && r.produtos.length) {
-        // Agrupa os produtos por seção e escolhe a seção com mais opções
-        const porSecao = new Map();
-        r.produtos.forEach(p => {
-            if (!porSecao.has(p.seção)) porSecao.set(p.seção, []);
-            porSecao.get(p.seção).push(p);
-        });
-
-        let melhor = null;
-        porSecao.forEach((produtosDaSecao, secao) => {
-            if (!melhor || produtosDaSecao.length > melhor.lista.length) {
-                melhor = { secao, lista: produtosDaSecao };
-            }
-        });
-
-        // Preço: o do produto exato; se o item foi digitado à mão ("arroz"), o mais barato encontrado
-        const exato = melhor.lista.find(p => norm(p.nome) === norm(item));
-
-        // Área da planta: a do produto exato, ou a que mais aparece entre os encontrados
-        const area = exato ? AREA_DO_PRODUTO.get(exato) : maisComum(melhor.lista.map(p => AREA_DO_PRODUTO.get(p)));
-        const outrasAreas = [...new Set(r.produtos.map(p => AREA_DO_PRODUTO.get(p)))].filter(a => a && a !== area);
-
-        local = {
-            preco: exato ? exato.valor : Math.min(...melhor.lista.map(p => p.valor)),
-            precoExato: Boolean(exato),
-            area,
-            outrasAreas,
-            secao: melhor.secao,
-            produtos: melhor.lista.slice(0, 3),
-            total: melhor.lista.length,
-            aproximado: r.aproximado
-        };
-    }
-
-    cacheLocal.set(item, local);
-    return local;
-}
+// localizar(item) fica no comum.js: é o mesmo que o mapa usa
 
 // ---------- Adicionar, marcar e remover ----------
 
@@ -179,7 +133,7 @@ function tarefaHtml(linha) {
     const { entrada, posicao, local } = linha;
 
     const etiqueta = local
-        ? (AREAS_MAPA[local.area]?.nome || NOMES_SECOES[local.secao])
+        ? AREAS_MAPA[local.area].nome
         : "Sem localização";
 
     const qtd = qtdDe(entrada);
@@ -189,9 +143,9 @@ function tarefaHtml(linha) {
     if (local && local.precoExato) {
         detalhe = "";
     } else if (local) {
-        const extras = local.total - local.produtos.length;
+        const extras = local.produtos.length - 3;
         detalhe = (local.aproximado ? "Busca aproximada, confira: " : "") +
-            local.produtos.map(p => p.nome).join(", ") +
+            local.produtos.slice(0, 3).map(p => p.nome).join(", ") +
             (extras > 0 ? ` e mais ${extras}` : "") +
             (local.outrasAreas.length ? ` (também em: ${local.outrasAreas.map(a => AREAS_MAPA[a].nome).join(", ")})` : "");
     }
@@ -356,12 +310,6 @@ function apagarTudo() {
 // "Limpar tudo" abre a janela de confirmação do site
 botaoLimparTudo.addEventListener("click", () => {
     if (!lista.length) return;
-
-    // Navegador muito antigo sem <dialog>: usa a confirmação padrão
-    if (typeof janelaLimpar.showModal !== "function") {
-        if (confirm("Apagar todos os itens da lista?")) apagarTudo();
-        return;
-    }
 
     const n = lista.length;
     document.getElementById("modal-texto").textContent =
