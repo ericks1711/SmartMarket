@@ -1,7 +1,3 @@
-// ===== SmartMarket — botão de alto contraste =====
-// Carregue este arquivo dentro do <head> de cada página (sem "defer"),
-// assim o contraste é aplicado antes da página aparecer, sem piscar.
-
 (function () {
   var CHAVE = 'smartmarket-alto-contraste';
   var raiz = document.documentElement;
@@ -14,7 +10,6 @@
     try { localStorage.setItem(CHAVE, ligado ? 'sim' : 'nao'); } catch (e) {}
   }
 
-  // Aplica já, antes de desenhar a página
   if (lerPreferencia()) raiz.classList.add('alto-contraste');
 
   function criarBotao() {
@@ -42,8 +37,6 @@
 
     atualizar();
 
-    // Se a página tiver um lugar reservado (id="lugar-contraste"), o botão vai lá;
-    // senão, fica flutuando no canto superior direito.
     var lugar = document.getElementById('lugar-contraste');
     if (lugar) {
       botao.classList.add('botao-contraste--no-lugar');
@@ -59,3 +52,4 @@
     criarBotao();
   }
 })();
+

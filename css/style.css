@@ -1,0 +1,624 @@
+:root {
+  color-scheme: dark;
+
+  --fundo: #0B1220;
+  --superficie: #131D33;
+  --superficie-2: #1C2944;
+  --borda: #2A3858;
+  --texto: #EEF2FA;
+  --texto-suave: #9AA6BF;
+  --destaque: #4C8DFF;
+  --destaque-forte: #6BA1FF;
+  --sobre-destaque: #0B1220;
+  --alerta: #FF6B4A;
+
+  --papel: var(--fundo);
+  --verde-mercado: var(--superficie);
+  --verde-mercado-escuro: var(--superficie-2);
+  --amarelo-etiqueta: var(--destaque);
+  --grafite: var(--texto);
+  --laranja-sinal: var(--alerta);
+  --cinza-borda: var(--borda);
+
+  --fonte-titulo: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --fonte: 'Inter', system-ui, sans-serif
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
+
+[hidden] {
+  display: none !important
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--fundo);
+  -webkit-tap-highlight-color: transparent
+}
+
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  min-height: 100dvh;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-font-smoothing: antialiased
+}
+
+::selection {
+  background: var(--destaque);
+  color: var(--sobre-destaque)
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+  background: rgba(19, 29, 51, 0.88);
+  border-top: 1px solid var(--borda);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px)
+}
+
+.tabbar a, .tabbar div {
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
+  padding: 8px 6px;
+  border-radius: 14px;
+  color: var(--texto-suave);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  transition: color .2s ease, background .2s ease
+}
+
+@media (hover: hover) {
+  .tabbar a:hover {
+    color: var(--texto);
+    background: var(--superficie-2)
+  }
+}
+
+.tabbar a[aria-current="page"], .tabbar div[aria-current="page"] {
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+  box-shadow: 0 6px 22px rgba(76, 141, 255, 0.25)
+}
+
+.tabbar a:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px
+}
+
+.tabbar svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+@media (min-width: 600px) {
+  .tabbar a, .tabbar div {
+    flex-direction: row;
+    gap: 8px;
+    font-size: 15px
+  }
+}
+
+#badge {
+  position: absolute;
+  top: 4px;
+  left: calc(50% + 6px);
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--alerta);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 18px
+}
+
+@media (min-width: 600px) {
+  #badge {
+    position: static
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important
+  }
+}
+
+.topo {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(11, 18, 32, 0.86);
+  border-bottom: 1px solid var(--borda);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--texto);
+  padding: calc(12px + env(safe-area-inset-top)) 14px 14px
+}
+
+.topo-int {
+  max-width: 560px;
+  margin: 0 auto
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font: 800 22px var(--fonte-titulo);
+  letter-spacing: -.02em
+}
+
+.marca > svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--destaque);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+.busca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 6px 0 14px;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  box-shadow: 0 0 0 3px transparent;
+  transition: box-shadow .15s, border-color .15s
+}
+
+.busca:focus-within {
+  border-color: var(--destaque);
+  box-shadow: 0 0 0 3px rgba(76, 141, 255, .25)
+}
+
+.busca>svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  stroke: var(--texto-suave);
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round
+}
+
+.busca:focus-within>svg {
+  stroke: var(--destaque)
+}
+
+.busca-logo {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, var(--destaque-forte), var(--destaque) 70%);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .18), 0 2px 8px rgba(76, 141, 255, .35)
+}
+
+.busca-logo svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--sobre-destaque);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+.busca-logo .pino {
+  fill: var(--sobre-destaque);
+  stroke: none
+}
+
+html.alto-contraste .busca-logo {
+  background: var(--destaque);
+  border: 2px solid #FFF
+}
+
+main {
+  width: 100%;
+  max-width: 560px;
+  padding: 16px 14px 0
+}
+
+.atalhos {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scrollbar-width: none
+}
+
+.atalhos button {
+  flex: none;
+  padding: 10px 16px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: 600 14px var(--fonte);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s
+}
+
+@media (hover: hover) {
+  .atalhos button:hover {
+    border-color: var(--destaque);
+    color: var(--destaque)
+  }
+}
+
+@media (max-width: 360px) {
+  .marca { font-size: 20px }
+  .atalhos button { padding: 9px 13px; font-size: 13px }
+}
+
+#resultados {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+  scroll-margin-top: 140px
+}
+
+#resultados:empty {
+  display: none
+}
+
+.info-busca {
+  font-size: 13px;
+  color: var(--texto-suave)
+}
+
+.vazio {
+  padding: 24px 12px;
+  text-align: center;
+  color: var(--texto-suave);
+  line-height: 1.5
+}
+
+.grupo {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  overflow: hidden
+}
+
+.placa {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border: 0;
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+  text-align: left;
+  font: inherit;
+  cursor: pointer
+}
+
+.placa-num {
+  display: grid;
+  place-items: center;
+  min-width: 64px;
+  background: var(--sobre-destaque);
+  color: var(--destaque);
+  font: 800 30px var(--fonte-titulo)
+}
+
+.placa-txt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 12px
+}
+
+.placa-txt b {
+  font: 800 17px var(--fonte-titulo)
+}
+
+.placa-txt small {
+  font-size: 12px;
+  font-weight: 600
+}
+
+.placa-mapa {
+  align-self: center;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline
+}
+
+.grupo ul {
+  list-style: none
+}
+
+.grupo li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 14px;
+  border-top: 1px solid var(--borda)
+}
+
+.grupo li:first-child {
+  border-top: 0
+}
+
+.nome {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3
+}
+
+.preco {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--destaque);
+  white-space: nowrap
+}
+
+.add {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: var(--superficie-2);
+  color: var(--destaque);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s
+}
+
+.add:hover {
+  border-color: var(--destaque)
+}
+
+.add[aria-pressed="true"] {
+  background: var(--destaque);
+  border-color: var(--destaque);
+  color: var(--sobre-destaque)
+}
+
+.placa:focus-visible,
+.add:focus-visible,
+.atalhos button:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px
+}
+
+.mapa-titulo {
+  font: 800 20px var(--fonte-titulo);
+  letter-spacing: -.01em;
+  color: var(--texto)
+}
+
+.mapa-dica {
+  margin: 4px 0 12px;
+  font-size: 13px;
+  color: var(--texto-suave)
+}
+
+.botao-contraste {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  right: 12px;
+  z-index: 60;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--borda, #2A3858);
+  border-radius: 50%;
+  background: var(--superficie-2, #1C2944);
+  color: var(--texto, #EEF2FA);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s
+}
+
+.botao-contraste:hover {
+  border-color: var(--destaque, #4C8DFF)
+}
+
+.botao-contraste[aria-pressed="true"] {
+  background: var(--destaque, #4C8DFF);
+  border-color: var(--destaque, #4C8DFF);
+  color: var(--sobre-destaque, #0B1220)
+}
+
+.botao-contraste:focus-visible {
+  outline: 3px solid var(--destaque, #4C8DFF);
+  outline-offset: 3px
+}
+
+.botao-contraste--no-lugar {
+  position: static
+}
+
+html.alto-contraste {
+  --fundo: #000;
+  --superficie: #000;
+  --superficie-2: #000;
+  --borda: #FFF;
+  --texto: #FFF;
+  --texto-suave: #FFF;
+  --destaque: #FFE600;
+  --destaque-forte: #FFE600;
+  --sobre-destaque: #000;
+  --alerta: #FF8A8A;
+
+  --azul: #8FC1FF;
+  --vermelho: #FF9C9C;
+  --verde: #7DFFAA;
+  --neutro: #FFE600;
+
+  --bv-fundo: #000;
+  --bv-superficie: #000;
+  --bv-superficie-2: #000;
+  --bv-borda: #FFF;
+  --bv-texto: #FFF;
+  --bv-texto-suave: #FFF;
+  --bv-destaque: #FFE600;
+  --bv-destaque-forte: #FFE600;
+  --bv-sobre-destaque: #000;
+  --bv-inativo: #FFF;
+  --bv-sombra: none
+}
+
+html.alto-contraste *,
+html.alto-contraste *::before,
+html.alto-contraste *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  animation: none !important
+}
+
+html.alto-contraste .topo,
+html.alto-contraste .tabbar,
+html.alto-contraste .painel-topo {
+  background: #000
+}
+
+html.alto-contraste .topo,
+html.alto-contraste .topo-lista {
+  border-bottom: 2px solid #FFF
+}
+
+html.alto-contraste .tabbar {
+  border-top: 2px solid #FFF
+}
+
+html.alto-contraste .busca,
+html.alto-contraste .grupo,
+html.alto-contraste .atalhos button,
+html.alto-contraste .add,
+html.alto-contraste .tarefa,
+html.alto-contraste .tarefa-local,
+html.alto-contraste .form-item input,
+html.alto-contraste .botao-contraste,
+html.alto-contraste .bv-ilustracao,
+html.alto-contraste .bv-cartao,
+html.alto-contraste .bv-aviso {
+  border: 2px solid #FFF
+}
+
+html.alto-contraste .tarefa.status-pendente { border-left: 6px solid var(--azul) }
+html.alto-contraste .tarefa.status-indisponivel { border-left: 6px solid var(--vermelho) }
+html.alto-contraste .tarefa.status-comprado { border-left: 6px solid var(--verde) }
+
+html.alto-contraste #busca-mapa::placeholder,
+html.alto-contraste .form-item input::placeholder {
+  color: #D0D0D0
+}
+
+html.alto-contraste .tarefa.status-comprado .tarefa-nome {
+  opacity: 1
+}
+
+html.alto-contraste a {
+  text-decoration: underline
+}
+
+html.alto-contraste .tabbar a,
+html.alto-contraste .bv-botao {
+  text-decoration: none
+}
+
+html.alto-contraste .tabbar a {
+  border: 2px solid transparent
+}
+
+html.alto-contraste .tabbar a:hover {
+  border-color: #FFF
+}
+
+html.alto-contraste :focus-visible {
+  outline: 4px solid #FFE600 !important;
+  outline-offset: 3px !important
+}
+
+html.alto-contraste .bv-ilustracao {
+  background: #000
+}
+
+html.alto-contraste .bv-circulos {
+  opacity: .5
+}
+
+html.alto-contraste .bv-cartao--lati small {
+  color: #000
+}
+
+html.alto-contraste .bv-aviso {
+  background: #000
+}
+@media (max-width: 380px) {
+  .topo { padding-left: 12px; padding-right: 12px }
+  main { padding-left: 12px; padding-right: 12px }
+  .placa-num { min-width: 50px; font-size: 24px }
+  .placa-txt { padding: 8px 10px }
+  .placa-txt b { font-size: 16px }
+  .placa-txt small { font-size: 11px }
+  .placa-mapa { padding: 0 10px; font-size: 11px }
+  .grupo li { gap: 8px; padding: 8px 8px 8px 12px }
+  .nome { font-size: 14px }
+  .preco { font-size: 13px }
+  .add { width: 40px; height: 40px; font-size: 22px }
+  .tabbar { gap: 2px; padding-left: 6px; padding-right: 6px }
+  .tabbar a, .tabbar div { font-size: 12px; padding: 6px 2px }
+}
+
+.marca .lugar-contraste {
+  margin-left: auto;
+  display: flex
+}
+

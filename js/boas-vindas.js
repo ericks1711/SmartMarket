@@ -1,19 +1,15 @@
-// ===== SmartMarket — Tela de boas-vindas =====
-
-// Página para onde o botão leva no último slide (troque se criar uma tela de cadastro)
 const DESTINO_FINAL = 'index.html';
 
-// Marca que a pessoa já viu as boas-vindas, para o index.html não mandar ela de volta pra cá
 try { localStorage.setItem('smartmarket-boas-vindas', 'vista'); } catch (e) {}
 
 const slides = [
   {
     titulo: 'Ache qualquer produto.',
-    texto: 'Digite o que procura e o SmartMarket mostra em que seção do mercado ele está.'
+    texto: 'Digite o que procura e o SmartMarket mostra na planta onde ele fica.'
   },
   {
     titulo: 'O mercado na palma da mão.',
-    texto: 'Veja o mapa das seções e toque em cada uma para descobrir o que tem lá.'
+    texto: 'Veja a planta da loja e toque em cada área para descobrir o que tem lá.'
   },
   {
     titulo: 'Sua lista, sempre com você.',
@@ -62,7 +58,6 @@ botao.addEventListener('click', () => {
   }
 });
 
-// Arrastar para o lado no celular
 let inicioX = null;
 document.querySelector('.bv-tela').addEventListener('touchstart', (e) => {
   inicioX = e.touches[0].clientX;
@@ -75,3 +70,4 @@ document.querySelector('.bv-tela').addEventListener('touchend', (e) => {
   if (diferenca > 50 && atual > 0) mostrarSlide(atual - 1);
   inicioX = null;
 });
+

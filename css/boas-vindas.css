@@ -1,5 +1,3 @@
-/* ===== SmartMarket — Tela de boas-vindas (tema escuro) ===== */
-
 :root {
   --bv-fundo: #0B1220;
   --bv-superficie: #131D33;
@@ -37,7 +35,6 @@ body.bv {
   gap: 22px;
 }
 
-/* Topo */
 .bv-topo {
   display: flex;
   align-items: center;
@@ -73,7 +70,6 @@ body.bv {
   padding: 12px 6px;
 }
 
-/* Ilustração */
 .bv-ilustracao {
   position: relative;
   flex: 1 1 auto;
@@ -163,7 +159,6 @@ body.bv {
   50% { transform: rotate(var(--giro)) translateY(-8px); }
 }
 
-/* Texto */
 .bv-texto {
   display: flex;
   flex-direction: column;
@@ -189,7 +184,6 @@ body.bv {
   color: var(--bv-texto-suave);
 }
 
-/* Indicadores */
 .bv-pontos { display: flex; align-items: center; gap: 4px; }
 
 .bv-ponto {
@@ -213,7 +207,6 @@ body.bv {
   box-shadow: 0 0 12px rgba(76, 141, 255, 0.5);
 }
 
-/* Ações */
 .bv-acoes { display: flex; flex-direction: column; gap: 10px; }
 
 .bv-botao {
@@ -251,7 +244,6 @@ html {
   .bv-botao:hover { background: var(--bv-destaque); }
 }
 
-/* Celulares estreitos */
 @media (max-width: 360px) {
   .bv-tela { padding-left: 16px; padding-right: 16px; gap: 18px; }
   .bv-texto h1 { font-size: 30px; }
@@ -260,7 +252,6 @@ html {
   .bv-aviso { left: 20px; right: 20px; }
 }
 
-/* Celulares baixos (ex.: iPhone SE, ou com o teclado/barras ocupando espaço) */
 @media (max-height: 700px) {
   .bv-tela { gap: 14px; padding-top: 12px; }
   .bv-ilustracao { min-height: 230px; }
@@ -279,3 +270,216 @@ html {
   .bv-cartao { animation: none; transform: rotate(var(--giro)); }
   .bv-texto, .bv-ponto span { transition: none; }
 }
+
+.botao-contraste {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  right: 12px;
+  z-index: 60;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--borda, #2A3858);
+  border-radius: 50%;
+  background: var(--superficie-2, #1C2944);
+  color: var(--texto, #EEF2FA);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s
+}
+
+.botao-contraste:hover {
+  border-color: var(--destaque, #4C8DFF)
+}
+
+.botao-contraste[aria-pressed="true"] {
+  background: var(--destaque, #4C8DFF);
+  border-color: var(--destaque, #4C8DFF);
+  color: var(--sobre-destaque, #0B1220)
+}
+
+.botao-contraste:focus-visible {
+  outline: 3px solid var(--destaque, #4C8DFF);
+  outline-offset: 3px
+}
+
+.botao-contraste--no-lugar {
+  position: static
+}
+
+html.alto-contraste {
+  --fundo: #000;
+  --superficie: #000;
+  --superficie-2: #000;
+  --borda: #FFF;
+  --texto: #FFF;
+  --texto-suave: #FFF;
+  --destaque: #FFE600;
+  --destaque-forte: #FFE600;
+  --sobre-destaque: #000;
+  --alerta: #FF8A8A;
+
+  --azul: #8FC1FF;
+  --vermelho: #FF9C9C;
+  --verde: #7DFFAA;
+  --neutro: #FFE600;
+
+  --bv-fundo: #000;
+  --bv-superficie: #000;
+  --bv-superficie-2: #000;
+  --bv-borda: #FFF;
+  --bv-texto: #FFF;
+  --bv-texto-suave: #FFF;
+  --bv-destaque: #FFE600;
+  --bv-destaque-forte: #FFE600;
+  --bv-sobre-destaque: #000;
+  --bv-inativo: #FFF;
+  --bv-sombra: none
+}
+
+html.alto-contraste *,
+html.alto-contraste *::before,
+html.alto-contraste *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  animation: none !important
+}
+
+html.alto-contraste .topo,
+html.alto-contraste .tabbar,
+html.alto-contraste .painel-topo {
+  background: #000
+}
+
+html.alto-contraste .topo,
+html.alto-contraste .topo-lista {
+  border-bottom: 2px solid #FFF
+}
+
+html.alto-contraste .tabbar {
+  border-top: 2px solid #FFF
+}
+
+html.alto-contraste .busca,
+html.alto-contraste .grupo,
+html.alto-contraste .atalhos button,
+html.alto-contraste .add,
+html.alto-contraste #tabs,
+html.alto-contraste #mercado2d,
+html.alto-contraste .tarefa,
+html.alto-contraste .tarefa-local,
+html.alto-contraste .form-item input,
+html.alto-contraste .botao-contraste,
+html.alto-contraste .bv-ilustracao,
+html.alto-contraste .bv-cartao,
+html.alto-contraste .bv-aviso {
+  border: 2px solid #FFF
+}
+
+html.alto-contraste .tarefa.status-pendente { border-left: 6px solid var(--azul) }
+html.alto-contraste .tarefa.status-indisponivel { border-left: 6px solid var(--vermelho) }
+html.alto-contraste .tarefa.status-comprado { border-left: 6px solid var(--verde) }
+
+html.alto-contraste #barra-pesquisa::placeholder,
+html.alto-contraste .form-item input::placeholder {
+  color: #D0D0D0
+}
+
+html.alto-contraste .tarefa.status-comprado .tarefa-nome {
+  opacity: 1
+}
+
+html.alto-contraste a {
+  text-decoration: underline
+}
+
+html.alto-contraste .tabbar a,
+html.alto-contraste .bv-botao {
+  text-decoration: none
+}
+
+html.alto-contraste .tabbar a {
+  border: 2px solid transparent
+}
+
+html.alto-contraste .tabbar a:hover {
+  border-color: #FFF
+}
+
+html.alto-contraste :focus-visible {
+  outline: 4px solid #FFE600 !important;
+  outline-offset: 3px !important
+}
+
+html.alto-contraste .gondula {
+  background: #000
+}
+
+html.alto-contraste .secao {
+  border: 2px solid #FFF;
+  background: #000
+}
+
+html.alto-contraste .secao.vazia {
+  opacity: .7
+}
+
+html.alto-contraste .secao.selecionada {
+  border: 3px solid #FFE600;
+  background: #000
+}
+
+html.alto-contraste .etiqueta {
+  background: #000;
+  color: #FFF
+}
+
+html.alto-contraste .etiqueta b {
+  color: #FFE600
+}
+
+html.alto-contraste .secao.selecionada .etiqueta,
+html.alto-contraste .secao.selecionada .etiqueta b {
+  background: #FFE600;
+  color: #000
+}
+
+html.alto-contraste .corredor::before,
+html.alto-contraste .trecho::before {
+  border-left-color: #FFF
+}
+
+html.alto-contraste .trecho-nome {
+  border: 2px solid #FFF;
+  color: #FFE600
+}
+
+html.alto-contraste .bv-ilustracao {
+  background: #000
+}
+
+html.alto-contraste .bv-circulos {
+  opacity: .5
+}
+
+html.alto-contraste .bv-cartao--lati small {
+  color: #000
+}
+
+html.alto-contraste .bv-aviso {
+  background: #000
+}
+@media (max-height: 600px) {
+  .bv-tela { gap: 10px; padding-top: 8px; padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .bv-ilustracao { min-height: 190px; border-radius: 24px; }
+  .bv-cartao--lati { top: 70px; }
+  .bv-aviso { bottom: 10px; }
+  .bv-texto { min-height: 104px; }
+  .bv-texto h1 { font-size: 25px; }
+  .bv-texto p { font-size: 15px; }
+  .bv-ponto { padding-top: 8px; padding-bottom: 8px; }
+}
+
