@@ -453,19 +453,4 @@ html.alto-contraste .painel-fechar {
 
 html.alto-contraste .ver-area { border: 2px dashed #FFF }
 
-.corredores { pointer-events: none }
-
-.corredor-num circle {
-  fill: #FFFFFF;
-  stroke: #0D1526;
-  stroke-width: 2
-}
-
-#planta .corredor-num text {
-  fill: #0D1526;
-  font-size: 13px;
-  font-weight: 800
-}
-
-html.alto-contraste .corredor-num circle { fill: #FFE600; stroke: #000 }
-html.alto-contraste .corredor-num text { fill: #000 }
+.corredores { display: none }
