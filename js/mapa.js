@@ -35,6 +35,25 @@ const SERVICOS = [
   { nome: "Atendimento", x: 72, y: 482, w: 106, h: 72 },
   { nome: "Padaria · Rotisseria · Confeitaria", x: 440, y: 494, w: 330, h: 62 }
 ];
+const CORREDORES = [
+  { n: 1, areas: ["bebidas", "limpeza-utilidades"] },
+  { n: 2, areas: ["limpeza", "perfumaria"] },
+  { n: 3, areas: ["perfumaria-higiene", "lataria", "massas"] },
+  { n: 4, areas: ["biscoitos-doces", "matinais", "festas"] },
+  { n: 5, areas: ["congelados", "ovos"] }
+];
+
+function corredoresSvg() {
+  return CORREDORES.map(c => {
+    const formas = DESENHO.filter(a => c.areas.includes(a.id)).flatMap(a => a.formas);
+    const x1 = Math.min(...formas.map(f => f.x)), x2 = Math.max(...formas.map(f => f.x + f.w));
+    const y1 = Math.min(...formas.map(f => f.y)), y2 = Math.max(...formas.map(f => f.y + f.h));
+    const deitado = x2 - x1 > y2 - y1;
+    const cx = deitado ? x1 - 16 : (x1 + x2) / 2;
+    const cy = deitado ? (y1 + y2) / 2 : y1 - 16;
+    return `<g class="corredor-num"><circle cx="${cx}" cy="${cy}" r="12"/><text x="${cx}" y="${cy}">${c.n}</text></g>`;
+  }).join("");
+}
 
 function buscar(texto) {
   return buscarItem(texto, { comLugar: true, prefixoMin: 2 })?.produtos || [];
@@ -115,7 +134,7 @@ function desenharPlanta() {
     `<g class="selo" data-area="${a.id}" hidden><circle r="11"/><text></text></g>`).join("");
 
   svg.innerHTML = paredes + servicos + entradas +
-    `<g class="areas">${areas}</g><g class="selos" aria-hidden="true">${selos}</g>`;
+        `<g class="areas">${areas}</g><g class="corredores" aria-hidden="true">${corredoresSvg()}</g><g class="selos" aria-hidden="true">${selos}</g>`;
 
   svg.querySelectorAll(".area").forEach(g => {
     const forma = g.querySelector("rect, path").getBBox();
@@ -463,3 +482,41 @@ if (areaUrl && AREAS_MAPA[areaUrl]) {
   if (ehCelular()) wrap.scrollLeft = (110 - VIEW.x) * (svg.clientWidth / VIEW.w);
 }
 
+// Coloca os números dos corredores no vão entre as gôndolas
+(function () {
+  const svg = document.getElementById('planta');
+  if (!svg) return;
+  const textos = [...svg.querySelectorAll('text')];
+
+  function caixa(nome) {
+    const el = textos.find(t => t.textContent.trim().startsWith(nome));
+    if (!el) return null;
+    const g = el.closest('g');
+    if (g && g !== svg && g.querySelector('rect')) return g.querySelector('rect').getBBox();
+    let r = el.previousElementSibling;
+    while (r && r.tagName !== 'rect') r = r.previousElementSibling;
+    return (r || el).getBBox();
+  }
+
+  function mover(n, cima, baixo) {
+    const a = caixa(cima), b = caixa(baixo);
+    const t = textos.find(el => el.textContent.trim() === String(n));
+    if (!a || !b || !t) return;
+    const x = b.x + b.width / 2;
+    const y = (a.y + a.height + b.y) / 2;
+    const g = t.closest('g');
+    const c = (g && g !== svg && g.querySelector('circle')) ||
+              (t.previousElementSibling?.tagName === 'circle' ? t.previousElementSibling : null);
+    if (c) { c.setAttribute('cx', x); c.setAttribute('cy', y); c.removeAttribute('transform'); }
+    t.setAttribute('x', x); t.setAttribute('y', y);
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'central');
+    t.removeAttribute('transform');
+  }
+
+   mover(1, 'Churrasco', 'Águas');
+  mover(2, 'Casa', 'Produtos de Limpeza');
+  mover(3, 'Perfumes', 'Higiene');
+  mover(4, 'Molhos', 'Biscoitos');
+  mover(5, 'Café', 'Pães');
+})();
